@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  root 'home#welcome'
   resources :boroughs
   resources :reviews
   resources :bars
