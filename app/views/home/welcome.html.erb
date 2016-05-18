@@ -9,8 +9,34 @@
   <%= link_to "See all of the users", users_path %>
 </div>
 
-<div id='map'>
 
-  <script src='homepage_map.js'> </script>
-  map
-</div>
+<div id="map"></div>
+
+<script>
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 40.705326, lng: -74.013942},
+      zoom: 15,
+      minZoom: 11
+    });
+  var boundry = new google.maps.LatLngBounds(
+    new google.maps.LatLng(40.469, -74.315),
+    new google.maps.LatLng(40.950, -73.608)
+  )
+  var lastValidCenter = map.getCenter();
+
+  google.maps.event.addListener(map, 'center_changed', function() {
+      if (boundry.contains(map.getCenter())) {
+          // still within valid bounds, so save the last valid position
+          lastValidCenter = map.getCenter();
+          return;
+      }
+
+      // not valid anymore => return to last valid position
+      map.panTo(lastValidCenter);
+  });
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIwkZp9APsOrIskMLQ-tWsC2QcrwJWclY&callback=initMap" async defer></script>
