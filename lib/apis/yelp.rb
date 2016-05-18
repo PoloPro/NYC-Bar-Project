@@ -11,7 +11,7 @@ Yelp.client.configure do |config|
   config.token_secret = ENV["yelp_token_secret"]
 end
 
-params = {category_filter: 'bars'}
+params = {category_filter: 'bars', is_closed: false}
 @zipcodes = File.read("public/zipcodes.yml")
 
 
