@@ -1,27 +1,12 @@
-require 'yelp'
-require 'pry-rails'
-require 'byebug'
-require_relative '../config/environment.rb'
+parser = YelpParser.new
 
-Yelp.client.configure do |config|
-  config.consumer_key = ENV["yelp_consumer_key"]
-  config.consumer_secret = ENV["yelp_consumer_secret"]
-  config.token = ENV["yelp_token"]
-  config.token_secret = ENV["yelp_token_secret"]
+parser.iterate_through_yelp do |zipcode| 
+  Yelp.client.search(zipcode, parser.yelp_params).businesses.each do |bar|
+    Bar.create(parser.bar_params(bar))
+  end
 end
-params = {category_filter: 'bars'}
-
-binding.pry
 
 
 
-
-
-#categories, id, location, name, rating, 
-
-business_array = Array.new
-zipcodes.each do |zipcode|
-    business_array << Yelp.client.search(zipcode, params).businesses
-end
 
 
