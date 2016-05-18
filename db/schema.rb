@@ -11,11 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160518165953) do
-=======
-ActiveRecord::Schema.define(version: 20160518154755) do
->>>>>>> master
+ActiveRecord::Schema.define(version: 20160518203443) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160518154755) do
     t.datetime "updated_at",  null: false
     t.string   "yelp_id"
     t.integer  "yelp_rating"
+    t.string   "zipcode"
   end
 
   create_table "boroughs", force: :cascade do |t|
