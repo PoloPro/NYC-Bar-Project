@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
   root 'home#welcome'
+  get '/manhattan/json', to: "home#manhattan"
+  get '/queens/json', to: "home#queens"
+  get '/brooklyn/json', to: "home#brooklyn"
+  get '/statenisland/json', to: "home#statenisland"
+  get '/bronx/json', to: "home#bronx"
+
   resources :boroughs
   resources :neighborhoods
   resources :reviews

@@ -21,6 +21,7 @@ module NycBarProject
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+    Rails.application.config.assets.paths << root.join("app", "assets", "geojson")
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
