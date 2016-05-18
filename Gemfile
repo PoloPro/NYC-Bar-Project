@@ -38,7 +38,9 @@ gem 'yelp'
 gem 'pry-rails'
 
 # Omniauth gems
+gem 'devise'
 gem 'omniauth-facebook'
+
 
 
 
