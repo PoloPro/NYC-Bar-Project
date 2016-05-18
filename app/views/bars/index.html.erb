@@ -1,3 +1,5 @@
+<h1> All The Bars You Could Ever Want! </h1>
+
 <% @bars.each do |bar| %>
-<%= link_to bar.name, bar %>
+<%= link_to bar.name, bar_path(bar)%><br>
 <% end %>

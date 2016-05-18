@@ -1,7 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require_relative '../lib/apis/yelp.rb'
+
+parser = YelpParser.new
+
+parser.iterate_through_yelp do |zipcode| 
+  Yelp.client.search(zipcode, parser.yelp_params).businesses.each do |bar|
+    Bar.create(parser.bar_params(bar))
+  end
+end
