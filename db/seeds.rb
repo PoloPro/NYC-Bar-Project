@@ -1,3 +1,5 @@
+require_relative '../lib/apis/yelp.rb'
+
 parser = YelpParser.new
 
 parser.iterate_through_yelp do |zipcode| 
@@ -5,8 +7,3 @@ parser.iterate_through_yelp do |zipcode|
     Bar.create(parser.bar_params(bar))
   end
 end
-
-
-
-
-

@@ -20,7 +20,8 @@ def bar_params(bar)
   lat: bar.location.coordinate.latitude,
   long: bar.location.coordinate.longitude,
   yelp_id: bar.id,
-  yelp_rating: bar.rating}
+  yelp_rating: bar.rating,
+  zipcode: bar.location.postal_code}
 end
 
 
@@ -34,6 +35,4 @@ def iterate_through_yelp
 end
 
 end
-
-
 

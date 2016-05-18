@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160518205943) do
     t.datetime "updated_at",  null: false
     t.string   "yelp_id"
     t.integer  "yelp_rating"
+    t.string   "zipcode"
   end
 
   create_table "boroughs", force: :cascade do |t|
