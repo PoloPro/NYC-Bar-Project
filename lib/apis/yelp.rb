@@ -19,9 +19,6 @@ binding.pry
 
 
 
-
-#categories, id, location, name, rating, 
-
 business_array = Array.new
 @zipcodes.each do |zipcode|
     business_array << Yelp.client.search(zipcode, params).businesses
