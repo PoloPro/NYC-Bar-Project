@@ -37,6 +37,9 @@ gem 'figaro'
 gem 'yelp'
 gem 'pry-rails'
 
+# Omniauth gems
+gem 'omniauth-facebook'
+
 
 
 # group :development, :test do
