@@ -30,5 +30,10 @@ class HomeController < ApplicationController
   end
 
 
+  def markers
+    markers = File.read('app/assets/geojson/marker_hash.geojson').to_json
+    render :json => markers
+  end
+
 
 end
