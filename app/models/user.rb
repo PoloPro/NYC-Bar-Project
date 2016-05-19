@@ -42,4 +42,8 @@ class User < ActiveRecord::Base
    authorization.user
  end
 
+ def all_friends
+  friends + inverse_friends 
+ end
+
 end
