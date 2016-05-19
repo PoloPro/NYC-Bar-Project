@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/brooklyn/json', to: "home#brooklyn"
   get '/statenisland/json', to: "home#statenisland"
   get '/bronx/json', to: "home#bronx"
+  get '/markers/json', to: "home#markers"
 
   resources :boroughs
   resources :neighborhoods
