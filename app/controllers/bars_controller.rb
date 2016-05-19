@@ -1,6 +1,7 @@
 class BarsController < ApplicationController
 
   def index
+    binding.pry
     @bars = Bar.all.sort_by{|bar| bar.name}
   end
 

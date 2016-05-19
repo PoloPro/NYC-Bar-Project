@@ -1,0 +1,9 @@
+<h1><%= @user.name %></h1>
+
+<% if @current_user.find_friendship(@user) %>
+  <%= link_to "Remove Friend", find_friendship(@user), method: :delete %>
+<% else %>
+  <%= link_to "Add Friend", new_friendship_path(friend: @user)%></li>
+<% end %>
+
+<h2> Friends </h2>
