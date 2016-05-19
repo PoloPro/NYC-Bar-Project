@@ -42,7 +42,4 @@ class User < ActiveRecord::Base
    authorization.user
  end
 
- def find_friendship(user)
-    current_user ? Friendship.find(user: user, friend: current_user) || Friendship.find(user: current_user, friend: user) : nil
-  end
 end
