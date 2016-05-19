@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160519192902) do
 
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,16 +50,15 @@ ActiveRecord::Schema.define(version: 20160519192902) do
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< HEAD
-  create_table "friendships", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "friend_id"
-=======
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
->>>>>>> master
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
   end
 
   create_table "neighborhoods", force: :cascade do |t|
@@ -82,12 +80,12 @@ ActiveRecord::Schema.define(version: 20160519192902) do
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -95,12 +93,12 @@ ActiveRecord::Schema.define(version: 20160519192902) do
     t.string   "name"
     t.string   "username"
     t.string   "picture"
-    t.boolean  "admin"
+    t.boolean  "admin",                  default: false
     t.string   "provider"
     t.boolean  "of_age"
     t.string   "uid"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

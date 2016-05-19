@@ -80,8 +80,40 @@ var initMapgl = function() {
     })
   }
 
+  var addFlatironSchool = function() {
+    mapgl.addSource("flatironschool",
+      { "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": [{ "type": "Feature",
+                      "geometry": {
+                        "type": "Point",
+                        "coordinates": [-74.013908,40.705305]
+                      },
+                      "properties": {
+                        "title": "Flatiron School"
+                      }}]
+        }
+      })
+
+    mapgl.addLayer({
+      "id": "flatironschool",
+      "type": "symbol",
+      "source": "flatironschool",
+      "layout": {
+        "icon-image": "school-15",
+        "text-field": "{title}",
+        "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+        "text-offset": [0, 0.6],
+        "text-anchor": "top"
+    }
+  })
+}
+
+
   mapgl.on("load", function(){
     createMarkers();
+    addFlatironSchool();
   })
 };
 
