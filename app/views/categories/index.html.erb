@@ -1,0 +1,14 @@
+<% @categories.each do |category| %>
+
+<h2><%= category.name %></h2>
+<ul>
+
+  <% category.bars.each do |bar| %>
+  <li>
+    <%= link_to bar.name, bar %>
+  </li>
+  <% end %>
+
+</ul>
+
+<% end %>

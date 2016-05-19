@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :categories
   root 'home#welcome'
   get '/manhattan/json', to: "home#manhattan"
   get '/queens/json', to: "home#queens"
