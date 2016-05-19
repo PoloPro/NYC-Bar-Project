@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :friends, through: :friendships
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
   has_many :inverse_friends, through: :inverse_friendships, source: :user
+  attr_accessor :current_user
+  
 
   def self.new_with_session(params,session)
     if session["devise.user_attributes"]

@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   before_filter :set_user, only: [:show, :edit, :update]
   before_filter :validate_authorization_for_user, only: [:edit, :update]
-
+  before_filter :authenticate_user!
+  before_filter :set_current_user
   # GET /users/1
   def show
+    @user = User.find(params[:id])
   end
 
   def new
@@ -16,6 +18,11 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+  end
+
+  def create
+    @user = User.create(user_params)
+    redirect_to @user
   end
 
   # PATCH/PUT /users/1
@@ -48,6 +55,10 @@ class UsersController < ApplicationController
     # 2015-07-23 RICHARD: Added to implement strong parameters
     def user_params
       params.require(:user).permit(:name, :username, :email, :picture, :admin, :provider, :of_age)
+    end
+
+    def set_current_user
+      current_user
     end
 
   end

@@ -1,2 +1,2 @@
-module FriendshipHelper
+module FriendshipsHelper
 end

@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   resources :neighborhoods
   resources :reviews
   resources :bars
-  devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
   resources :users
+  resources :friendships
 
 
   # The priority is based upon order of creation: first created -> highest priority.
