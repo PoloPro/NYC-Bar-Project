@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   resources :neighborhoods
   resources :reviews
   resources :bars
-  #devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
   resources :users
 
 
