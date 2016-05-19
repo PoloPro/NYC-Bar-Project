@@ -1,9 +1,12 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @user.name %></h1>
+<p><%= @user.email %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= (image_tag @user.picture) %>
-  <%= @user.name %>
-</p>
+<% if @current_user.find_friendship(@user) %>
+<%= link_to "Remove Friend", find_friendship(@user), method: :delete %>
+<% else %>
+<%= link_to "Add Friend", new_friendship_path(friend: @user)%></li>
+<% end %>
 
 <%= link_to 'Edit', edit_user_path(@user) %>
+
+<h2> Friends </h2>

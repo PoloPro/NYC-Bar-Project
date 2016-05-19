@@ -17,7 +17,7 @@
   <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
   <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
   <!-- mapbox-GL -->
-   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
   <style>
@@ -49,15 +49,32 @@
 <body>
 
   <div class="container">
-    <%= render "layouts/navbar" %>
-
+    <% if current_user %>
+    <%= render "layouts/post_navbar" %>
+    <% else %>
+    <%= render "layouts/pre_navbar" %>
+    <% end %>
     <div>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </div>
-
-    <%= yield %>
-  </div>
+    <div id="user_nav">
+     <% if user_signed_in? %>
+     Signed in as <%= current_user.email %>.<br />
+     Not you? 
+     
+     <% if session[:fb_token].nil? %>
+     <%= link_to "Sign out", destroy_user_session_path %>
+     <% else %>
+     <%= link_to "Sign out", facebook_logout_path %>
+     <% end %>
+     <% else %>
+     <%= link_to "Sign In", new_user_session_path %>
+     <%= link_to "Sign Up", new_user_registration_path %>
+     <% end %>
+   </div>
+   <%= yield %>
+ </div>
 
 </body>
 </html>

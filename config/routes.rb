@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :categories
   root 'home#welcome'
   get '/manhattan/json', to: "home#manhattan"
   get '/queens/json', to: "home#queens"
@@ -8,12 +7,15 @@ Rails.application.routes.draw do
   get '/statenisland/json', to: "home#statenisland"
   get '/bronx/json', to: "home#bronx"
 
+  devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
+  resources :categories
   resources :boroughs
   resources :neighborhoods
   resources :reviews
   resources :bars
   devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
   resources :users
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

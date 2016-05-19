@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
 
   has_many :reviews
   has_many :bars, through: :reviews
+  has_many :friendships
+  has_many :friends, through: :friendships
+  has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
+  has_many :inverse_friends, through: :inverse_friendships, source: :user
 
   def self.new_with_session(params,session)
     if session["devise.user_attributes"]
@@ -37,4 +41,8 @@ class User < ActiveRecord::Base
    end
    authorization.user
  end
+
+ def find_friendship(user)
+    current_user ? Friendship.find(user: user, friend: current_user) || Friendship.find(user: current_user, friend: user) : nil
+  end
 end

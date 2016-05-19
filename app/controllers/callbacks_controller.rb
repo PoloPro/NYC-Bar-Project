@@ -1,4 +1,5 @@
 class CallbacksController < Devise::OmniauthCallbacksController
+
   skip_before_filter :authenticate_user!
 
   def all
@@ -21,4 +22,5 @@ end
 
 
 alias_method :facebook, :all
+
 end
