@@ -1,19 +1,44 @@
 <h1><%= @bar.name %></h1>
-<ul>
-<li>Address: <%=@bar.address%></li>
-<li>DrinkUp Rating: </li>
-<li>Yelp Rating: <%=@bar.yelp_rating%></li>
-</ul>
-<h3>Write a Review</h3>
-<%= form_for @review do |f| %>
+
+<strong><em>
+  <ul class="list-inline">
+    <% @bar.categories.each do |category| %>
+    <li>
+      <%= category.name %>
+    </li>
+    <% end %>
+  </ul>
+</h3>
+</em></strong>
+
+<div>
+  <ul>
+    <li>Yelp ID: <%= @bar.yelp_rating %></li>
+
+    <li>Address: <%= @bar.address %></li>
+    <li>Zipcode: <%= @bar.zipcode %></li>
+    <li>Lat/Long: <%= @bar.lat %> / <%= @bar.long %> </li>
+
+    <li>DrinkUp Rating: #</li>
+    <li>Yelp Rating: <%= @bar.yelp_rating %> stars</li>
+  </ul>
+</div>
+
+<div>
+  <h3>Reviews</h3>
+  <% @bar.reviews.each do |review| %>
+  <strong>Written By:</strong> <br>
+  <strong>Rating:</strong> <%=review.rating %><br>
+  <p><%= review.content%></p><br>
+  <% end %>
+</div>
+
+<div>
+  <h3>Write a Review</h3>
+  <%= form_for @review do |f| %>
   <%= f.label :rating, "Rating" %><br>
   <%= f.text_field :rating %><br>
   <%= f.label :content, "Review" %><br>
   <%= f.text_area :content%>
-<% end %>
-<h3>Reviews</h3>
-<% @bar.reviews.each do |review| %>
-  <strong>Written By:</strong> <br>
-  <strong>Rating:</strong> <%=review.rating %><br>
-  <p><%= review.content%></p><br>
-<% end %>
+  <% end %>
+</div>
