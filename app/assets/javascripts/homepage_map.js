@@ -26,7 +26,7 @@ var initMapLeaflet = function() {
   var northEast = L.latLng(40.950, -73.608)
   var bounds = L.latLngBounds(southWest, northEast)
 	// set up the map and add it
-  L.mapbox.accessToken = "pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9lZDNuY3cwMGttdGJrbWNvbmN2dmRzIn0.Xwkl6WY8C08DSX0stSBWQg"
+  L.mapbox.accessToken = ENV['mapbox_token']
 	var map = L.mapbox.map('map', 'mapbox.streets', {
     maxBounds: bounds,
     minZoom: 10,
@@ -43,7 +43,8 @@ var initMapgl = function() {
   var southWest = new mapboxgl.LngLat(-74.549, 40.261)
   var northEast = new mapboxgl.LngLat(-73.331, 41.062)
   var bounds = new mapboxgl.LngLatBounds(southWest, northEast)
-  mapboxgl.accessToken = "pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9lZDNuY3cwMGttdGJrbWNvbmN2dmRzIn0.Xwkl6WY8C08DSX0stSBWQg"
+  mapboxgl.accessToken = 'pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9lbmxtNHgwMG82dTdrbTlwZm16em9xIn0.WmtA4_OZaMM-gmlaRTMPWA'
+
   var mapgl = new mapboxgl.Map({
       container: 'mapgl',
       minZoom: 9,
@@ -54,31 +55,51 @@ var initMapgl = function() {
       maxBounds: bounds,
       style: 'mapbox://styles/rhoprhh/cioegtr6d0011ainlkhuy28e8'
   });
-  var cleek = function(){
-      var tooltip = new mapboxgl.Popup()
-        .setLngLat([-73.819466, 40.761367])
-        .setHTML('<h5>flushing</h5>')
-        .addTo(mapgl);
+
+
+  var createMarkers = function() {
+    $.ajax({
+      dataType: "JSON",
+      url: '/markers/json'
+    }).done(function(response){
+      var geo = JSON.parse(response)
+      mapgl.addSource("markers", geo)
+      mapgl.addLayer({
+        "id": "markers",
+        "type": "symbol",
+        "source": "markers",
+        "layout": {
+          "icon-image": "bar-15",
+          "text-field": "{title}",
+          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+          "text-offset": [0, 0.6],
+          "text-anchor": "top"
+        }
+
+      })
+    })
   }
-  cleek();
-  //var flushingTooltip = new mapboxgl.Popup({closeOnClick: true}).setLngLat([-73.819466, 40.761367]).setHTML('<h4>Flushing</h4>').addTo(map)
+
+  mapgl.on("load", function(){
+    createMarkers();
+  })
 };
 
 
-// $.ajax({
-//   dataType: "JSON",
-//   url: "/queens/json",
-//   success: function(response) {
-//     var layerone = L.geoJson(response)
-//     layerone.addTo(map)
-//   }
-// })
 
+
+// var cleek = function(){
+//   var tooltip = new mapboxgl.Popup()
+//   .setLngLat([-73.819466, 40.761367])
+//   .setHTML('<h5>flushing</h5>')
+//   .addTo(mapgl);
+// }
+// cleek();
 
 
 
 
 $(document).ready(function(){
-  initMapLeaflet();
+  //initMapLeaflet();
   initMapgl();
 });
