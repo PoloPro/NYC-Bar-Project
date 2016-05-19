@@ -33,7 +33,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :username
       t.string :picture
-      t.boolean :admin
+      t.boolean :admin, default: false
       t.string :provider
       t.boolean :of_age
       t.string :uid
