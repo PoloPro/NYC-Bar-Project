@@ -18,38 +18,38 @@ var ajaxRequest;
 var plotlist;
 var plotlayers=[];
 
-var initMapLeaflet = function() {
-
-
-  // set map boundary
-  var southWest = L.latLng(40.469, -74.315)
-  var northEast = L.latLng(40.950, -73.608)
-  var bounds = L.latLngBounds(southWest, northEast)
-	// set up the map and add it
-  L.mapbox.accessToken = ENV['mapbox_token']
-	var map = L.mapbox.map('map', 'mapbox.streets', {
-    maxBounds: bounds,
-    minZoom: 10,
-    maxZoom: 19
-  }).setView([40.705326, -74.013942], 14);
-
-  // add the "tileset" which includes the neighborhood overlays
-  L.tileLayer('https://api.mapbox.com/styles/v1/rhoprhh/cioegtr6d0011ainlkhuy28e8/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9lZDNuY3cwMGttdGJrbWNvbmN2dmRzIn0.Xwkl6WY8C08DSX0stSBWQg').addTo(map);
-  // L.marker([40.761367, -73.819466]).bindLabel('Flushing').addTo(map);
-
-}
+// var initMapLeaflet = function() {
+//
+//
+//   // set map boundary
+//   var southWest = L.latLng(40.469, -74.315)
+//   var northEast = L.latLng(40.950, -73.608)
+//   var bounds = L.latLngBounds(southWest, northEast)
+// 	// set up the map and add it
+//   L.mapbox.accessToken = ENV['mapbox_token']
+// 	var map = L.mapbox.map('map', 'mapbox.streets', {
+//     maxBounds: bounds,
+//     minZoom: 10,
+//     maxZoom: 19
+//   }).setView([40.705326, -74.013942], 14);
+//
+//   // add the "tileset" which includes the neighborhood overlays
+//   L.tileLayer('https://api.mapbox.com/styles/v1/rhoprhh/cioegtr6d0011ainlkhuy28e8/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9lZDNuY3cwMGttdGJrbWNvbmN2dmRzIn0.Xwkl6WY8C08DSX0stSBWQg').addTo(map);
+//   // L.marker([40.761367, -73.819466]).bindLabel('Flushing').addTo(map);
+//
+// }
 
 var initMapgl = function() {
   var southWest = new mapboxgl.LngLat(-74.549, 40.261)
   var northEast = new mapboxgl.LngLat(-73.331, 41.062)
   var bounds = new mapboxgl.LngLatBounds(southWest, northEast)
-  mapboxgl.accessToken = 'pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9lbmxtNHgwMG82dTdrbTlwZm16em9xIn0.WmtA4_OZaMM-gmlaRTMPWA'
+  mapboxgl.accessToken = 'pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9mN3J3OGYwMHN5eThtMnJ3enF0aHU4In0.cNczHe5-6C2mHIR5ivaKOw'
 
   var mapgl = new mapboxgl.Map({
       container: 'mapgl',
       minZoom: 9,
       maxZoom: 18,
-      bearing: 30,
+      bearing: 29,
       center: [-74.013942, 40.705326],
       zoom: 13,
       maxBounds: bounds,
@@ -110,6 +110,16 @@ var initMapgl = function() {
   })
 }
 
+mapgl.on('click', function(e) {
+    var features = mapgl.queryRenderedFeatures(e.point, { radius: 10, layers: ['markers'] });
+    console.log(features[0].properties.title);
+
+      // mapgl.featuresAt(e.point, {radius: 1000, layer: 'markers', includeGeometry: true}, function(err, features) {
+      //       console.log(features[0]);
+      //
+      // });
+
+    });
 
   mapgl.on("load", function(){
     createMarkers();

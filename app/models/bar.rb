@@ -6,7 +6,9 @@ class Bar < ActiveRecord::Base
 
   validates :address, presence: true
   validates :name, uniqueness: true
-
+  geocoded_by :address
+  after_validation :geocode
+  
   def average_rating
     total_rating = 0;
     Bar.reviews.map { |review| total_rating += review.rating }
