@@ -6,7 +6,7 @@ class Bar < ActiveRecord::Base
 
   validates :address, presence: true
   validates :name, uniqueness: true
-
+  
   def average_rating
     if reviews.count > 0
       ratings = reviews.map {|review| review.rating}.compact
