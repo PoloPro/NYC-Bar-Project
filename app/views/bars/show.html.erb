@@ -26,13 +26,13 @@
 <div>
   <h3>Reviews</h3>
   <% if @bar.reviews.count > 0 %>
-    <% @bar.reviews.each do |review| %>
-      <% if review.user %>
-        <strong>Written By:</strong> <%= link_to review.user.name, user_path(review.user) %> <br>
-        <strong>Rating:</strong> <%=review.rating %><br>
-        <p><%= review.content%></p><br>
-      <% end %>
-    <% end %>
+  <% @bar.reviews.each do |review| %>
+  <% if review.user %>
+  <strong>Written By:</strong> <%= link_to review.user.name, user_path(review.user) %> <br>
+  <strong>Rating:</strong> <%=review.rating %><br>
+  <p><%= review.content%></p><br>
+  <% end %>
+  <% end %>
   <% end %>
 </div>
 
@@ -40,13 +40,14 @@
   <% if !@bar.reviews.any?{|review| review.user == current_user}%>
   <h3>Write a Review</h3>
   <%= form_for @review do |f| %>
-    <%= f.hidden_field :bar_id, value: @bar.id %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.label :rating, "Rating" %><br>
-    <%= f.text_field :rating %><br>
-    <%= f.label :content, "Review" %><br>
-    <%= f.text_area :content%><br>
-    <%= f.submit %>
+  <%= f.hidden_field :bar_id, value: @bar.id %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.label :rating, "Rating" %><br>
+  <%= f.text_field :rating %><br>
+  <%= f.label :content, "Review" %><br>
+  <%= f.text_area :content%><br>
+  <%= f.submit %>
   <% end %>
   <% end %>
 </div>
+

@@ -12,7 +12,7 @@ class YelpParser
   def bar_params(bar)
     {
       name: bar.name,
-      address: bar.location.address[0],
+      address: bar.location.address[0] + ", " + bar.location.postal_code,
       yelp_id: bar.id,
       yelp_rating: bar.rating,
       zipcode: bar.location.postal_code
@@ -30,4 +30,3 @@ class YelpParser
   end
 
 end
-
