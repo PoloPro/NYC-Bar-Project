@@ -42,6 +42,9 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'koala'
 
+# Saving database seed 
+gem 'seed_dump'
+
 
 # group :development, :test do
 #   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

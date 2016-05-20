@@ -6,13 +6,14 @@ class Bar < ActiveRecord::Base
 
   validates :address, presence: true
   validates :name, uniqueness: true
-  geocoded_by :address
-  after_validation :geocode
   
   def average_rating
-    total_rating = 0;
-    Bar.reviews.map { |review| total_rating += review.rating }
-    total_rating / reviews.count
+    if reviews.count > 0
+      ratings = reviews.map {|review| review.rating}.compact
+      ratings.inject(:+) / ratings.count
+    else
+      "No ratings yet!"
+    end
   end
 
 end
