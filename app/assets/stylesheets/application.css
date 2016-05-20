@@ -14,3 +14,7 @@
  *= require_self
  */
  
+ .card-header.bg-bar-cards {
+   color: #fff;
+   background-color: #082667;
+ }

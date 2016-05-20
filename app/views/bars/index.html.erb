@@ -1,23 +1,48 @@
 
-<em>There are currently <strong><%= @bars.count %></strong> bars in the database.</em>
+<!-- <em>There are currently <strong><%= @bars.count %></strong> bars in the database.</em> -->
 
-<div id="bar-index-list" class="card-columns">
-  <ul class="list">
-    <% @bars.each do |bar| %>
-    <a href="<%= bar_path(bar) %>" style="color: inherit"><div class="card card-block card-primary text-xs-center">
-      <h4 class="card-title"><%= bar.name %></h4>
-      <h6 class="card-subtitle text-muted">
-        <ul class="list-inline">
-          <% bar.categories.each do |category| %>
-          <li class="list-inline-item">
-            <%= category.name %> 
-          </li>
-          <% end %>
-        </ul>
-      </h6>
-      <p class="card-text"><%= bar.address %>, <%= bar.zipcode %></p>
-    </div>
-  </a>
-  <% end %>
-</ul>
+<div id="bar-index">
+
+  <input class="search" placeholder="Search">
+  <button class="sort" data-sort="name">
+    Sort by name
+  </button>
+
+  <br>
+  <hr>
+
+  <div class="card-columns">
+
+    <ul class="list">
+
+      <% @bars.each do |bar| %>
+
+      <a href="<%= bar_path(bar) %>" style="color: inherit">
+
+        <div class="card text-xs-center">
+          <div class="card-header bg-bar-cards">
+            <h4 class="name">
+              <%= bar.name %>
+            </h4>
+          </div>
+          <div class="card-block">
+            <h6 class="card-subtitle text-muted">
+              <ul class="list-inline">
+                <% bar.categories.each do |category| %>
+                <li class="list-inline-item category">
+                  <%= category.name %> 
+                </li>
+                <% end %>
+              </ul>
+            </h6>
+            <p class="card-text"><%= bar.address %>, <%= bar.zipcode %></p>
+          </div>
+        </div>
+      </a>
+      <% end %>
+    </ul>
+  </div>
 </div>
+
+
+<script src="bar-index-search.js"></script>
