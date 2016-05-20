@@ -92,7 +92,9 @@ mapgl.on('click', function(e) {
   })
 };
 
-
-$(document).ready(function(){
+// Load the map on both page refresh and when redirected through turbolinks
+var ready = function() {
   initMapgl();
-});
+}
+$(document).ready(ready);
+$(document).on('page:load', ready);

@@ -2,6 +2,13 @@
 
 <h3>There are currently <strong><%= @bars.count %></strong> bars in the database.</h3>
 
-<% @bars.each do |bar| %>
-<%= link_to bar.name, bar_path(bar)%><br>
-<% end %>
+
+<div id="bar-index-list">
+  <ul class="list">
+    <% @bars.each do |bar| %>
+    <div class="card card-block">
+      <div class="card-title"><%= link_to bar.name, bar_path(bar)%><br></div>
+    </div>
+    <% end %>
+  </ul>
+</div>
