@@ -1,14 +1,23 @@
-<h1> All The Bars You Could Ever Want! </h1>
 
-<h3>There are currently <strong><%= @bars.count %></strong> bars in the database.</h3>
+<em>There are currently <strong><%= @bars.count %></strong> bars in the database.</em>
 
-
-<div id="bar-index-list">
+<div id="bar-index-list" class="card-columns">
   <ul class="list">
     <% @bars.each do |bar| %>
-    <div class="card card-block">
-      <div class="card-title"><%= link_to bar.name, bar_path(bar)%><br></div>
+    <a href="<%= bar_path(bar) %>" style="color: inherit"><div class="card card-block card-primary text-xs-center">
+      <h4 class="card-title"><%= bar.name %></h4>
+      <h6 class="card-subtitle text-muted">
+        <ul class="list-inline">
+          <% bar.categories.each do |category| %>
+          <li class="list-inline-item">
+            <%= category.name %> 
+          </li>
+          <% end %>
+        </ul>
+      </h6>
+      <p class="card-text"><%= bar.address %>, <%= bar.zipcode %></p>
     </div>
-    <% end %>
-  </ul>
+  </a>
+  <% end %>
+</ul>
 </div>
