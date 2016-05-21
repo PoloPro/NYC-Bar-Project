@@ -9,6 +9,6 @@ class Review < ActiveRecord::Base
 
 
   def one_bar_review_per_user
-    errors.add(:user_id, "cannot write more than one review per bar")if Review.where(user: user, bar: bar).count > 0
+    errors.add(:user_id, "cannot write more than one review per bar") if Review.where(user: user, bar: bar).count > 0 && !id
   end
 end

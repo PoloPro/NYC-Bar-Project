@@ -25,6 +25,7 @@ newReviewListener = ->
         $('#hidden_review_rating').append($('#review_rating').val())
         $('#hidden_review_content').text($('#review_content').val())
         updateAverageRating()
+        $('#edit_review_url').attr('href', "/reviews/" + response["id"] + "/edit")
         $('#hidden_review').show()
         $('#new_review_form').hide()
       error: (response) ->
