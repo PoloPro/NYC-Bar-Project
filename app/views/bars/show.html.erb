@@ -18,7 +18,7 @@
     <li><strong>Zipcode:</strong>  <%= @bar.zipcode %></li>
     <li><strong>Lat/Long:</strong>  <%= @bar.latitude %> / <%= @bar.longitude %> </li>
 
-    <li><strong>DrinkUp Rating:</strong>  <%= @bar.average_rating %></li>
+    <li><strong>DrinkUp Rating:</strong><span id=avg_rating> <%= @bar.average_rating %></span></li>
     <li><strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars</li>
   </ul>
 </div>
@@ -30,12 +30,15 @@
   <div id="hidden_review_rating"><strong>Rating: </strong></div>
   <p id="hidden_review_content"></p><br>
   </div> 
+  <div id = all_reviews> 
   <% if @bar.reviews.count > 0 %>
   <% @bar.reviews.each do |review| %>
   <% if review.user %>
+  <div class=review>
   <strong>Written By:</strong> <%= link_to review.user.name, user_path(review.user) %> <br>
-  <strong>Rating: </strong> <%=review.rating %><br>
-  <p><%= review.content%></p><br>
+  <strong>Rating: </strong> <%=review.rating.to_i %><br>
+  <p><%= review.content%></p><br></div></div>
+  </div>
   <% end %>
   <% end %>
   <% end %>
