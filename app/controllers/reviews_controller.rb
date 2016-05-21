@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
     if @review.valid?
       @review.save
     else
-      flash[:notice] = "Your rating must be an integer between 1 and 5"
+     render status: 400
     end
   end
 

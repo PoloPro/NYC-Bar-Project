@@ -2,6 +2,8 @@
 
 <h3>There are currently <strong><%= @bars.count %></strong> bars in the database.</h3>
 
+
+
 <% @bars.each do |bar| %>
 <%= link_to bar.name, bar_path(bar)%><br>
 <% end %>

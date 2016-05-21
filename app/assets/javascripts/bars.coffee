@@ -1,9 +1,9 @@
-$("#hidden_new_review").hide();
+$("#hidden_review").hide();
 
 newReviewListener = ->
   $('#new_review').submit (e) ->
     data = {}
-    review = {}
+    review = {} 
     review['rating'] = $('#review_rating').val()
     review['content'] = $('#review_content').val()
     review['user_id'] = $('#review_user_id').val()
@@ -14,9 +14,13 @@ newReviewListener = ->
       url: '/reviews/'
       data: data
       success: (response) ->
-        $('#hidden_review_rating').text($('#review_rating').val())
+        $('#hidden_review_rating').append($('#review_rating').val())
         $('#hidden_review_content').text($('#review_content').val())
         $('#hidden_review').show()
+        $('#new_review_form').hide()
+      error: (response) ->
+        debugger
+        alert("Invalid review")
     return
   return
 

@@ -27,21 +27,21 @@
   <h3>Reviews</h3>
   <div id="hidden_review">
   <strong>Written By: </strong><%= link_to current_user.name, current_user %><br>
-  <strong>Rating:</strong><div id="hidden_review_rating"></div>
+  <div id="hidden_review_rating"><strong>Rating: </strong></div>
   <p id="hidden_review_content"></p><br>
   </div> 
   <% if @bar.reviews.count > 0 %>
   <% @bar.reviews.each do |review| %>
   <% if review.user %>
   <strong>Written By:</strong> <%= link_to review.user.name, user_path(review.user) %> <br>
-  <strong>Rating:</strong> <%=review.rating %><br>
+  <strong>Rating: </strong> <%=review.rating %><br>
   <p><%= review.content%></p><br>
   <% end %>
   <% end %>
   <% end %>
 </div>
 
-<div>
+<div id = "new_review_form">
   <% if !@bar.reviews.any?{|review| review.user == current_user}%>
   <h3>Write a Review</h3>
   <%= form_for @review, remote: true do |f| %>
