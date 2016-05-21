@@ -19,7 +19,6 @@ newReviewListener = ->
         $('#hidden_review').show()
         $('#new_review_form').hide()
       error: (response) ->
-        debugger
         alert("Invalid review")
     return
   return
