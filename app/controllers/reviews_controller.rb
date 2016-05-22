@@ -5,9 +5,9 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     if @review.valid?
       @review.save
-      render :json => @review
+      render json: @review
     else
-     render status: 400
+      render status: 400
     end
   end
 
@@ -23,6 +23,10 @@ class ReviewsController < ApplicationController
     else
       render :edit, alert: "Invalid review"
     end
+  end
+
+  def destroy
+    find_review
   end
 
 
