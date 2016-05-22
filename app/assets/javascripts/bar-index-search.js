@@ -1,6 +1,10 @@
-var options = {
-  valueNames: [ 'name', 'category' ]
-};
+$(document).ready(function() {
 
-var wrapperElement = $('#bar-index')
-var barIndexList = new List(wrapperElement[0], options);
+  var options = {
+    valueNames: [ 'name', 'category' ]
+  };
+
+  var wrapperElement = $('#bar-index')
+  var barIndexList = new List(wrapperElement[0], options);
+
+})
