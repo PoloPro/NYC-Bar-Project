@@ -2,16 +2,17 @@ $(document).ready ->
   $('#hidden_user_name').hide()
   newReviewListener()
   deleteReviewListener()
+  return
 
 
 updateAverageRating = (response)  ->
   new_rating = response["rating"]
-  number_Of_Reviews = $('.review').length
-  if number_Of_Reviews == 1
+  numberOfReviews = $('.review').length
+  if numberOfReviews > 1
     $('#avg_rating').text ' ' + new_rating
   else
     old_avg_rating = parseInt($('#avg_rating').text())
-    avg_rating = (old_avg_rating + new_rating) / number_of_reviews
+    avg_rating = (old_avg_rating + new_rating) / numberOfReviews
     $('#avg_rating').text ' ' + avg_rating
   return
 
@@ -32,41 +33,51 @@ renderNewReview = (response) ->
   edit_html = "<a href='../reviews/" + response["id"] + "/edit'>Edit</a>"
   delete_html = "<br><span id='delete_review'><a data-remote='true' href='/reviews/" + response["id"] + "'>Delete</a></span>" 
   $('#new_review').html(user_html + rating_html + content_html + edit_html + delete_html)
+  return
 
 newReviewListener = ->
   $('#new_review_form').submit (e) ->
     $.ajax
       type: 'POST'
       data: getFormData()
-      url: '/reviews/' 
+      url: '/reviews/'
       success: (response) ->
         updateAverageRating(response)
         renderNewReview(response)
         $('#new_review_form').hide()
         deleteReviewListener()
+        return
       error: (response) ->
         alert("Invalid review")
-
+        return
+    return
+  return
 
 removeReview = ->
-  if $('#new_reviews').text() == ''
+  if $('.review').length > 1
     $('#all_reviews').first().remove()
+    return
   else
     $('#new_review').remove()
+    return
 
 deleteReviewListener = ->
   $('#delete_review').click (e) ->
     if confirm('Are you sure you want to delete this review?')
       url = $('#delete_review > a').attr('href')
-      $.ajax  
+      $.ajax
         type: 'DELETE'
         url: url
         data: parseInt(url.split("/")[2])
         success: (response) ->
           removeReview()
+          return
         error: (response) ->
-          debugger
           alert("Unable to delete review")
+          return
+      return
     else
       e.preventDefault()
+      return
+  return
 

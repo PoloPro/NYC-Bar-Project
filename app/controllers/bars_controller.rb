@@ -7,7 +7,7 @@ class BarsController < ApplicationController
   def show
     @bar = Bar.find(params[:id])
     @reviews = @bar.reviews.reverse unless @bar.reviews.count.zero?
-    @review = @bar.reviews.build
+    @review = Review.new
   end
 
   def new
