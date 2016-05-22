@@ -5,13 +5,9 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     if @review.valid?
       @review.save
-      # binding.pry
     else
-      flash[:notice] = "Your rating must be an integer between 1 and 5"
-      # binding.pry
+     render status: 400
     end
-    # binding.pry
-    redirect_to bar_path(@review.bar)
   end
 
 

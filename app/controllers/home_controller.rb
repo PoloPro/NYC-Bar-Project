@@ -35,5 +35,10 @@ class HomeController < ApplicationController
     render :json => markers
   end
 
+  def subways
+    markers = File.read('app/assets/geojson/subway_entrances.geojson').to_json
+    render :json => markers
+  end
+
 
 end

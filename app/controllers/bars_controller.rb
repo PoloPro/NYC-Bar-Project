@@ -24,4 +24,9 @@ class BarsController < ApplicationController
   def destroy
   end
 
+  def mapclick
+    @bar = Bar.find_by(yelp_id: params["yelpid"])
+    render :json => @bar
+  end
+
 end
