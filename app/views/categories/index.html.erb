@@ -1,14 +1,20 @@
-<% @categories.each do |category| %>
+<div id="category-list">
 
-<h2><%= category.name %></h2>
-<ul>
+  <!-- Search bar for filtering bars -->
+  <input class="search" placeholder="Search">
+  <button class="sort" data-sort="name">Sort by name</button>
 
-  <% category.bars.each do |bar| %>
-  <li>
-    <%= link_to bar.name, bar %>
-  </li>
-  <% end %>
+  <br>
+  <hr>
 
-</ul>
-
-<% end %>
+  <!-- List for filtering -->
+  <ul class="list infinite-list">
+    <% @categories.each do |category| %>
+    <a href="<%= category_path(category) %>" style="color: inherit">
+      <div class="card card-block">
+        <h4 class="name"><%= category.name %></h4>
+      </div>
+    </a>
+    <% end %>
+  </ul>
+</div>
