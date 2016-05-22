@@ -16,15 +16,20 @@
     <li><strong>Yelp ID:</strong> <%= @bar.yelp_id %></li>
     <li><strong>Address:</strong>  <%= @bar.address %></li>
     <li><strong>Zipcode:</strong>  <%= @bar.zipcode %></li>
-    <li><strong>Lat/Long:</strong>  <%= @bar.lat %> / <%= @bar.long %> </li>
+    <li><strong>Lat/Long:</strong>  <%= @bar.latitude %> / <%= @bar.longitude %> </li>
 
     <li><strong>DrinkUp Rating:</strong>  <%= @bar.average_rating %></li>
     <li><strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars</li>
   </ul>
 </div>
 
-<div>
+<div id="reviews">
   <h3>Reviews</h3>
+  <div id="hidden_review">
+  <strong>Written By: </strong><%= link_to current_user.name, current_user %><br>
+  <strong>Rating:</strong><div id="hidden_review_rating"></div>
+  <p id="hidden_review_content"></p><br>
+  </div> 
   <% if @bar.reviews.count > 0 %>
   <% @bar.reviews.each do |review| %>
   <% if review.user %>
@@ -39,7 +44,7 @@
 <div>
   <% if !@bar.reviews.any?{|review| review.user == current_user}%>
   <h3>Write a Review</h3>
-  <%= form_for @review do |f| %>
+  <%= form_for @review, remote: true do |f| %>
   <%= f.hidden_field :bar_id, value: @bar.id %>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.label :rating, "Rating" %><br>
@@ -50,4 +55,6 @@
   <% end %>
   <% end %>
 </div>
+
+
 
