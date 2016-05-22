@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
 
   root 'home#welcome'
-  get '/manhattan/json', to: "home#manhattan"
-  get '/queens/json', to: "home#queens"
-  get '/brooklyn/json', to: "home#brooklyn"
-  get '/statenisland/json', to: "home#statenisland"
-  get '/bronx/json', to: "home#bronx"
+  # get '/manhattan/json', to: "home#manhattan"
+  # get '/queens/json', to: "home#queens"
+  # get '/brooklyn/json', to: "home#brooklyn"
+  # get '/statenisland/json', to: "home#statenisland"
+  # get '/bronx/json', to: "home#bronx"
   get '/markers/json', to: "home#markers"
-
+  get '/subways/json', to: 'home#subways'
+  get '/bars/:yelpid/mapclick', to: 'bars#mapclick'
   devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
   resources :categories
   resources :boroughs

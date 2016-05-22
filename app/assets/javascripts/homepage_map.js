@@ -1,15 +1,17 @@
-var map;
-var mapgl;
-var ajaxRequest;
-var plotlist;
-var plotlayers=[];
 
+var mapgl;
+
+//CREATE MAP
 var initMapgl = function() {
+//create toggle variable
+  var toggle = false
+//create map boundaries
   var southWest = new mapboxgl.LngLat(-74.549, 40.261)
   var northEast = new mapboxgl.LngLat(-73.331, 41.062)
   var bounds = new mapboxgl.LngLatBounds(southWest, northEast)
+//access token
   mapboxgl.accessToken = 'pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9mN3J3OGYwMHN5eThtMnJ3enF0aHU4In0.cNczHe5-6C2mHIR5ivaKOw'
-
+//instantiate the map
   var mapgl = new mapboxgl.Map({
       container: 'mapgl',
       minZoom: 9,
@@ -21,8 +23,8 @@ var initMapgl = function() {
       style: 'mapbox://styles/rhoprhh/cioegtr6d0011ainlkhuy28e8'
   });
 
-
-  var createMarkers = function() {
+//CREATE AND ADD all Bars to map
+  var createBarMarkers = function() {
     $.ajax({
       dataType: "JSON",
       url: '/markers/json'
@@ -36,7 +38,7 @@ var initMapgl = function() {
         "layout": {
           "icon-image": "bar-15",
           "text-field": "{title}",
-          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+          "text-font": ["Elementa Pro Bold"],
           "text-offset": [0, 0.6],
           "text-anchor": "top"
         }
@@ -44,7 +46,7 @@ var initMapgl = function() {
       })
     })
   }
-
+//CREATE AND ADD flatiron school to map
   var addFlatironSchool = function() {
     mapgl.addSource("flatironschool",
       { "type": "geojson",
@@ -68,31 +70,129 @@ var initMapgl = function() {
       "layout": {
         "icon-image": "school-15",
         "text-field": "{title}",
-        "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+        "text-font": ["Elementa Pro Bold"],
         "text-offset": [0, 0.6],
         "text-anchor": "top"
+      }
+    })
+  }
+//creates our subway markers and removes included subway markers
+  var createSubwayMarkers = function() {
+      $.ajax({
+        dataType: "JSON",
+        url: '/subways/json'
+      }).done(function(response){
+        var geos = JSON.parse(response)
+        mapgl.addSource("subways", geos)
+        mapgl.removeLayer('rail-label')
+      })
     }
-  })
-}
+//add subways markers, called via button click
+  var addSubwayMarkers = function() {
+    mapgl.addLayer({
+      "id": "subways",
+      "type": "symbol",
+      "source": "subways",
+      "layout": {
+        "icon-image": "new-york-subway",
+        "text-field": "{name}",
+        "text-font": ["Elementa Pro Bold"],
+        "text-offset": [0, 0.6],
+        "text-anchor": "top"
+      }
+    })
+  }
+//remove subway markers, called via button click
+  var removeSubwayMarkers = function() {
+    mapgl.removeLayer("subways")
+  }
+//listen to add and remove button
+  var buttonListener = function(){
+    $('#addsubway').click(function(){
+      addSubwayMarkers();
+    })
+    $('#removesubway').click(function(){
+      removeSubwayMarkers();
+    })
+    $('#togglesubway').click(function(){
+      if (toggle){
+        removeSubwayMarkers();
+        toggle = false
+        $('#togglesubway').html("Toggle Subways ON")
+      } else {
+        addSubwayMarkers();
+        toggle = true
+        $('#togglesubway').html("Toggle Subways OFF")
+      }
+    })
+  }
+// after map fly-to, then grab subways and add popups
+  var createPopup = function(e, features){
+    var n = 150
+    var box = [[e.point.x - n, e.point.y - n], [e.point.x + n, e.point.y + n]]
+    var subs = mapgl.queryRenderedFeatures(box, { layers: ['subways'] }).splice(0,6);
+    var subwaylist = ""
+    if (subs.length) {
+      subwaylist += "<h5>Nearby Subways</h5>"
 
-mapgl.on('click', function(e) {
-    var features = mapgl.queryRenderedFeatures(e.point, { radius: 10, layers: ['markers'] });
-    console.log(features[0].properties.title);
+      var arrayBeforeUnique = []
 
-      // mapgl.featuresAt(e.point, {radius: 1000, layer: 'markers', includeGeometry: true}, function(err, features) {
-      //       console.log(features[0]);
-      //
-      // });
+      subs.forEach(function(station){
+        arrayBeforeUnique.push('<p><strong>Station </strong>' + station.properties.name + "<strong>  |  Line(s): </strong>" + station.properties.line + '</p>')
+      })
 
-    });
+      function onlyUnique(value, index, self) {
+          return self.indexOf(value) === index;
+      }
 
+      var uniqueArray = arrayBeforeUnique.filter(onlyUnique)
+
+      uniqueArray.forEach(function(station){
+        subwaylist += station
+      })
+
+    } else {
+      subwaylist += "<h5>There are no subway stations nearby.</h5><h5>Or you have not added Subway markers onto the map.</h5>"
+    }
+
+    // console.log(subs)
+    // console.log(features[0].properties.title);
+    // console.log(features[0].properties.yelpid)
+    $.ajax({
+      type: "GET",
+      url: '/bars/' + features[0].properties.yelpid + '/mapclick'
+    }).done(function(response){
+      var tooltip = new mapboxgl.Popup({closeOnClick: true})
+        .setLngLat([response.longitude, response.latitude])
+        .setHTML('<center><h5>' + response.name +'</h5><p>' + response.address + '</p><hr>' + subwaylist + '</center>')
+        .addTo(mapgl);
+      // either create a popup on the map at the bar location
+      // or drop down a card with the bar included
+    })
+  }
+// on click function for map popups for bars
+  mapgl.on('click', function(e) {
+      var features = mapgl.queryRenderedFeatures(e.point, { radius: 25, layers: ['markers'] });
+      if (features.length) {
+        mapgl.flyTo({
+          center: [e.lngLat.lng, e.lngLat.lat],
+          zoom: 16
+        })
+        createPopup(e, features);
+      }
+    })
+// adds markers when map loads
   mapgl.on("load", function(){
-    createMarkers();
-    addFlatironSchool();
-  })
+      createBarMarkers();
+      createSubwayMarkers();
+      addFlatironSchool();
+      buttonListener();
+    })
 };
 
 
+
+//create map when page loads
 $(document).ready(function(){
   initMapgl();
 });

@@ -2169,6 +2169,9 @@ Bar.create!([
   {name: "TGI Fridays", address: "3181 Harkness Ave", latitude: "40.5867234", longitude: "-73.9288458", yelp_id: "tgi-fridays-brooklyn", yelp_rating: 2.0, zipcode: "11235"},
   {name: "The Beach Bar", address: "2722 Gerritsen Ave", latitude: "40.592743", longitude: "-73.925346", yelp_id: "the-beach-bar-brooklyn", yelp_rating: 5.0, zipcode: "11229"}
 ])
+
+puts "done with bars, onto categories"
+
 Bar::HABTM_Categories.create!([
   {bar_id: 1, category_id: 1},
   {bar_id: 2, category_id: 2},
