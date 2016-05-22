@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :reviews
   resources :bars
   resources :users
-
+  delete '/reviews/:id', to: 'reviews#destroy', as: 'delete_review'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
