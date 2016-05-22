@@ -15,4 +15,4 @@
 //= require_tree . 
 //
 // Bower packages
-//= require list.pagination.js
+//= require list.pagination.js/dist/list.pagination.js

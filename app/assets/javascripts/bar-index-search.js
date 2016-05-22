@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var paginationBottomOptions = {
+  var paginationTopOptions = {
     name: "paginationTop",
     paginationClass: "paginationTop",
     innerWindow: 1,
