@@ -1,7 +1,7 @@
 
 <!-- <em>There are currently <strong><%= @bars.count %></strong> bars in the database.</em> -->
 
-<div id="bar-index">
+<div id="bar-list-searchable">
 
   <!-- Search bar for filtering bars -->
   <input class="search" placeholder="Search">
@@ -13,7 +13,7 @@
 
   <!-- List for filtering -->
   <ul class="paginationTop list-inline"></ul>
-  <ul class="list">
+  <ul class="list" id="bar-list">
 
     <% @bars.each do |bar| %>
     <li>
