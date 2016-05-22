@@ -206,13 +206,7 @@ var initMapgl = function() {
     }
     })
 
-
-};
-
-
 //create map when page loads
 $(document).ready(function(){
   initMapgl();
-}
-$(document).ready(ready);
-$(document).on('page:load', ready);
+})
