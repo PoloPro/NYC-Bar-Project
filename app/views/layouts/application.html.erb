@@ -3,12 +3,12 @@
 <head>
   <title>DrinkUpNYC</title>
 
+  <!-- List.js -->
+  <%= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js' %>
+
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-
-  <!-- List.js -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
 
   <!-- Bootstrap 4.0 Links -->
   <!-- Latest compiled and minified CSS -->
@@ -23,7 +23,5 @@
     <%= yield %>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 </body>
 </html>
