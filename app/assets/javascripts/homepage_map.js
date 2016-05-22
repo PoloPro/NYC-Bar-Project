@@ -4,7 +4,8 @@ var mapgl;
 //CREATE MAP
 var initMapgl = function() {
 //create toggle variable
-  var toggle = false
+  var toggleSubway = false
+  var toggleBar = true
 //create map boundaries
   var southWest = new mapboxgl.LngLat(-74.549, 40.261)
   var northEast = new mapboxgl.LngLat(-73.331, 41.062)
@@ -42,9 +43,27 @@ var initMapgl = function() {
           "text-offset": [0, 0.6],
           "text-anchor": "top"
         }
-
       })
     })
+  }
+//add bar markers via toggle
+  var addBarMarkers = function(){
+    mapgl.addLayer({
+      "id": "markers",
+      "type": "symbol",
+      "source": "markers",
+      "layout": {
+        "icon-image": "bar-15",
+        "text-field": "{title}",
+        "text-font": ["Elementa Pro Bold"],
+        "text-offset": [0, 0.6],
+        "text-anchor": "top"
+      }
+    })
+  }
+//remove bar markers via toggle
+  var removeBarMarkers = function(){
+    mapgl.removeLayer("markers")
   }
 //CREATE AND ADD flatiron school to map
   var addFlatironSchool = function() {
@@ -105,20 +124,6 @@ var initMapgl = function() {
 //remove subway markers, called via button click
   var removeSubwayMarkers = function() {
     mapgl.removeLayer("subways")
-  }
-//listen to add and remove button
-  var buttonListener = function(){
-    $('#togglesubway').click(function(){
-      if (toggle){
-        removeSubwayMarkers();
-        toggle = false
-        $('#togglesubway').html("Toggle Subways ON")
-      } else {
-        addSubwayMarkers();
-        toggle = true
-        $('#togglesubway').html("Toggle Subways OFF")
-      }
-    })
   }
 // after map fly-to, then grab subways and add popups
   var createPopup = function(e, features){
@@ -182,30 +187,50 @@ var initMapgl = function() {
       createBarMarkers();
       createSubwayMarkers();
       addFlatironSchool();
-      buttonListener();
     })
 //change mouse from grab to point on mouseover bar markers
   mapgl.on('mousemove', function(e){
     var features = mapgl.queryRenderedFeatures(e.point, { layers: ['markers'] });
     mapgl.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
   })
-//new toggle
-  $('#subwaytoggle').bootstrapToggle({
-    off: "Subways Off",
-    on: 'Subways On'
-  })
-  $('#subwaytoggle').change(function(){
-    if (toggle){
+//change checkbox to toggle switch
+  $("#subwaytoggle").bootstrapSwitch({
+    size: 'normal',
+    onText: 'ON',
+    offText: 'OFF',
+    labelText: 'Subways',
+    onColor: 'success',
+    offColor: 'danger'
+  });
+//event listener for subway toggle
+  $('#subwaytoggle').on('switchChange.bootstrapSwitch', function(e, state){
+    if (toggleSubway){
       removeSubwayMarkers();
-      toggle = false
-      $('#togglesubway').html("Toggle Subways ON")
+      toggleSubway = false
     } else {
       addSubwayMarkers();
-      toggle = true
-      $('#togglesubway').html("Toggle Subways OFF")
+      toggleSubway = true
     }
-    })
-
+  })
+// change bar checkbox to toggle switch
+  $("#bartoggle").bootstrapSwitch({
+    size: 'normal',
+    onText: 'ON',
+    offText: 'OFF',
+    labelText: 'Bars',
+    onColor: 'success',
+    offColor: 'danger'
+  });
+// event listener for bar toggle
+  $('#bartoggle').on('switchChange.bootstrapSwitch', function(e, state){
+    if (toggleBar){
+      removeBarMarkers();
+      toggleBar = false
+    } else {
+      addBarMarkers();
+      toggleBar = true
+    }
+  })
 
 };
 
@@ -213,6 +238,4 @@ var initMapgl = function() {
 //create map when page loads
 $(document).ready(function(){
   initMapgl();
-}
-$(document).ready(ready);
-$(document).on('page:load', ready);
+});
