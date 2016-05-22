@@ -209,4 +209,4 @@ $('#subwaytoggle').change(function(){
 //create map when page loads
 $(document).ready(function() {
   initMapgl();
-})
+});
