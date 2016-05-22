@@ -1,7 +1,7 @@
 class BarsController < ApplicationController
 
   def index
-    @bars = Bar.all.sort_by{|bar| bar.name}
+    @bars = Bar.all.sort_by { |bar| bar.name }
   end
 
   def show

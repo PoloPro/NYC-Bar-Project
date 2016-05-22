@@ -4,7 +4,7 @@ $(document).ready(function() {
     valueNames: [ 'name', 'category' ],
   };
 
-  var wrapperElement = $('#bar-list-searchable')
+  var wrapperElement = $('#bar-list')
   var barIndexList = new List(wrapperElement[0], listOptions);
 
 })

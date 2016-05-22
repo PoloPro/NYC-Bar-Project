@@ -6,12 +6,9 @@
   <!-- List.js -->
   <%= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js' %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag :application, media: 'all' %>
+  <%= javascript_include_tag :application %>
   <%= csrf_meta_tags %>
-
-  <!-- Infinite scrolling via AirBnB -->
-  <%= javascript_include_tag 'http://airbnb.io/infinity/build/infinity.min.js' %>
 
   <!-- Bootstrap 4.0 Links -->
   <!-- Latest compiled and minified CSS -->
