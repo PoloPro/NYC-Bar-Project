@@ -18,7 +18,7 @@
     <li><strong>Zipcode:</strong>  <%= @bar.zipcode %></li>
     <li><strong>Lat/Long:</strong>  <%= @bar.latitude %> / <%= @bar.longitude %> </li>
 
-    <li><strong>DrinkUp Rating:</strong>  <%= @bar.average_rating %></li>
+    <li><strong>DrinkUp Rating:</strong><span id=avg_rating> <%= @bar.average_rating %></span></li>
     <li><strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars</li>
   </ul>
 </div>
@@ -27,21 +27,24 @@
   <h3>Reviews</h3>
   <div id="hidden_review">
   <strong>Written By: </strong><%= link_to current_user.name, current_user %><br>
-  <strong>Rating:</strong><div id="hidden_review_rating"></div>
+  <div id="hidden_review_rating"><strong>Rating: </strong></div>
   <p id="hidden_review_content"></p><br>
   </div> 
+  <div id = all_reviews> 
   <% if @bar.reviews.count > 0 %>
   <% @bar.reviews.each do |review| %>
   <% if review.user %>
+  <div class=review>
   <strong>Written By:</strong> <%= link_to review.user.name, user_path(review.user) %> <br>
-  <strong>Rating:</strong> <%=review.rating %><br>
-  <p><%= review.content%></p><br>
+  <strong>Rating: </strong> <%=review.rating.to_i %><br>
+  <p><%= review.content%></p><br></div></div>
+  </div>
   <% end %>
   <% end %>
   <% end %>
 </div>
 
-<div>
+<div id = "new_review_form">
   <% if !@bar.reviews.any?{|review| review.user == current_user}%>
   <h3>Write a Review</h3>
   <%= form_for @review, remote: true do |f| %>
