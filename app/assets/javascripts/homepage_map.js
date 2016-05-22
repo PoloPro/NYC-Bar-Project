@@ -108,12 +108,6 @@ var initMapgl = function() {
   }
 //listen to add and remove button
   var buttonListener = function(){
-    $('#addsubway').click(function(){
-      addSubwayMarkers();
-    })
-    $('#removesubway').click(function(){
-      removeSubwayMarkers();
-    })
     $('#togglesubway').click(function(){
       if (toggle){
         removeSubwayMarkers();
@@ -130,7 +124,9 @@ var initMapgl = function() {
   var createPopup = function(e, features){
     var n = 150
     var box = [[e.point.x - n, e.point.y - n], [e.point.x + n, e.point.y + n]]
-    var subs = mapgl.queryRenderedFeatures(box, { layers: ['subways'] }).splice(0,6);
+    var subs = mapgl.queryRenderedFeatures(box, { layers: ['subways'] }).splice(0,3);
+    var neighborhood = mapgl.queryRenderedFeatures(e.point, { layers: ['36061','36047','36005','36081','36085'] })
+    var neighborhoodLabel = neighborhood[0].properties.label
     var subwaylist = ""
     if (subs.length) {
       subwaylist += "<h5>Nearby Subways</h5>"
@@ -164,7 +160,7 @@ var initMapgl = function() {
     }).done(function(response){
       var tooltip = new mapboxgl.Popup({closeOnClick: true})
         .setLngLat([response.longitude, response.latitude])
-        .setHTML('<center><h5>' + response.name +'</h5><p>' + response.address + '</p><hr>' + subwaylist + '</center>')
+        .setHTML('<center><h5>' + response.name +'</h5><p>' + response.address + " | <strong>Neighborhood: </strong>" + neighborhoodLabel + '</p><hr>' + subwaylist + '</center>')
         .addTo(mapgl);
       // either create a popup on the map at the bar location
       // or drop down a card with the bar included
@@ -176,7 +172,7 @@ var initMapgl = function() {
       if (features.length) {
         mapgl.flyTo({
           center: [e.lngLat.lng, e.lngLat.lat],
-          zoom: 16
+          zoom: 15
         })
         createPopup(e, features);
       }
@@ -188,7 +184,27 @@ var initMapgl = function() {
       addFlatironSchool();
       buttonListener();
     })
-};
+//change mouse from grab to point on mouseover bar markers
+  mapgl.on('mousemove', function(e){
+    var features = mapgl.queryRenderedFeatures(e.point, { layers: ['markers'] });
+    mapgl.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+  })
+//new toggle
+  $('#subwaytoggle').bootstrapToggle({
+    off: "Subways Off",
+    on: 'Subways On'
+  })
+  $('#subwaytoggle').change(function(){
+    if (toggle){
+      removeSubwayMarkers();
+      toggle = false
+      $('#togglesubway').html("Toggle Subways ON")
+    } else {
+      addSubwayMarkers();
+      toggle = true
+      $('#togglesubway').html("Toggle Subways OFF")
+    }
+    })
 
 //create map when page loads
 $(document).ready(function(){
