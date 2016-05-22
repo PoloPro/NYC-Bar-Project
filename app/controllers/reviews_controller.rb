@@ -27,6 +27,9 @@ class ReviewsController < ApplicationController
 
   def destroy
     find_review
+    @json = @review
+    @review.destroy
+    render json: @json
   end
 
 

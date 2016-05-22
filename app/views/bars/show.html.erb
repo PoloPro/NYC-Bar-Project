@@ -34,7 +34,8 @@
       <strong>Rating: </strong> <%=review.rating.to_i %><br>
       <p><%= review.content%></p>
       <% if review.user == current_user %>
-      <%= link_to "Edit", edit_review_path(review) %>
+      <%= link_to "Edit", edit_review_path(review) %> <span id = "delete_review"><br>
+      <%= link_to "Delete", delete_review_path(review), remote: true %></span>
       <% end %>
   </div>
   <% end %>
