@@ -1,15 +1,16 @@
-<h1>Drink Up NYC</h1>
-<h3>Designed by Alex Martin, Robert Hopkins, and Wesley Davis</h3>
+<br>
 
-<%= link_to "Signout", destroy_user_session_path, method: :delete %>
-
-<div>
-  <%= link_to "See all of the bars", bars_path %>
-</div>
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
+<!-- mapbox -->
+<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
 
+<!-- mapbox-GL -->
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
 <br><br>
 <div id="mapgl"></div><br>
 

@@ -3,8 +3,11 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    flash[:notice] = "Your rating must be an integer between 1 and 5" if !@review.save
-    redirect_to bar_path(@review.bar)
+    if @review.valid?
+      @review.save
+    else
+     render status: 400
+    end
   end
 
 
