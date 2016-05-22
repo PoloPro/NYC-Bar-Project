@@ -163,6 +163,7 @@ var initMapgl = function() {
         type: "GET",
         url: '/bars/' + features[0].properties.yelpid + '/mapclick'
       }).done(function(response){
+        debugger
         var tooltip = new mapboxgl.Popup({closeOnClick: true})
         .setLngLat([response.longitude, response.latitude])
         .setHTML('<center><h6>' + response.name +'</h6><p>' + response.address + " | <strong>Neighborhood: </strong>" + neighborhoodLabel + '</p><hr>' + subwaylist + '</center>')
@@ -201,7 +202,6 @@ var initMapgl = function() {
   $('#current-neighborhood').click(function(){
     var nbhd = $('#current-neighborhood thisisatag').html()
     var bars = mapgl.querySourceFeatures('markers', {})
-
   })
 // change checkbox to toggle switch
   $("#subwaytoggle").bootstrapSwitch({
