@@ -21,22 +21,21 @@
     <li><strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars</li>
   </ul>
 </div>
-
+<div id="hidden_user_name"><%= current_user.name %></div>
 <div id="reviews">
   <h3>Reviews</h3>
-  <div id="hidden_review">
-  <strong>Written By: </strong><%= link_to current_user.name, current_user %><br>
-  <div id="hidden_review_rating"><strong>Rating: </strong></div>
-  <p id="hidden_review_content"></p><br>
-  </div> 
+  <div id="new_review" class=review></div> 
   <div id = all_reviews> 
-  <% if @bar.reviews.count > 0 %>
-  <% @bar.reviews.each do |review| %>
-  <% if review.user %>
-  <div class=review>
-  <strong>Written By:</strong> <%= link_to review.user.name, user_path(review.user) %> <br>
-  <strong>Rating: </strong> <%=review.rating.to_i %><br>
-  <p><%= review.content%></p><br></div></div>
+  <% if @reviews %>
+  <% @reviews.each do |review| %>
+    <% if review.user %>
+      <div class=review>
+      <strong>Written By:</strong> <%= link_to review.user.name, user_path(review.user) %> <br>
+      <strong>Rating: </strong> <%=review.rating.to_i %><br>
+      <p><%= review.content%></p>
+      <% if review.user == current_user %>
+      <%= link_to "Edit", edit_review_path(review) %>
+      <% end %>
   </div>
   <% end %>
   <% end %>
@@ -45,16 +44,16 @@
 
 <div id = "new_review_form">
   <% if !@bar.reviews.any?{|review| review.user == current_user}%>
-  <h3>Write a Review</h3>
-  <%= form_for @review, remote: true do |f| %>
-  <%= f.hidden_field :bar_id, value: @bar.id %>
-  <%= f.hidden_field :user_id, value: current_user.id %>
-  <%= f.label :rating, "Rating" %><br>
-  <%= f.text_field :rating %><br>
-  <%= f.label :content, "Review" %><br>
-  <%= f.text_area :content%><br>
-  <%= f.submit %>
-  <% end %>
+    <h3>Write a Review</h3>
+    <%= form_for @review, remote: true do |f| %>
+      <%= f.hidden_field :bar_id, value: @bar.id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.label :rating, "Rating" %><br>
+      <%= f.text_field :rating %><br>
+      <%= f.label :content, "Review" %><br>
+      <%= f.text_area :content%><br>
+      <%= f.submit %>
+    <% end %>
   <% end %>
 </div>
 
