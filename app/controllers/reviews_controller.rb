@@ -32,9 +32,6 @@ class ReviewsController < ApplicationController
     render json: @json
   end
 
-
-
-
 private
 
 def find_review
