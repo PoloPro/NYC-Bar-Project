@@ -40,6 +40,8 @@ class BarsController < ApplicationController
         new_hash["name"] = b.name
         new_hash["address"] = b.address
         new_hash["rating"] = b.average_rating
+        new_hash["longitude"] = b.longitude
+        new_hash["latitude"] = b.latitude
         sent_array << new_hash
       end
       sent_array

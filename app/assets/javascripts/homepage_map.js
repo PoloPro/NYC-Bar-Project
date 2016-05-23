@@ -290,7 +290,6 @@ var initMapgl = function() {
     $('.card-block button').click(function(){
       var barLatitude = $(this).children('.lat').html()
       var barLongitude = $(this).children('.lng').html()
-
       mapgl.flyTo({
         center: [barLongitude, barLatitude],
         zoom: 19
