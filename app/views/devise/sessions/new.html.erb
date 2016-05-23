@@ -1,26 +1,44 @@
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+<div class="field">
+  <%= f.label :email %><br />
+  <%= f.email_field :email, autofocus: true %>
+</div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+<div class="field">
+  <%= f.label :password %><br />
+  <%= f.password_field :password, autocomplete: "off" %>
+</div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
+<% if devise_mapping.rememberable? -%>
+<div class="field">
+  <%= f.check_box :remember_me %>
+  <%= f.label :remember_me %>
+</div>
+<% end -%>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+<div class="actions">
+  <%= f.submit "Log in" %>
+</div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+<br><hr><br>
+<h3> What New Yorkers are Saying </h3>
+<ul class="list-inline">
+  <% Review.all.reverse.first(5).each do |review| %>
+  <li class="list-inline-item"><div class="card">
+    <div class="card-header">
+      <strong><%= review.user.name %></strong> says: 
+    </div>
+    <div class="card-block">
+      <blockquote class="card-blockquote">
+        <p><%= review.content %></p>
+        <strong>Rating:</strong> <%=review.rating.to_i%>/5
+        <footer class="text-xs-right">(<em><%=review.bar.name%></em>)</footer>
+      </blockquote>
+    </div>
+  </div></li>
+  <% end %>
+</ul>
