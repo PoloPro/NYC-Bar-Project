@@ -37,6 +37,7 @@ class BarsController < ApplicationController
       sent_array =[]
       bars.each do |b|
         new_hash = {}
+        new_hash["id"] = b.id
         new_hash["name"] = b.name
         new_hash["address"] = b.address
         new_hash["rating"] = b.average_rating
