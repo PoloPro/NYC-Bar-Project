@@ -9,14 +9,16 @@ module BarsHelper
   # all bars that do not have one
 
   def geolocate_all_bars
-    Geocoder.configure({api_key: 'GOOGLE API KEY'})
     Bar.all.each do |bar|
       if bar.latitude == nil && bar.longitude == nil
         geo_hash = Geocoder.search(bar.address + ", " + bar.zipcode)
-        bar.latitude = geo_hash[0].data["geometry"]["location"]["lat"]
-        bar.longitude = geo_hash[0].data["geometry"]["location"]["lng"]
-        bar.save
-        sleep(0.2)
+        if !geo_hash.empty?
+          bar.latitude = geo_hash[0].data["geometry"]["location"]["lat"]
+          bar.longitude = geo_hash[0].data["geometry"]["location"]["lng"]
+          bar.save
+          puts "finished bar # #{bar.id}"
+        end
+        sleep(0.3)
       end
     end
   end
@@ -54,5 +56,22 @@ module BarsHelper
       end
       File.open('marker_hash.geojson', 'w') { |file| file.write(marker_hash.to_json) }
   end
+
+  def get_nbhd_from_geocoder
+    Bar.all.each do |bar|
+      google = Geocoder.search([bar.latitude, bar.longitude])
+      bor = Borough.find_by(name: google[0].data["address_components"][3]["long_name"])
+      nbhd = Neighborhood.find_or_create_by(name: google[0].data["address_components"][2]["long_name"])
+      bar.neighborhood = nbhd
+      if bor
+        nbhd.borough = bor
+        nbhd.save
+      end
+      bar.save
+      puts "finished bar # #{bar.id}"
+      sleep(0.3)
+    end
+  end
+
 
 end

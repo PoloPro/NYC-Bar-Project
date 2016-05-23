@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   get '/markers/json', to: "home#markers"
   get '/subways/json', to: 'home#subways'
   get '/bars/:yelpid/mapclick', to: 'bars#mapclick'
+  get '/bars/neighborhood/buttonclick', to: 'bars#nbhd_button'
   delete '/reviews/:id', to: 'reviews#destroy', as: 'delete_review'
-
   devise_for :users, controllers: { omniauth_callbacks: "callbacks", registrations: 'users/registrations' }
   resources :categories
   resources :boroughs
