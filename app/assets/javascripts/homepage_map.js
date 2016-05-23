@@ -6,6 +6,11 @@ var initMapgl = function() {
 //create toggle variable
   var toggleSubway = false
   var toggleBar = true
+// flying event variable
+  var flying = false
+// popup variables
+  var popupEvent
+  var popupFeature
 //create map boundaries
   var southWest = new mapboxgl.LngLat(-74.549, 40.261)
   var northEast = new mapboxgl.LngLat(-73.331, 41.062)
@@ -16,14 +21,13 @@ var initMapgl = function() {
   var mapgl = new mapboxgl.Map({
     container: 'mapgl',
     minZoom: 9,
-    maxZoom: 18,
+    maxZoom: 19,
     bearing: 29,
     center: [-74.013942, 40.705326],
     zoom: 13,
     maxBounds: bounds,
     style: 'mapbox://styles/rhoprhh/cioegtr6d0011ainlkhuy28e8'
   });
-
 //CREATE AND ADD all Bars to map
   var createBarMarkers = function() {
     $.ajax({
@@ -163,7 +167,7 @@ var initMapgl = function() {
         type: "GET",
         url: '/bars/' + features[0].properties.yelpid + '/mapclick'
       }).done(function(response){
-        debugger
+        //THIS IS WHERE THE HEROKU ERROR HAPPENS
         var tooltip = new mapboxgl.Popup({closeOnClick: true})
         .setLngLat([response.longitude, response.latitude])
         .setHTML('<center><h6>' + response.name +'</h6><p>' + response.address + " | <strong>Neighborhood: </strong>" + neighborhoodLabel + '</p><hr>' + subwaylist + '</center>')
@@ -171,16 +175,33 @@ var initMapgl = function() {
         // either create a popup on the map at the bar location
         // or drop down a card with the bar included
       })
+
     }
+// map flying event listeners
+  mapgl.on('flystart', function(){
+      flying = true;
+  });
+  mapgl.on('flyend', function(){
+      flying = false;
+  });
+// creates the popup after a flyTo event ends
+  mapgl.on('moveend',function(e){
+    if (flying) {
+      createPopup(popupEvent, popupFeature)
+      mapgl.fire('flyend')
+    }
+  })
 // on click function for map popups for bars
   mapgl.on('click', function(e) {
     var features = mapgl.queryRenderedFeatures(e.point, { radius: 25, layers: ['markers'] });
     if (features.length) {
       mapgl.flyTo({
-        center: [e.lngLat.lng, e.lngLat.lat],
+        center: e.lngLat,
         zoom: 15
       })
-      createPopup(e, features);
+      popupEvent = e
+      popupFeature = features
+      mapgl.fire('flystart')
     }
   })
 // adds markers when map loads
@@ -201,7 +222,30 @@ var initMapgl = function() {
 // event listener on neighborhood button
   $('#current-neighborhood').click(function(){
     var nbhd = $('#current-neighborhood thisisatag').html()
-    var bars = mapgl.querySourceFeatures('markers', {})
+    $.ajax({
+      type: "GET",
+      url: '/bars/neighborhood/buttonclick',
+      data: { neighborhood: nbhd }
+    }).done(function(response){
+      debugger
+      if (response == null) {
+        $('#sneakpeak').html('<center><h5>That neighborhood has not been set-up yet. :( </h5></center>')
+      } else {
+        var html = '<center><h5>Here are (up to) 15 random bars from the Neighborhood:</h5></center><hr><div class="card-columns">'
+        response.forEach(function(bar, index){
+          html += '<div class="card">'
+          html += '<div class="card-block">'
+          html += '<a href="/bars/' + bar.id + '">' + '<h4 class="card-title">' + bar.name + '</h4></a>'
+          html += '<p class="card-text"><strong>Address: </strong>' + bar.address +'</p>'
+          html += '<p class="card-text"><strong>Drink-Up Rating: </strong>' + bar.rating + '</p>'
+          html += '<button class="btn btn-secondary btn-sm"><div class="lng" style="display:none">' + bar.longitude + '</div><div class="lat" style="display:none" >' + bar.latitude + '</div>See On Map</button>'
+          html += '</div></div>'
+        })
+        html += '</div>'
+        $('#sneakpeak').html(html);
+        seeOnMapListener();
+      }
+    })
   })
 // change checkbox to toggle switch
   $("#subwaytoggle").bootstrapSwitch({
@@ -241,6 +285,18 @@ var initMapgl = function() {
       toggleBar = true
     }
   })
+// event listener on SEE ON MAP buttons
+  var seeOnMapListener = function(){
+    $('.card-block button').click(function(){
+      var barLatitude = $(this).children('.lat').html()
+      var barLongitude = $(this).children('.lng').html()
+
+      mapgl.flyTo({
+        center: [barLongitude, barLatitude],
+        zoom: 19
+      })
+    })
+  }
 
 };
 

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get '/markers/json', to: "home#markers"
   get '/subways/json', to: 'home#subways'
   get '/bars/:yelpid/mapclick', to: 'bars#mapclick'
+  get '/bars/neighborhood/buttonclick', to: 'bars#nbhd_button'
+
   devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
   resources :categories
   resources :boroughs
