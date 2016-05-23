@@ -7,10 +7,8 @@ class User < ActiveRecord::Base
 
   has_many :reviews
   has_many :bars, through: :reviews
-  has_many :friendships
-  has_many :friends, through: :friendships
-  has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
-  has_many :inverse_friends, through: :inverse_friendships, source: :user
+  acts_as_followable
+  acts_as_follower
 
   def self.new_with_session(params,session)
     if session["devise.user_attributes"]
@@ -41,9 +39,5 @@ class User < ActiveRecord::Base
    end
    authorization.user
  end
-
- def all_friends
-  friends + inverse_friends 
- end
-
+ 
 end
