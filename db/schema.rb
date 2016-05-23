@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160523142853) do
 
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,11 +69,6 @@ ActiveRecord::Schema.define(version: 20160523142853) do
 
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
-
-  create_table "friendships", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "friend_id"
-  end
 
   create_table "neighborhoods", force: :cascade do |t|
     t.string   "name"

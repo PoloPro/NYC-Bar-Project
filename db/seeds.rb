@@ -1,9 +1,3 @@
-User.create!([
-  {email: "rhoprhh@gmail.com", encrypted_password: "$2a$11$v6nxkYg5QgwIHmxdX/nP5ue6OwnseFiCAWbEcaiaAqV/pd5OSrCUi", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-05-23 14:01:40", last_sign_in_at: "2016-05-23 14:01:40", current_sign_in_ip: "::1", last_sign_in_ip: "::1", name: "Robert Hopkins", username: nil, picture: nil, admin: false, provider: nil, of_age: nil, uid: nil}
-  ])
-Authorization.create!([
-  {provider: "facebook", uid: "10154039523020943", user_id: 1, token: "EAAHO7YtG2jwBABLiwrwZBzU2bIbZBlMRqxZBe4ivYhxKdj724YBlMaYSMV1sUHXdCVZBLq4pZBrhYWHDeGX1GjzNW8t9hP4ZB5jpPbUsyE2IObFncv9q975er9pHdZCefsZBA86Y2BNAVFcTOrKq4RqKTNevuvjYzaIZD", secret: nil, username: nil}
-  ])
 Bar.create!([
   {name: "Sid Gold's Request Room", address: "165 W 26th St", latitude: "40.7459685", longitude: "-73.9935866", yelp_id: "sid-golds-request-room-new-york", yelp_rating: 4.5, zipcode: "10001", neighborhood_id: 5},
   {name: "The Heath", address: "542 W 27th St", latitude: "40.7507169", longitude: "-74.0041643", yelp_id: "the-heath-new-york", yelp_rating: 4.5, zipcode: "10001", neighborhood_id: 5},
