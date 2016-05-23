@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
-  before_filter :set_user, only: [:show, :edit, :update]
+  before_filter :set_user, only: [:show, :edit, :update, :follow, :unfollow]
+  before_filter :set_current_user, only: [:show, :follow, :unfollow]
   before_filter :validate_authorization_for_user, only: [:edit, :update]
-
+  protect_from_forgery except: :show
   # GET /users/1
   def show
+    respond_to :html, :js
   end
 
   def new
@@ -28,6 +30,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def follow
+    @current_user.follow(@user)
+    respond_to :js
+  end
+
+  def unfollow
+    @current_user.stop_following(@user)
+    respond_to :js
+  end
+
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
@@ -40,6 +52,10 @@ class UsersController < ApplicationController
     def set_user
       redirect_to destroy_user_session_path if params[:id] == "sign_out"
       @user = User.find(params[:id])
+    end
+
+    def set_current_user
+      @current_user = current_user
     end
 
     def validate_authorization_for_user

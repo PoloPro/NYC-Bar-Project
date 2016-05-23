@@ -1,0 +1,1 @@
+$('div#user-<%=@user.id%>.follow-button-area').html('<%= button_to "Unfollow", {action: "unfollow", id: @user.id}, method: "post", remote: true %>') 

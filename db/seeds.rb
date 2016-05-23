@@ -19914,7 +19914,7 @@ Neighborhood.create!([
   name = Faker::Name.name 
   email = name.delete(" ").downcase + "@flatironschool.com"
   password = Faker::Hipster.word until password && password.length > 5
-  User.create(name: name, email: email, password: password) unless User.all.any?{|user| user.name == name}
+  User.create(name: name, email: email, password: password, picture: Faker::Avatar.image) unless User.all.any?{|user| user.name == name}
 end
 
 User.all.each{|user| User.all.shuffle.first(rand(10)).each{|followee| user.follow(followee)}; user.save}
