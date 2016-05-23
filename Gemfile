@@ -37,7 +37,7 @@ gem 'geocoder'
 
 gem 'figaro'
 gem 'yelp'
-
+gem 'faker'
 # Omniauth gems
 gem 'devise'
 gem 'omniauth'

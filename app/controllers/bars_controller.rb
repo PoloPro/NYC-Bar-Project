@@ -7,6 +7,12 @@ class BarsController < ApplicationController
   def show
     @bar = Bar.find(params[:id])
     @reviews = @bar.reviews.reverse unless @bar.reviews.count.zero?
+    if @reviews && @reviews.any?{|review| review.user == current_user}
+      @already_reviewed = false
+      current_user_review = @reviews.bsearch{|r| r.user == current_user}
+      @reviews.delete(current_user_review)
+      @reviews.unshift(current_user_review)
+    end
     @review = Review.new
   end
 
