@@ -36,4 +36,26 @@ class BarsController < ApplicationController
     render json: @bar
   end
 
+  def nbhd_button
+    @neighborhood = Neighborhood.find_by(name: params[:neighborhood])
+    if @neighborhood
+      bars = @neighborhood.bars.sample(15)
+      sent_array =[]
+      bars.each do |b|
+        new_hash = {}
+        new_hash["name"] = b.name
+        new_hash["address"] = b.address
+        new_hash["rating"] = b.average_rating
+        new_hash["longitude"] = b.longitude
+        new_hash["latitude"] = b.latitude
+        sent_array << new_hash
+      end
+      sent_array
+    else
+      sent_array = nil
+    end
+    render :json => sent_array
+  end
+
+
 end
