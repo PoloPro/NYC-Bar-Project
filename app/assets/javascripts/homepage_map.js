@@ -227,7 +227,7 @@ var initMapgl = function() {
       url: '/bars/neighborhood/buttonclick',
       data: { neighborhood: nbhd }
     }).done(function(response){
-      debugger
+
       if (response == null) {
         $('#sneakpeak').html('<center><h5>That neighborhood has not been set-up yet. :( </h5></center>')
       } else {
