@@ -37,6 +37,8 @@ gem 'geocoder'
 
 gem 'figaro'
 gem 'yelp'
+gem 'faker'
+gem 'acts_as_follower'
 
 # Omniauth gems
 gem 'devise'

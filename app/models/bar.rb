@@ -5,7 +5,7 @@ class Bar < ActiveRecord::Base
   has_and_belongs_to_many :categories, -> { uniq }
 
   validates :address, presence: true
-  validates :name, uniqueness: true
+  validates :yelp_id, uniqueness: true
 
   def average_rating
     if reviews.count > 0

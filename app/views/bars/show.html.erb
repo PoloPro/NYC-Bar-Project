@@ -21,11 +21,10 @@
     <li><strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars</li>
   </ul>
 </div>
-<div id="hidden_user_name"><%= current_user.name %></div>
 <div id="reviews">
   <h3>Reviews</h3>
-  <div id="new_review" class=review></div> 
   <div id = all_reviews> 
+  <div id="new_review" class=review></div>
   <% if @reviews %>
   <% @reviews.each do |review| %>
     <% if review.user %>
@@ -42,9 +41,8 @@
   <% end %>
   <% end %>
 </div>
-
 <div id = "new_review_form">
-  <% if !@bar.reviews.any?{|review| review.user == current_user}%>
+  <% if !@already_reviewed %>
     <h3>Write a Review</h3>
     <%= form_for @review, remote: true do |f| %>
       <%= f.hidden_field :bar_id, value: @bar.id %>
@@ -57,6 +55,5 @@
     <% end %>
   <% end %>
 </div>
-
 
 
