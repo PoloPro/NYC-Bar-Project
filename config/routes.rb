@@ -1,22 +1,19 @@
 Rails.application.routes.draw do
 
   root 'home#welcome'
-  # get '/manhattan/json', to: "home#manhattan"
-  # get '/queens/json', to: "home#queens"
-  # get '/brooklyn/json', to: "home#brooklyn"
-  # get '/statenisland/json', to: "home#statenisland"
-  # get '/bronx/json', to: "home#bronx"
+
   get '/markers/json', to: "home#markers"
   get '/subways/json', to: 'home#subways'
   get '/bars/:yelpid/mapclick', to: 'bars#mapclick'
-  devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
+  delete '/reviews/:id', to: 'reviews#destroy', as: 'delete_review'
+
+  devise_for :users, controllers: { omniauth_callbacks: "callbacks", registrations: 'users/registrations' }
   resources :categories
   resources :boroughs
   resources :neighborhoods
   resources :reviews
   resources :bars
   resources :users
-  delete '/reviews/:id', to: 'reviews#destroy', as: 'delete_review'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
