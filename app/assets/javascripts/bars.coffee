@@ -1,5 +1,4 @@
 $(document).ready ->
-  $('#hidden_user_name').hide()
   newReviewListener()
   deleteReviewListener()
   return
@@ -52,6 +51,7 @@ renderNewReview = (response) ->
 
 newReviewListener = ->
   $('#new_review_form').submit (e) ->
+    e.preventDefault()
     $.ajax
       type: 'POST'
       data: getFormData()
@@ -86,9 +86,9 @@ deleteReviewListener = ->
         data: parseInt(url.split("/")[2])
         success: (response) ->
           decreaseAverageRating(response)
-          debugger
           removeReview()
           $('#new_review_form').show()
+          newReviewListener
           return
         error: (response) ->
           alert("Unable to delete review")

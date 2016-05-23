@@ -1,8 +1,26 @@
-<h1><%= @user.name %></h1><hr><br>
+<div class="row vertical-align"><div class="col-sm-10"><h1><%= @user.name %></h1></div>
+<div class="col-sm-2">
+  <div class="follow-button-area" id="user-<%=@user.id%>" style="float: right">
+    <% if @current_user.following?(@user) %>
+      <%= button_to "Unfollow", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
+    <% else %>
+      <%= button_to "Follow", {action: 'follow',  id: @user.id}, method: 'post', remote: true %>
+    <% end %>
+  </div>
+  <div class="follow-toggle-area">
+    <% if @current_user.following?(@user) %>
+      <input type="checkbox" id="follow-toggle" checked>
+    <% else %>
+      <input type="checkbox" id="follow-toggle">
+    <% end %>
+  </div>
+</div>
+</div><hr><br>
 
 <% if @user == current_user %>
 <p><strong>Email: </strong><%= @user.email %></p>
 <%= link_to 'Edit Your Profile', edit_user_path(@user) %>
+<% else%>
 <% end %>
 
 <div class="row">
@@ -10,30 +28,31 @@
     <h2> Followers </h2>
     <% @user.followers.each do |follower| %>
     <a href="<%=user_path(follower)%>" style="color:inherit">
-    <div class="card card-block">
-    <img width="50px" height="50px" src="<%=follower.picture%>"><%=follower.name%><br>
-    </div></a> 
-    <% end %>
-  </div>
-  <div class="col-sm-6">
-    <h2> Following </h2>
-    <% @user.all_following.each do |followee| %>
-    <a href="<%=user_path(followee)%>" style="color:inherit">
-    <div class="card card-block">
-      <img width="50px" height="50px" src="<%=followee.picture%>"><%=followee.name%><br>
-    </div></a>
-    <% end %>
-  </div>
-</div>
+      <div class="card card-block">
+        <img width="50px" height="50px" src="<%=follower.picture%>"><%=follower.name%><br>
+      </div></a> 
+      <% end %>
+    </div>
+    <div class="col-sm-6">
+      <h2> Following </h2>
+      <% @user.all_following.each do |followee| %>
+      <a href="<%=user_path(followee)%>" style="color:inherit">
+        <div class="card card-block">
+          <img width="50px" height="50px" src="<%=followee.picture%>"><%=followee.name%><br>
+        </div></a>
+        <% end %>
+      </div>
+    </div>
 
-<h2> Reviews </h2>
-<% @user.reviews.each do |review| %>
-<div class="card card-block">
-  <strong>Bar:</strong> <%= link_to review.bar.name, review.bar %><br>
-  <strong>Rating:</strong> <%= review.rating %><br>
-  <p class="card-text"><%= review.content %></p>
-</div>
-<% end %>
+    <h2> Reviews </h2>
+    <% @user.reviews.each do |review| %>
+    <div class="card card-block">
+      <strong>Bar:</strong> <%= link_to review.bar.name, review.bar %><br>
+      <strong>Rating:</strong> <%= review.rating %><br>
+      <p class="card-text"><%= review.content %></p>
+    </div>
+    <% end %>
+<%= javascript_include_tag "follow-button" %>
 
 
 

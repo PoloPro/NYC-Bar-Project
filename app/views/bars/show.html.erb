@@ -34,7 +34,7 @@
       <p><%= review.content%></p>
       <% if review.user == current_user %>
       <%= link_to "Edit", edit_review_path(review) %> <span id = "delete_review"><br>
-      <%= link_to "Delete", delete_review_path(review), remote: true %></span><br><br>
+      <%= link_to "Delete", delete_review_path(review)%></span><br><br>
       <% end %>
   </div>
   <% end %>
@@ -44,7 +44,7 @@
 <div id = "new_review_form">
   <% if !@already_reviewed %>
     <h3>Write a Review</h3>
-    <%= form_for @review, remote: true do |f| %>
+    <%= form_for @review do |f| %>
       <%= f.hidden_field :bar_id, value: @bar.id %>
       <%= f.hidden_field :user_id, value: current_user.id %>
       <%= f.label :rating, "Rating" %><br>
