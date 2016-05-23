@@ -3,15 +3,15 @@ var mapgl;
 
 //CREATE MAP
 var initMapgl = function() {
-//create toggle variable
+//create variables for toggle switches
   var toggleSubway = false
   var toggleBar = true
-// flying event variable
+// flying event variable for flyTo/createPopup methods
   var flying = false
-// popup variables
+// popup variables, needs to be defined up here since 2 functions need access
   var popupEvent
   var popupFeature
-//create map boundaries
+//create map boundaries, used in the creation of the map
   var southWest = new mapboxgl.LngLat(-74.549, 40.261)
   var northEast = new mapboxgl.LngLat(-73.331, 41.062)
   var bounds = new mapboxgl.LngLatBounds(southWest, northEast)
