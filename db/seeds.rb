@@ -10993,3 +10993,23 @@ Category::HABTM_Bars.create!([
   {bar_id: 2168, category_id: 21},
   {bar_id: 2169, category_id: 2}
 ])
+
+50.times do
+  name = Faker::Name.name 
+  email = name.delete(" ").downcase + "@flatironschool.com"
+  password = Faker::Hipster.word until password && password.length > 5
+  User.create(name: name, email: email, password: password) unless User.all.any?{|user| user.name == name}
+end
+
+def get_content(rating)
+  one_star_reviews = ["Ugh", "This place was awful", "I wouldn't wish this place on my worst enemy. Okay, I would, but I'd feel bad about it.", "WORST. BAR. EVER.", "How about no.", "Really bad", "Just atrocious", "Never coming back here", "It's depressing knowing places like this exist in New York", "Dirty bathroom", "Dirty bouncer", "This place can fuck right off", "I was too short to see over the bar", "The bouncer put me in a coma. Am just now waking up", "Sawdust flooring got in my drinks", "Bartender got me pregnant", "Fairly certain my beer was mostly urine", "I didn't realize this was *THAT* kind of place", "Ew.", "Never. Again.", "The bathroom had shit all over the walls"]
+  two_star_reviews = ["Okay it's not the worst, but it's pretty close", "Only reason I'm not giving it one star is because the owner is my nephew's best friend's fiancé", "Awful awful awful", "My rating is generous tbh", "I KNOW what a watered-down drink tastes like fools", "Applebee's is classier", "When you order a dirty martini it doesn't mean the glass should be dirty too", "On the plus side, the bartender is cute", "This place is so noisy it's like a bomb is going off on either side of your area every second", "I HATE the music", "I fell asleep in the bathroom and got locked in", "I really really didn't like it", "Just awful", "Yeah. No.", "I can't believe my friend recommended this place to me.", "I'd like to erase this experience from my memory", "The place was pretty cool, but it was the worst date I've ever been on, so yeah.", "Everyone was trying to hit on me. Did they not see my wedding ring?", "I actually liked this place. I'm just a mean person", "The bathroom had shit all over the walls, but other than that we had a good time"]
+  three_star_reviews = ["Meh", "Middle of the road", "Mediocre", "I've had better, I've had worse", "Beer was great, people not so much", "I couldn't be more ambivalent if I tried", "I've been twice; once it was incredible, the other time it was terrible. This evens it out.", "I kind of hated it but I'm too nice to give it less than three stars", "I mean, I wouldn't go back but I would go back. You know?", "Decent bu overpriced", "I kind of loved it but I'm too mean to give it more than three stars", "Never bring your mother here.", "This is the kind of place to bring your mother", "This place looks cool from the outside but apparently you have to be 21 to enter. Why??", "Maybe I'm being generous because some guy gave me a bunch of free drinks", "I don't remember much of what happened here so I'll be safe and say three stars", "The bartender gave me a dirty look when I ordered a Long Island Iced Tea. I think he's racist against Long Island", "It's decent, but it lacks that certain something. By certain something, I mean attractive people.", "If I was a 21-year-old, it would probably be five-stars", "Mediocrity personified. Or, should I say, bar-ified. BAHAHAHAHA", "I should probably stop going to places like this by myself"]
+end
+
+Bar.all.each do |bar|
+  User.all.shuffle.first(rand(11)).each do |user|
+    rating = rand(5) + 1
+    Review.create(bar: bar, user: user, rating: rating, content: Faker::Hipster.paragraph(rand(5) + 1))
+  end
+end
