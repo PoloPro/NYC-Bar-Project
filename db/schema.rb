@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523141607) do
+ActiveRecord::Schema.define(version: 20160523142853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,11 +32,12 @@ ActiveRecord::Schema.define(version: 20160523141607) do
     t.string   "address"
     t.string   "latitude"
     t.string   "longitude"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "yelp_id"
     t.float    "yelp_rating"
     t.string   "zipcode"
+    t.integer  "neighborhood_id"
   end
 
   create_table "bars_categories", force: :cascade do |t|
@@ -69,15 +70,11 @@ ActiveRecord::Schema.define(version: 20160523141607) do
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
-  create_table "friendships", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "friend_id"
-  end
-
   create_table "neighborhoods", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "borough_id"
   end
 
   create_table "reviews", force: :cascade do |t|
