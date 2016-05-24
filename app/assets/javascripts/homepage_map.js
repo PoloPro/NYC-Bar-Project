@@ -8,10 +8,10 @@ var initMapgl = function() {
   var toggleBar = true
 // flying event variable for flyTo/createPopup methods
   var flying = false
-// popup variables, needs to be defined up here since 2 functions need access
+// popup variables, needs to be defined
   var popupEvent
   var popupFeature
-//create map boundaries, used in the creation of the map
+//create map boundaries
   var southWest = new mapboxgl.LngLat(-74.549, 40.261)
   var northEast = new mapboxgl.LngLat(-73.331, 41.062)
   var bounds = new mapboxgl.LngLatBounds(southWest, northEast)
@@ -231,13 +231,22 @@ var initMapgl = function() {
       if (response == null) {
         $('#sneakpeak').html('<center><h5>That neighborhood has not been set-up yet. :( </h5></center>')
       } else {
-        var html = '<center><h5>Here are (up to) 15 random bars from the Neighborhood:</h5></center><hr><div class="card-columns">'
+        var html = '<center><h5>Here are (up to) 15 random bars from that area:</h5></center><hr><div class="card-columns">'
         response.forEach(function(bar, index){
+          var halfMug = "<img src='/assets/ratings/rating-half-x-small.png'>"
+          var fullMug = "<img src='/assets/ratings/rating-full-x-small.png'>"
+          var mugHtml = ""
+          for(var i=0; i < Math.floor(bar.rating); i++){
+            mugHtml += fullMug
+          }
+          if(bar.rating - Math.floor(bar.rating)){
+            mugHtml += halfMug
+          }
           html += '<div class="card">'
           html += '<div class="card-block">'
           html += '<a href="/bars/' + bar.id + '">' + '<h4 class="card-title">' + bar.name + '</h4></a>'
           html += '<p class="card-text"><strong>Address: </strong>' + bar.address +'</p>'
-          html += '<p class="card-text"><strong>Drink-Up Rating: </strong>' + bar.rating + '</p>'
+          html += '<p class="card-text">' + mugHtml + '</p>'
           html += '<button class="btn btn-secondary btn-sm"><div class="lng" style="display:none">' + bar.longitude + '</div><div class="lat" style="display:none" >' + bar.latitude + '</div>See On Map</button>'
           html += '</div></div>'
         })
