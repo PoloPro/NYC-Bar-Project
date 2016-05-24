@@ -3,7 +3,6 @@ $(document).ready ->
   deleteReviewListener()
   return
 
-
 increaseAverageRating = (response)  ->
   newRating = response["rating"]
   numberOfReviews = $('.review').length
