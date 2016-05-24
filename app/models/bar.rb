@@ -10,12 +10,14 @@ class Bar < ActiveRecord::Base
   def average_rating
     if reviews.count > 0
       ratings = reviews.map { |review| review.rating }.compact
-      avg = (ratings.inject(:+) / ratings.count )
-      # Round to nearest 0.5
-      (avg * 2).round / 2.0
+      ratings.inject(:+) / ratings.count
     else
       "No ratings yet!"
     end
+  end
+
+  def rounded_average_rating
+    reviews.count > 0 ? (average_rating * 2).round / 2.0 : "No ratings yet!"
   end
 
 end

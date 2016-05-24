@@ -35,7 +35,7 @@
     <div class="card-block">
       <blockquote class="card-blockquote">
         <p><%= review.content %></p>
-        <strong>Rating:</strong> <%=review.rating.to_i%>/5
+        <strong>Rating:</strong> <%= render partial: "bars/rating_x_small", locals: { rating: review.rating } %>
         <footer class="text-xs-right">(<em><%=review.bar.name%></em>)</footer>
       </blockquote>
     </div>
