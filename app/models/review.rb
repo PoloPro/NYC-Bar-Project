@@ -10,6 +10,26 @@ class Review < ActiveRecord::Base
 
 
   def one_bar_review_per_user
-    errors.add(:user_id, "cannot write more than one review per bar") if Review.where(user: user, bar: bar).count > 0 && !id
+    errors.add(:user_id, "You can't write more than one review per bar!") if Review.any?{|r| r.user == user && r.bar == bar} && !id
+  end
+
+  def liked_by?(current_user)
+    likes.any? {|l| l.user == current_user}
+  end
+
+  def like_message(current_user)
+    if !liked_by?(current_user) && likes.count > 2
+      "#{likes.count} people like this."
+    elsif !liked_by?(current_user) && likes.count == 1
+      "1 person likes this."
+    elsif likes.count > 2
+      "You and #{likes.count} other people like this."
+    elsif likes.count == 2
+      "You and 1 other person likes this."
+    elsif likes.count == 1
+      "You like this."
+    else
+      "No one currently likes this."
+    end
   end
 end

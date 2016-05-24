@@ -1,7 +1,10 @@
 $(document).ready ->
   newReviewListener()
   deleteReviewListener()
+  likeButtonListener()
   return
+
+
 
 getFormData = ->
   review = {}
@@ -64,6 +67,7 @@ newReviewListener = ->
     return
   return
 
+
 removeReview = ->
   if $('#new_review').html() == ""
     $('#all_reviews').children().first().next().remove()
@@ -96,3 +100,9 @@ deleteReviewListener = ->
       e.preventDefault()
       return
   return
+
+newReviewListener = ->
+  $('#new_review_form').submit (e) ->
+    e.stopPropagation()
+    e.preventDefault()
+    $.ajax
