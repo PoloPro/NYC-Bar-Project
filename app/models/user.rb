@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 
   has_many :reviews
   has_many :bars, through: :reviews
+  has_many :likes
+  has_many :user_achievements
+  has_many :achievements, through: :user_achievements
   acts_as_followable
   acts_as_follower
 

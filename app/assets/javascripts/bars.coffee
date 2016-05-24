@@ -3,32 +3,6 @@ $(document).ready ->
   deleteReviewListener()
   return
 
-increaseAverageRating = (response)  ->
-  newRating = response["rating"]
-  numberOfReviews = $('.review').length
-  if numberOfReviews > 1
-    oldAvgRating = parseFloat($('#avg_rating').text())
-    avgRating = (oldAvgRating * (numberOfReviews - 1) + newRating) / numberOfReviews
-    $('#avg_rating').text ' ' + avgRating
-  else
-    $('#avg_rating').text ' ' + newRating
-  return
-
-decreaseAverageRating = (response) ->
-  oldRating = response["rating"]
-  if $('#new_review').text() == ""
-    numberOfReviews = $('.review').length - 1
-  else
-    numberOfReviews = $('.review').length
-  if numberOfReviews > 1
-    oldAvgRating = parseFloat($('#avg_rating').text())
-    avgRating = (oldAvgRating * numberOfReviews - oldRating) / (numberOfReviews - 1)
-    $('#avg_rating').text ' ' + avgRating
-  else
-    $('#avg_rating').text ' No ratings yet!'
-  return
-
-
 getFormData = ->
   review = {}
   review['rating'] = $('#review_rating').val()
@@ -40,23 +14,46 @@ getFormData = ->
   return data
 
 renderNewReview = (response) ->
-  user_html = "<strong>Written By: </strong><a href='/users/" + response['user_id'] + "'>" + $('.nav-link').get(3).text + "</a><br>"
-  rating_html = "<strong>Rating: </strong>" + response["rating"] + "<br>"
-  content_html = "<p>" + response["content"] + "</p>"
-  edit_html = "<a href='../reviews/" + response["id"] + "/edit'>Edit</a>"
-  delete_html = "<br><span id='delete_review'><a data-remote='true' href='/reviews/" + response["id"] + "'>Delete</a></span>" 
-  $('#new_review').html(user_html + rating_html + content_html + edit_html + delete_html)
+  html = ""
+  html += '<div class="card-outer-border">'
+  html += '<div class="card">'
+  html += '<div class="card-block card-text">'
+  html += '<p>' + response['review']['content'] + '</p>'
+  html += '<div class="text-xs-right">' 
+  mug = '<img src="/assets/ratings/rating-full-x-small.png">'
+  i = 0
+  while i < response['review']['rating']
+    html += mug
+    i++
+  html += '</div>'
+  html += '</div>'
+  html += '<div class="card-footer"> <div>'
+  html += '<a href="/users/' + response['user']['id'] + '">'
+  html += '<img src="' + response['user']['picture'] + '"alt="profile picture" width="50px" height="50px" class="profile-pic" style="float:left; margin:0px 10px;">'
+  html += response['user']['name']
+  html += '</a>'
+  html += '</div>'
+  html += '<div>'
+  created_at = response['review']['created_at'].slice(0, 10) + " " + response['review']['created_at'].slice(11, 19) + " UTC" 
+  html += '<small><em>' + created_at + '</em></small>'
+  html += '</div> </div> </div> </div>'
+  html += '<div class="text-xs-right">'
+  html += '<a href="/reviews/' + response['review']['id'] + '/edit"> Edit</a>'
+  html += '<span id="ajax_page_delete_review" class="delete_review">'
+  html += '<a href="/reviews/' + response['review']['id'] + '"> Delete</a>'
+  html += '</span><br><br></div>'
+  $('#new_review').html(html)
   return
 
 newReviewListener = ->
   $('#new_review_form').submit (e) ->
+    e.stopPropagation()
     e.preventDefault()
     $.ajax
       type: 'POST'
       data: getFormData()
       url: '/reviews/'
       success: (response) ->
-        increaseAverageRating(response)
         renderNewReview(response)
         $('#new_review_form').hide()
         deleteReviewListener()
@@ -70,21 +67,23 @@ newReviewListener = ->
 removeReview = ->
   if $('#new_review').html() == ""
     $('#all_reviews').children().first().next().remove()
+    $('#edit-and-delete-links').html('')
     return
   else
-    $('#new_review').remove()
+    $('#new_review').html('')
     return
 
 deleteReviewListener = ->
-  $('#delete_review').click (e) ->
+  $('.delete_review').click (e) ->
+    e.stopPropagation()
+    e.preventDefault()
     if confirm('Are you sure you want to delete this review?')
-      url = $('#delete_review > a').attr('href')
+      url = $('.delete_review > a').attr('href')
       $.ajax
         type: 'DELETE'
         url: url
         data: parseInt(url.split("/")[2])
         success: (response) ->
-          decreaseAverageRating(response)
           removeReview()
           $('#new_review_form').show()
           newReviewListener
@@ -97,4 +96,3 @@ deleteReviewListener = ->
       e.preventDefault()
       return
   return
-

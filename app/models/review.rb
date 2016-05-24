@@ -6,6 +6,7 @@ class Review < ActiveRecord::Base
   validates :content, presence: true
   validates :rating, inclusion: {in: [1.0, 2.0, 3.0, 4.0, 5.0]}
   validate :one_bar_review_per_user
+  has_many :likes
 
 
   def one_bar_review_per_user

@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523142853) do
+ActiveRecord::Schema.define(version: 20160524155405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievements", force: :cascade do |t|
+    t.string   "name"
+    t.string   "content"
+    t.string   "icon"
+    t.integer  "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
@@ -70,6 +79,21 @@ ActiveRecord::Schema.define(version: 20160523142853) do
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
+  create_table "friendships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "likes", ["review_id"], name: "index_likes_on_review_id", using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+
   create_table "neighborhoods", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -88,6 +112,16 @@ ActiveRecord::Schema.define(version: 20160523142853) do
 
   add_index "reviews", ["bar_id"], name: "index_reviews_on_bar_id", using: :btree
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
+
+  create_table "user_achievements", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "achievement_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "user_achievements", ["achievement_id"], name: "index_user_achievements_on_achievement_id", using: :btree
+  add_index "user_achievements", ["user_id"], name: "index_user_achievements_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -114,6 +148,10 @@ ActiveRecord::Schema.define(version: 20160523142853) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "likes", "reviews"
+  add_foreign_key "likes", "users"
   add_foreign_key "reviews", "bars"
   add_foreign_key "reviews", "users"
+  add_foreign_key "user_achievements", "achievements"
+  add_foreign_key "user_achievements", "users"
 end

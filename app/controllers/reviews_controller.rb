@@ -1,32 +1,31 @@
 class ReviewsController < ApplicationController
 
+  before_filter :find_review, only: [:show, :edit, :update, :destroy]
 
   def create
     @review = Review.new(review_params)
     if @review.valid?
       @review.save
-      render json: @review
+      @jsonresponse = {review: @review, user: @review.user}
+      render json: @jsonresponse
     else
       render status: 400
     end
   end
 
   def edit
-    find_review
     redirect_to bar_path(@review.bar) if @review.user != current_user
   end
 
   def update
-    find_review
     if @review.update(review_params)
       redirect_to bar_path(@review.bar) 
     else
-      render :edit, alert: "Invalid review"
+      render :edit, error: "Invalid review"
     end
   end
 
   def destroy
-    find_review
     @json = @review
     @review.destroy
     render json: @json

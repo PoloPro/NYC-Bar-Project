@@ -27,9 +27,9 @@
 </div>
 
 <% if review.user == current_user %>
-<div class="text-xs-right">
+<div class="text-xs-right" id="edit-and-delete-links">
   <%= link_to "Edit", edit_review_path(review) %>
-  <span id="delete_review">
+  <span id="refreshed_page_delete_review" class="delete_review">
     <%= link_to "Delete", delete_review_path(review) %>
   </span><br><br>
 </div>
