@@ -32,5 +32,6 @@ img.profile-pic {
 }
 
 body {
-  padding-bottom: 70px;
+  margin-top: 70px;
+  margin-bottom: 70px;
 }
