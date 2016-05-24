@@ -17,7 +17,12 @@
     <li><strong>Zipcode:</strong>  <%= @bar.zipcode %></li>
     <li><strong>Lat/Long:</strong>  <%= @bar.latitude %> / <%= @bar.longitude %> </li>
 
-    <li><strong>DrinkUp Rating:</strong><span id=avg_rating> <%= @bar.average_rating %></span></li>
+    <li><strong>DrinkUp Rating:</strong>
+    <span id=avg_rating>
+
+    <%= @bar.average_rating %>
+      
+    </span></li>
     <li><strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars</li>
   </ul>
 </div>
