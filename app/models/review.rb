@@ -23,7 +23,7 @@ class Review < ActiveRecord::Base
     elsif !liked_by?(current_user) && likes.count == 1
       "1 person likes this."
     elsif likes.count > 2
-      "You and #{likes.count} other people like this."
+      "You and #{likes.count - 1} other people like this."
     elsif likes.count == 2
       "You and 1 other person likes this."
     elsif likes.count == 1

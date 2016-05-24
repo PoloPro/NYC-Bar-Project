@@ -19931,3 +19931,4 @@ Bar.all.each do |bar|
     Review.create(bar: bar, user: user, rating: rating, content: Faker::Hipster.paragraph(rand(5) + 1))
   end
 end
+User.all.each {|user| 150.times {Like.create(user: user, review: Review.find(rand(1..10000)))}}
