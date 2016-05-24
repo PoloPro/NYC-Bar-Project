@@ -20,8 +20,15 @@
     <div>
       <small><em><%= review.created_at %></em></small>
     </div>
+    <div class="text-xs-right like-btn-area">
+      <% if review.liked_by?(current_user) %>
+        <span class="unlike-btn"><%= link_to image_tag('likes/like-glass-full-x-small-reflection.png'), destroy_like_path(id: Like.find_by(review: review, user: current_user).id), method: :delete %></span>
+      <% else %>
+        <span class="like-btn"><%=link_to image_tag('likes/like-glass-empty-x-small.png'), create_like_path(review_id: review.id), method: :post %></span>
+      <% end %>
+      <small><%= review.like_message(current_user) %></small>
+    </div>
   </div>
-
 </div>
 
 <% if review.user == current_user %>
@@ -32,7 +39,7 @@
   </span><br><br>
 </div>
 <% end %>
-<div>
+</div>
   <% end %>
   <hr>
-  <% end %>
+<% end %>

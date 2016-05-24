@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'home#welcome'
 
   get '/markers/json', to: "home#markers"
@@ -9,6 +8,8 @@ Rails.application.routes.draw do
   delete '/reviews/:id', to: 'reviews#destroy', as: 'delete_review'
   post '/users/:id/follow', to: 'users#follow'
   post '/users/:id/unfollow', to: 'users#unfollow'
+  post '/likes/create', to: 'likes#create', as: 'create_like'
+  delete '/likes/:id/destroy', to: 'likes#destroy', as: 'destroy_like'
   devise_for :users, controllers: { omniauth_callbacks: "callbacks", registrations: 'users/registrations' }
   resources :categories
   resources :boroughs
