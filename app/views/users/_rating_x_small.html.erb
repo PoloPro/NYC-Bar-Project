@@ -1,0 +1,10 @@
+<% if rating.is_a?(Numeric) %>
+  <% rating.to_i.times do %>
+    <%= image_tag "ratings/rating-full-x-small.png" %>
+  <% end %>
+  <% if (rating - rating.to_i) > 0.4 %>
+    <%= image_tag "ratings/rating-half-x-small.png" %>
+  <% end %>
+<% else %>
+    <small>no reviews yet</small>
+<% end %>
