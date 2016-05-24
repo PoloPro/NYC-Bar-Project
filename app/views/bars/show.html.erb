@@ -1,14 +1,17 @@
 <h1><%= @bar.name %></h1>
-
-<strong><em>
+<strong>
   <ul class="list-inline">
     <% @bar.categories.each do |category| %>
-    <li>
-      <%= category.name %>
+    <li class="list-inline-item">
+      <%= link_to category.name, category %><%= " | " unless category == @bar.categories.last %>
     </li>
     <% end %>
   </ul>
-</em></strong>
+</strong>
+<%= render partial: "rating_small", locals: { rating: @bar.average_rating } %>
+<em>(<%= @bar.reviews.count %> reviews)</em>
+
+<hr>
 
 <div>
   <ul>
@@ -16,48 +19,32 @@
     <li><strong>Address:</strong>  <%= @bar.address %></li>
     <li><strong>Zipcode:</strong>  <%= @bar.zipcode %></li>
     <li><strong>Lat/Long:</strong>  <%= @bar.latitude %> / <%= @bar.longitude %> </li>
-
-    <li><strong>DrinkUp Rating:</strong>
-    <span id=avg_rating>
-
-    <%= @bar.average_rating %>
-      
-    </span></li>
-    <li><strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars</li>
+    <li>
+      <strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars
+    </li>
   </ul>
 </div>
 <hr>
 <div id="reviews">
   <h3>Reviews</h3>
   <div id = all_reviews>
-  <div id="new_review" class=review></div>
-  <% if @reviews %>
-  <% @reviews.each do |review| %>
-    <% if review.user %>
-      <div class=review>
-      <strong>Written By:</strong> <%= link_to review.user.name, user_path(review.user) %> <br>
-      <strong>Rating: </strong> <%=review.rating.to_i %><br>
-      <p><%= review.content%></p>
-      <% if review.user == current_user %>
-      <%= link_to "Edit", edit_review_path(review) %> <span id = "delete_review"><br>
-      <%= link_to "Delete", delete_review_path(review)%></span><br><br>
-      <% end %>
+    <div id="new_review" class=review></div>
+    <% if @reviews %>
+    <%= render partial: "reviews", locals: { reviews: @reviews } %>
+    <% end %>
   </div>
-  <% end %>
-  <% end %>
-  <% end %>
-</div>
-<div id = "new_review_form">
-  <% if !@already_reviewed %>
+  <div id = "new_review_form">
+    <% if !@already_reviewed %>
     <h3>Write a Review</h3>
     <%= form_for @review do |f| %>
-      <%= f.hidden_field :bar_id, value: @bar.id %>
-      <%= f.hidden_field :user_id, value: current_user.id %>
-      <%= f.label :rating, "Rating" %><br>
-      <%= f.text_field :rating %><br>
-      <%= f.label :content, "Review" %><br>
-      <%= f.text_area :content%><br>
-      <%= f.submit %>
+    <%= f.hidden_field :bar_id, value: @bar.id %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.label :rating, "Rating" %><br>
+    <%= f.text_field :rating %><br>
+    <%= f.label :content, "Review" %><br>
+    <%= f.text_area :content%><br>
+    <%= f.submit %>
     <% end %>
-  <% end %>
+    <% end %>
+  </div>
 </div>

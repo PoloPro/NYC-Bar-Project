@@ -1,0 +1,37 @@
+<% reviews.each do |review| %>
+<% if review.user %>
+<div class="review card">
+
+  <div class="card-block card-text">
+    <p><%= review.content%></p>
+    <div class="text-xs-right">
+    <%= render partial: "rating_x_small", locals: { rating: review.rating } %>
+  </div>
+</div>
+
+<div class="card-footer">
+  <div>
+    <a href="<%= user_path(review.user) %>">
+      <img src="<%= review.user.picture %>" alt="profile picture" width="50px" height="50px" class="profile-pic" style="float: left; margin:0px 10px;">
+      <%= review.user.name %>
+    </a>
+  </div>
+
+  <div>
+    <small><em><%= review.created_at %></em></small>
+  </div>
+</div>
+
+</div>
+
+<% if review.user == current_user %>
+<div class="text-xs-right">
+  <%= link_to "Edit", edit_review_path(review) %>
+  <span id="delete_review">
+    <%= link_to "Delete", delete_review_path(review) %>
+  </span><br><br>
+</div>
+<% end %>
+<% end %>
+<hr>
+<% end %>
