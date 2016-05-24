@@ -1,7 +1,6 @@
 $(document).ready ->
   newReviewListener()
   deleteReviewListener()
-  likeButtonListener()
   return
 
 
