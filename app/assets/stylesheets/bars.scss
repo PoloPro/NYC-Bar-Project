@@ -5,5 +5,12 @@
 
 #barmap{
   height: 300px;
-  width: 300px
+  width: 100%;
+}
+
+.bar-interior-pic {
+  height: 100%;
+  width: 100%;
+  border:1px solid #808080;
+  box-shadow: 3px 3px 3px #888888;
 }
