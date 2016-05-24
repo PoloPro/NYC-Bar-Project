@@ -30,3 +30,8 @@
 img.profile-pic { 
    border:1px solid #021a40;
 }
+
+body {
+  margin-top: 70px;
+  margin-bottom: 70px;
+}

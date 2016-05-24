@@ -8,13 +8,14 @@
   <!-- List.js -->
   <%= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js' %>
 
+  <!-- Bootstrap 4.0 Links -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
   <%= stylesheet_link_tag :application, media: 'all' %>
   <%= javascript_include_tag :application %>
   <%= csrf_meta_tags %>
 
-  <!-- Bootstrap 4.0 Links -->
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 
 </head>
 <body>
@@ -23,6 +24,9 @@
     <%= render "layouts/navbar" %>
     <br>
     <%= yield %>
+  </div>
+  <div class="container-fluid">
+    <%= render "layouts/footer" %>
   </div>
 
 </body>
