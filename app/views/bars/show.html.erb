@@ -1,4 +1,14 @@
-<h1><%= @bar.name %></h1>
+<!-- mapbox -->
+<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+
+<!-- mapbox-GL -->
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+<!--end of scripts -->
+
+<h1 id='bar-name'><%= @bar.name %></h1>
 <strong>
   <ul class="list-inline">
     <% @bar.categories.each do |category| %>
@@ -12,13 +22,14 @@
 <em>(<%= @bar.reviews.count %> reviews)</em>
 
 <hr>
-
+<div id='barmap'></div>
+<div id='bar-lat' style=display:none><%= @bar.latitude %></div>
+<div id='bar-lng' style=display:none><%= @bar.longitude %></div>
 <div>
   <ul>
     <li><strong>Yelp ID:</strong> <%= @bar.yelp_id %></li>
     <li><strong>Address:</strong>  <%= @bar.address %></li>
     <li><strong>Zipcode:</strong>  <%= @bar.zipcode %></li>
-    <li><strong>Lat/Long:</strong>  <%= @bar.latitude %> / <%= @bar.longitude %> </li>
     <li>
       <strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars
     </li>
