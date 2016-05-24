@@ -79,11 +79,6 @@ ActiveRecord::Schema.define(version: 20160524155405) do
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
-  create_table "friendships", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "friend_id"
-  end
-
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "review_id"

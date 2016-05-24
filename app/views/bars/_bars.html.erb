@@ -5,7 +5,9 @@
       <h4 class="name"><%= bar.name %></h4>
       <ul class="list-inline">
         <% bar.categories.each do |category| %>
-        <li class="list-inline-item category"><%= category.name %></li>
+        <li class="list-inline-item">
+          <%= link_to category.name, category %><%= " | " unless category == bar.categories.last %>
+        </li>
         <% end %>
       </ul>
       <p class="card-text"><%= bar.address %>, <%= bar.zipcode %></p>

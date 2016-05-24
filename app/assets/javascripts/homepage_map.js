@@ -229,7 +229,7 @@ var initMapgl = function() {
     }).done(function(response){
 
       if (response == null) {
-        $('#sneakpeak').html('<center><h5>That neighborhood has not been set-up yet. :( </h5></center>')
+        $('#sneakpeek').html('<center><h5>That neighborhood has not been setup yet. :( </h5></center>')
       } else {
         var html = '<center><h5>Here are (up to) 15 random bars from that area:</h5></center><hr><div class="card-columns">'
         response.forEach(function(bar, index){
@@ -242,7 +242,7 @@ var initMapgl = function() {
           if(bar.rating - Math.floor(bar.rating)){
             mugHtml += halfMug
           }
-          html += '<div class="card">'
+          html += '<div class="card card-outer-border">'
           html += '<div class="card-block">'
           html += '<a href="/bars/' + bar.id + '">' + '<h4 class="card-title">' + bar.name + '</h4></a>'
           html += '<p class="card-text"><strong>Address: </strong>' + bar.address +'</p>'
@@ -251,7 +251,7 @@ var initMapgl = function() {
           html += '</div></div>'
         })
         html += '</div>'
-        $('#sneakpeak').html(html);
+        $('#sneakpeek').html(html);
         seeOnMapListener();
       }
     })
