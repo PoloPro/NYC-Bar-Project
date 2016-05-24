@@ -30,7 +30,7 @@
       <ul class="list-group">
         <li class="list-group-item">
           <strong><%= @bar.address %></strong><br>
-          <strong><%= @bar.neighborhood.borough.name %>, NY <%= @bar.zipcode %></strong>
+          <strong><%= @bar.neighborhood.borough ? @bar.neighborhood.borough.name : "New York" %>, NY <%= @bar.zipcode %></strong>
         </li>
         <li class="list-group-item"><%= @bar.neighborhood.name %></li>
       </ul>
