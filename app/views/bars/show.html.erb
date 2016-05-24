@@ -79,15 +79,15 @@ var initShowPageMap = function(lat, lng){
   //access token
   mapboxgl.accessToken = 'pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9mN3J3OGYwMHN5eThtMnJ3enF0aHU4In0.cNczHe5-6C2mHIR5ivaKOw'
   //instantiate map
-  var barmap = new mapboxgl.Map({
-    container: 'barmap',
-    minZoom: 9,
-    maxZoom: 19,
-    bearing: 29,
-    center: [lng, lat],
-    zoom: 17,
-    style: 'mapbox://styles/rhoprhh/cioegtr6d0011ainlkhuy28e8'
-  });
+    var barmap = new mapboxgl.Map({
+      container: 'barmap',
+      minZoom: 9,
+      maxZoom: 19,
+      bearing: 29,
+      center: [lng, lat],
+      zoom: 17,
+      style: 'mapbox://styles/mapbox/streets-v9'
+    });
   //create marker for the bar
   var createMarker = function(){
     var geo = {"type": "geojson","data": {"type": "FeatureCollection","features": [{"type": "Feature","geometry": {"type": "Point","coordinates": [$('#bar-lng').html(), $('#bar-lat').html()]},"properties": {"title": $('#bar-name').html() }}]}}
