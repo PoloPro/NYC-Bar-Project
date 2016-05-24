@@ -37,6 +37,19 @@ class BarsController < ApplicationController
   end
 
   def nbhd_button
+    if ["Tribeca", "Two Bridges", "Greenwich Village", "West Village", "Soho", "Meat Packing District", "Chinatown", "Financial District"].include?(params[:neighborhood])
+      params[:neighborhood] = "Lower Manhattan"
+    elsif ["Chelsea", "Gramercy-Flatiron", "Gramercy", "Kips Bay", "Koreatown"].include?(params[:neighborhood])
+      params[:neighborhood] = "Midtown"
+    elsif ["Harlem", "Washington Heights"].include?(params[:neighborhood])
+      params[:neighborhood] = "Upper Manhattan"
+    elsif ["Williamsburg"].include?(params[:neighborhood])
+      params[:neighborhood] = "Greenpoint"
+    elsif ["South Side", "North Williamsburg - North Side", "Adelphi"].include?(params[:neighborhood])
+      params[:neighborhood] = "Williamsburg"
+    elsif ["Columbia St"].include?(params[:neighborhood])
+      params[:neighborhood] = "Columbia Street Waterfront District"
+    end
     @neighborhood = Neighborhood.find_by(name: params[:neighborhood])
     if @neighborhood
       bars = @neighborhood.bars.sample(15)

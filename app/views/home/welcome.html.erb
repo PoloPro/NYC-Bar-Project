@@ -1,8 +1,5 @@
 <br>
-<!---switch!!!!!--->
-<!-- <link href="bootstrap-switch.css" rel="stylesheet">
-<script src="bootstrap-switch.js"></script>
- -->
+
 <!-- mapbox -->
 <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
@@ -14,22 +11,25 @@
 <br><br>
 <br>
 
-<div id="mapgl"></div><br>
-<center>
-  <table style="width:100%">
-    <tr>
-      <td style="width:25%">
+<div class="jumbotron">
+  <div id="mapgl"></div><br>
+  <center>
+    <div class="row">
+    <div class="col-xs-6 text-xs-left">
         <input type="checkbox" id="subwaytoggle">
-      </td>
-      <td style='width:25%'>
-        <input type="checkbox" id="bartoggle" checked>
-      </td>
-      <td style='width:50%'>
-        <button type='button' style='float:left' class='btn btn-secondary btn-normal' id='current-neighborhood'><strong>Neighborhood: </strong></button>
-      </td>
-    </tr>
-  </table>
+      </div>
+      <div class="col-xs-6 text-xs-right">
+        <button type='button' class='btn btn-secondary btn-normal' id='current-neighborhood'><strong>Neighborhood: </strong></button>
+      </div>
+    </div>
+    <div class="row">
+     <div class="col-xs-6 text-xs-left">
+      <input type="checkbox" id="bartoggle" checked>
+    </div>
+  </div>
 </center>
 <hr>
-<div id="sneakpeak"><center><h5>Click the Neighborhood button for a Sneak Peak of Bars in the Area</h5></center></div>
+<div id="sneakpeak"><center><h5>Click the Neighborhood button for a sneak peek of Bars in the Area</h5></center></div>
+</div>
+
 <hr>
