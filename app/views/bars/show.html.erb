@@ -1,14 +1,17 @@
 <h1><%= @bar.name %></h1>
-
-<strong><em>
+<strong>
   <ul class="list-inline">
     <% @bar.categories.each do |category| %>
-    <li>
-      <%= category.name %>
+    <li class="list-inline-item">
+      <%= link_to category.name, category %><%= " | " unless category == @bar.categories.last %>
     </li>
     <% end %>
   </ul>
-</em></strong>
+</strong>
+<%= render partial: "rating_small", locals: { rating: @bar.average_rating } %>
+<em>(<%= @bar.reviews.count %> reviews)</em>
+
+<hr>
 
 <div>
   <ul>
@@ -16,12 +19,6 @@
     <li><strong>Address:</strong>  <%= @bar.address %></li>
     <li><strong>Zipcode:</strong>  <%= @bar.zipcode %></li>
     <li><strong>Lat/Long:</strong>  <%= @bar.latitude %> / <%= @bar.longitude %> </li>
-
-    <li><strong>DrinkUp Rating:</strong>
-      <span id=avg_rating>
-        <%= render partial: "rating_small", locals: { rating: @bar.average_rating } %>
-      </span>
-    </li>
     <li>
       <strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars
     </li>
@@ -33,7 +30,7 @@
   <div id = all_reviews>
     <div id="new_review" class=review></div>
     <% if @reviews %>
-      <%= render partial: "reviews", locals: { reviews: @reviews } %>
+    <%= render partial: "reviews", locals: { reviews: @reviews } %>
     <% end %>
   </div>
   <div id = "new_review_form">
