@@ -1,41 +1,48 @@
-<!-- mapbox -->
-<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
-<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+<div class="row">
 
-<!-- mapbox-GL -->
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
-<!--end of scripts -->
+  <div class="col-xs-6">
+    <!-- Bar name, categories, and rating -->
+    <h1 id='bar-name'><%= @bar.name %></h1>
+    <strong>
+      <ul class="list-inline">
+        <% @bar.categories.each do |category| %>
+        <li class="list-inline-item">
+          <%= link_to category.name, category %><%= " | " unless category == @bar.categories.last %>
+        </li>
+        <% end %>
+      </ul>
+    </strong>
+    <%= render partial: "rating_small", locals: { rating: @bar.rounded_average_rating } %>
+    <em>(<%= @bar.reviews.count %> reviews)</em>
 
-<h1 id='bar-name'><%= @bar.name %></h1>
-<strong>
-  <ul class="list-inline">
-    <% @bar.categories.each do |category| %>
-    <li class="list-inline-item">
-      <%= link_to category.name, category %><%= " | " unless category == @bar.categories.last %>
-    </li>
-    <% end %>
-  </ul>
-</strong>
-<%= render partial: "rating_small", locals: { rating: @bar.rounded_average_rating } %>
-<em>(<%= @bar.reviews.count %> reviews)</em>
+    <br><br>
 
-<hr>
-<div id='barmap'></div>
-<div id='bar-lat' style=display:none><%= @bar.latitude %></div>
-<div id='bar-lng' style=display:none><%= @bar.longitude %></div>
-<div>
-  <ul>
-    <li><strong>Yelp ID:</strong> <%= @bar.yelp_id %></li>
-    <li><strong>Address:</strong>  <%= @bar.address %></li>
-    <li><strong>Zipcode:</strong>  <%= @bar.zipcode %></li>
-    <li>
-      <strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars
-    </li>
-  </ul>
+    <div class="card">
+      <img src="https://media.timeout.com/images/100519023/image.jpg" alt="bar image" class="bar-interior-pic">
+    </div>
+
+  </div>
+
+  <div class="col-xs-6">
+    <!-- Map card -->
+    <div class="card">
+      <div id='barmap' class="map"></div>
+      <div id='bar-lat' style=display:none><%= @bar.latitude %></div>
+      <div id='bar-lng' style=display:none><%= @bar.longitude %></div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong><%= @bar.address %></strong><br>
+          <strong><%= @bar.neighborhood.borough.name %>, NY <%= @bar.zipcode %></strong>
+        </li>
+        <li class="list-group-item"><%= @bar.neighborhood.name %></li>
+      </ul>
+    </div>
+  </div>
+
 </div>
+
 <hr>
+
 <div id="reviews">
   <h3>Reviews</h3>
   <div id = all_reviews>
@@ -61,13 +68,16 @@
     </div>
   </div>
 </div>
+<br>
+<br>
+<hr>
 
 <script>
 //More maps!
 var initShowPageMap = function(lat, lng){
 
   //access token
-    mapboxgl.accessToken = 'pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9mN3J3OGYwMHN5eThtMnJ3enF0aHU4In0.cNczHe5-6C2mHIR5ivaKOw'
+  mapboxgl.accessToken = 'pk.eyJ1IjoicmhvcHJoaCIsImEiOiJjaW9mN3J3OGYwMHN5eThtMnJ3enF0aHU4In0.cNczHe5-6C2mHIR5ivaKOw'
   //instantiate map
     var barmap = new mapboxgl.Map({
       container: 'barmap',
@@ -79,30 +89,30 @@ var initShowPageMap = function(lat, lng){
       style: 'mapbox://styles/mapbox/streets-v9'
     });
   //create marker for the bar
-    var createMarker = function(){
-      var geo = {"type": "geojson","data": {"type": "FeatureCollection","features": [{"type": "Feature","geometry": {"type": "Point","coordinates": [$('#bar-lng').html(), $('#bar-lat').html()]},"properties": {"title": $('#bar-name').html() }}]}}
-      barmap.addSource('barmarker', geo)
-    }
+  var createMarker = function(){
+    var geo = {"type": "geojson","data": {"type": "FeatureCollection","features": [{"type": "Feature","geometry": {"type": "Point","coordinates": [$('#bar-lng').html(), $('#bar-lat').html()]},"properties": {"title": $('#bar-name').html() }}]}}
+    barmap.addSource('barmarker', geo)
+  }
   // add it to the map
-    var addMarker = function(){
-      barmap.addLayer({
-        "id": "barmarker",
-        "type": "symbol",
-        "source": "barmarker",
-        "layout": {
-          "icon-image": "bar-15",
-          "text-field": "{title}",
-          "text-font": ["Elementa Pro Bold"],
-          "text-offset": [0, 0.6],
-          "text-anchor": "top"
-        }
-      })
-    }
-  // call the 2 above functions once the map loads
-    barmap.on('load', function(){
-      createMarker();
-      addMarker();
+  var addMarker = function(){
+    barmap.addLayer({
+      "id": "barmarker",
+      "type": "symbol",
+      "source": "barmarker",
+      "layout": {
+        "icon-image": "bar-15",
+        "text-field": "{title}",
+        "text-font": ["Elementa Pro Bold"],
+        "text-offset": [0, 0.6],
+        "text-anchor": "top"
+      }
     })
+  }
+  // call the 2 above functions once the map loads
+  barmap.on('load', function(){
+    createMarker();
+    addMarker();
+  })
 
 }
 
@@ -113,3 +123,13 @@ $(document).ready(function(){
 })
 
 </script>
+
+<!-- mapbox -->
+<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+
+<!-- mapbox-GL -->
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+<!--end of scripts -->

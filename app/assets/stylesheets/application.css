@@ -28,7 +28,11 @@
 }
 
 img.profile-pic { 
-   border:1px solid #021a40;
+  border:1px solid #021a40;
+}
+
+.card-outer-border {
+  border:1px solid #808080;
 }
 
 body {
