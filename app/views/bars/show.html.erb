@@ -26,9 +26,10 @@
     <li><strong>Yelp Rating:</strong>  <%= @bar.yelp_rating %> stars</li>
   </ul>
 </div>
+<hr>
 <div id="reviews">
   <h3>Reviews</h3>
-  <div id = all_reviews> 
+  <div id = all_reviews>
   <div id="new_review" class=review></div>
   <% if @reviews %>
   <% @reviews.each do |review| %>
@@ -60,5 +61,3 @@
     <% end %>
   <% end %>
 </div>
-
-
