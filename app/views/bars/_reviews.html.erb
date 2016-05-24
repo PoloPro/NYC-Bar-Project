@@ -20,7 +20,7 @@
     <div>
       <small><em><%= review.created_at %></em></small>
     </div>
-    <div class="text-xs-right like-btn-area">
+    <div class="text-xs-right">
       <% if review.liked_by?(current_user) %>
       <span class="unlike-btn"><%= link_to image_tag('likes/like-glass-full-x-small-reflection.png'), destroy_like_path(id: Like.find_by(review: review, user: current_user).id), method: :delete %></span>
       <% else %>

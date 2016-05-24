@@ -5,13 +5,7 @@ class Review < ActiveRecord::Base
   validates :user_id, presence: true
   validates :content, presence: true
   validates :rating, inclusion: {in: [1.0, 2.0, 3.0, 4.0, 5.0]}
-  validate :one_bar_review_per_user
   has_many :likes
-
-
-  def one_bar_review_per_user
-    errors.add(:user_id, "You can't write more than one review per bar!") if Review.any?{|r| r.user == user && r.bar == bar} && !id
-  end
 
   def liked_by?(current_user)
     likes.any? {|l| l.user == current_user}
