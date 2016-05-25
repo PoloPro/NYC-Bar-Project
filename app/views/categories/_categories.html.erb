@@ -1,7 +1,7 @@
 <% categories.each do |category| %>
-<a href="<%= category_path(category) %>" style="color: inherit">
+<a href="<%= category_path(category) %>" class="category-card-link">
   <div class="card card-block category-index-card">
-    <h4 class="name"><%= category.name %></h4>
+    <h4 class="name montserrat"><%= category.name %></h4>
   </div>
 </a>
 <% end %>

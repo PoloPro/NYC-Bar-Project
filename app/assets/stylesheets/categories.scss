@@ -5,3 +5,19 @@
 .category-index-card {
  border:1px solid #003366; 
 }
+
+.category-card-link {
+  color: inherit;
+}
+
+.category-card-link:hover {
+  text-decoration: none;
+}
+
+.category-index-card {
+  border:1px solid #003366; 
+}
+
+.category-index-card:hover {
+  background-color: #5db596;
+}
