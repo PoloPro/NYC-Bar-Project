@@ -2,21 +2,13 @@ class BarsController < ApplicationController
 
   def index
     @bars = Bar.all.sort_by { |bar| bar.name }
-    respond_to do |format|
-      format.js
-      format.html
-    end
   end
 
-  def addBars(page:, per_page:)
-    all_bars = Bar.all.sort_by { |bar| bar.name }
-
-    start_index = (page.to_i - 1) * per_page.to_i
-    @bars = all_bars[start_index, per_page]
-
-    respond_to do |format|
-      format.js
-    end
+  def dynamic
+    bars = Bar.all.sort_by { |bar| bar.name }
+    render "bars/_bars", 
+        locals: { bars: bars.drop(20) },
+        layout: false
   end
 
   def show
