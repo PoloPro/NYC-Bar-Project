@@ -5,27 +5,21 @@ class Review < ActiveRecord::Base
   validates :user_id, presence: true
   validates :content, presence: true
   validates :rating, inclusion: {in: [1.0, 2.0, 3.0, 4.0, 5.0]}
-  validate :one_bar_review_per_user
   has_many :likes
-
-
-  def one_bar_review_per_user
-    errors.add(:user_id, "You can't write more than one review per bar!") if Review.any?{|r| r.user == user && r.bar == bar} && !id
-  end
 
   def liked_by?(current_user)
     likes.any? {|l| l.user == current_user}
   end
 
   def like_message(current_user)
-    if !liked_by?(current_user) && likes.count > 2
+    if !liked_by?(current_user) && likes.count > 1
       "#{likes.count} people like this."
     elsif !liked_by?(current_user) && likes.count == 1
       "1 person likes this."
     elsif likes.count > 2
-      "You and #{likes.count} other people like this."
+      "You and #{likes.count - 1} other people like this."
     elsif likes.count == 2
-      "You and 1 other person likes this."
+      "You and 1 other person like this."
     elsif likes.count == 1
       "You like this."
     else

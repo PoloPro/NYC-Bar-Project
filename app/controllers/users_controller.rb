@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   protect_from_forgery except: :show
   # GET /users/1
   def show
+    @reviews = @user.reviews.sort_by{|r| r.likes.count}
     respond_to :html, :js
   end
 
