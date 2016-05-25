@@ -26,7 +26,6 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    binding.pry
     @json = @review
     @review.destroy
     render json: @json

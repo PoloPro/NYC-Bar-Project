@@ -14,6 +14,8 @@ class BarsController < ApplicationController
       @reviews.unshift(current_user_review)
     end
     @review = Review.new
+    @achievement = Achievement.nomad_bar_achievement(current_user, @bar)
+    flash[:notice] = "Congratulations! You've unlocked the Nomad Bar achievement!" if @achievement 
   end
 
   def new
