@@ -3,4 +3,5 @@ class Like < ActiveRecord::Base
   belongs_to :review
   validates :user, presence: true
   validates :review, presence: true
+
 end

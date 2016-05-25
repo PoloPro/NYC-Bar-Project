@@ -2,6 +2,10 @@
 <% if review.user %>
 <div class="review card card-outer-border">
 
+  <div class="card-header">
+    <h4 class="montserrat"><%= link_to review.bar.name, review.bar %></h4>
+  </div>
+
   <div class="card-block card-text">
     <p><%= review.content%></p>
     <div class="text-xs-right">
@@ -22,11 +26,11 @@
     </div>
     <div class="text-xs-right like-btn-area">
       <% if review.liked_by?(current_user) %>
-      <span class="like-btn"><%= link_to image_tag('likes/like-glass-full-x-small-reflection.png'), destroy_like_path(id: Like.find_by(review: review, user: current_user).id), method: :destroy %></span>
+      <span class="unlike-btn"><%= link_to image_tag('likes/like-glass-full-x-small-reflection.png'), destroy_like_path(id: Like.find_by(review: review, user: current_user).id), method: :delete %></span>
       <% else %>
       <span class="like-btn"><%=link_to image_tag('likes/like-glass-empty-x-small.png'), create_like_path(review_id: review.id), method: :post %></span>
       <% end %>
-      <small class='like-btn-message'><%= review.like_message(current_user) %></small>
+      <small><%= review.like_message(current_user) %></small>
     </div>
   </div>
 </div>
