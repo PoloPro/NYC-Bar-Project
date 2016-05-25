@@ -25,8 +25,7 @@ class Achievement < ActiveRecord::Base
     if bar == Bar.find_by(name: "The NoMad Bar") && !user.achievements.include?(achievement)
       user.achievements << achievement
       user.save
-      achievement.save
-      achievement.name
+      achievement
     else
       nil
     end
