@@ -1,0 +1,27 @@
+<%= @bars.each do |bar| %>
+
+$('ul.bar-index.list').append();
+
+
+<% end %>
+
+
+
+var formatBar = function(bar) {
+  barHTML = ''
+  barHTML += '<li>'
+  barHTML +='<a href="<%= bar_path(bar) %>" style="color: inherit">'
+  barHTML +=  '<div class="card card-block">'
+  barHTML +=    '<h4 class="name montserrat"><%= bar.name %></h4>'
+  barHTML +=    '<ul class="list-inline">'
+  barHTML +=      '<% bar.categories.each do |category| %>'
+  barHTML +=      '<li class="list-inline-item">'
+  barHTML +=        '<%= link_to category.name, category %><%= " | " unless category == bar.categories.last %>'
+  barHTML +=      '</li>'
+  barHTML +=      '<% end %>'
+  barHTML +=    '</ul>'
+  barHTML +=    '<p class="card-text"><%= bar.address %>, <%= bar.zipcode %></p>'
+  barHTML +=  '</div>'
+  barHTML +='</a>'
+  barHTML +='</li>'
+}
