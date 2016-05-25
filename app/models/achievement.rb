@@ -62,7 +62,7 @@ class Achievement < ActiveRecord::Base
 
   def self.review_liked_achievement(like)
     achievement = Achievement.find_by(name: "Get Your Review Liked")
-    if like.review.user.reviews.map{|r| r.likes}.count == 1 && like.review.user != like.user && !like.review.user.achievements.include?(achievement)
+    if like.review.user.reviews.map{|r| r.likes.count}.inject(0, :+) == 1 && like.review.user != like.user && !like.review.user.achievements.include?(achievement)
       like.review.user.achievements << achievement; like.review.user.save; achievement.save
       achievement
     else
@@ -106,7 +106,7 @@ class Achievement < ActiveRecord::Base
     achievement =  achievement2 if achievement2 != nil
     achievement3 = self.five_reviews_in_one_borough(user)
     achievement = achievement3 if achievement3 != nil
-    binding.pry
+    # binding.pry
     return achievement
   end
 
@@ -117,7 +117,7 @@ class Achievement < ActiveRecord::Base
 
   def self.get_follow_achievement(follow)
     achievement = Achievement.find_by(name: "Get a Follow")
-    if follow.followable.followers == 1 && !follow.followable.achievements.include?(achievement)
+    if follow.followable.followers.count == 1 && !follow.followable.achievements.include?(achievement)
       follow.followable.achievements << achievement; follow.followable.save; achievement.save
       achievement
     else

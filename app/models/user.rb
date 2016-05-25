@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
         user.name = auth.info.name
         user.email = auth.info.email
         user.provider = auth.provider
-        # user.picture = auth.image
+        user.picture = auth.info.image
         user.save
         #This is assigns a user an achievement for using a facebook account
         Achievement.facebook_auth(user)
