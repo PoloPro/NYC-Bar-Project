@@ -38,7 +38,7 @@
     </div>
 
     <h2> Reviews </h2>
-    <% @user.reviews.each do |review| %>
+    <% @reviews.each do |review| %>
     <div class="card card-block">
       <strong>Bar:</strong> <%= link_to review.bar.name, review.bar %><br>
       <strong>Rating:</strong> <%= review.rating %><br>
