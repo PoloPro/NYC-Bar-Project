@@ -1,16 +1,15 @@
-<h2><%= @category.name %></h2>
-<hr>
-<br>
-
 <div id="bar-list">
+  <div class="jumbotron">
+    <h2><%= @category.name %></h2>
+    <hr>
+    <!-- Search bar for filtering bars -->
+    <input class="search" placeholder="Search">
+    <button class="sort" data-sort="name">Sort by name</button>
+    <button class="sort" data-sort="category">Sort by category</button>
 
-  <!-- Search bar for filtering bars -->
-  <input class="search" placeholder="Search">
-  <button class="sort" data-sort="name">Sort by name</button>
-  <button class="sort" data-sort="category">Sort by category</button>
-
-  <!-- List for filtering -->
-  <ul class="list infinite-list">
-    <%= render partial: "bars/bars", locals: { bars: @category.bars } %>
-  </ul>
+    <!-- List for filtering -->
+    <ul class="list infinite-list">
+      <%= render partial: "bars/bars", locals: { bars: @category.bars } %>
+    </ul>
+  </div>
 </div>

@@ -1,7 +1,6 @@
 <% bars.each do |bar| %>
-<li>
   <a href="<%= bar_path(bar) %>" style="color: inherit">
-    <div class="card card-block">
+    <div class="card card-block bar-index-card">
       <div class="row">
         <div class="col-xs-6">
           <h4 class="name montserrat"><%= bar.name %></h4>
@@ -21,5 +20,4 @@
       </div>
     </div>
   </a>
-</li>
 <% end %>

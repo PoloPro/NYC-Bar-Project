@@ -7,20 +7,24 @@
 </div>
 
 <div id="bar-search-area">
+  <div class="jumbotron">
 
-  <!-- Search bar for filtering bars -->
-  <input class="search" placeholder="Search">
-  <button class="sort" data-sort="name">Sort by name</button>
-  <button class="sort" data-sort="category">Sort by category</button>
+  <h1 class="montserrat">Choose a bar</h1>
 
-  <br>
-  <hr>
+    <hr>
+    <!-- Search bar for filtering bars -->
+    <input class="search" placeholder="Search">
+    <button class="sort" data-sort="name">Sort by name</button>
+    <button class="sort" data-sort="category">Sort by category</button>
 
-  <!-- List for filtering -->
-  <ul class="list" id="bar-index-list">
-    <%= render partial: "bars", locals: { bars: @bars.first(10) } %>
-  </ul>
-  <hr>
+    <br>
+
+    <!-- List for filtering -->
+    <ul class="list" id="bar-index-list">
+      <%= render partial: "bars", locals: { bars: @bars.first(10) } %>
+    </ul>
+    <hr>
+  </div>
 </div>
 
 <br>

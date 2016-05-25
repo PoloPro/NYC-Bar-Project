@@ -1,16 +1,20 @@
 <div id="category-search-area">
+  <div class="jumbotron">
 
-  <!-- Search bar for filtering bars -->
-  <input class="search" placeholder="Search">
-  <button class="sort" data-sort="name">Sort by name</button>
+  <h1 class="montserrat">Select a category</h2>
 
-  <br>
   <hr>
+    <!-- Search bar for filtering bars -->
+    <input class="search" placeholder="Search">
+    <button class="sort" data-sort="name">Sort by name</button>
 
-  <!-- List for filtering -->
-  <ul class="list" id="category-index-list">
-    <%= render partial: "categories", locals: { categories: @categories.first(20) } %>
-  </ul>
+    <br>
+
+    <!-- List for filtering -->
+    <ul class="list" id="category-index-list">
+      <%= render partial: "categories", locals: { categories: @categories.first(20) } %>
+    </ul>
+  </div>
 </div>
 
 <br>

@@ -19927,7 +19927,3 @@ Bar.all.each do |bar|
   end
 end
 User.all.each {|user| 150.times {Like.create(user: user, review: Review.find(rand(1..10000)))}}
-
-Achievement.create(name: "Get Your Review Liked", content: "Get your review liked by any person (besides yourself) and get this achievement!")
-Achievement.create(name: "Follow a User", content: "Follow a user and get this achievement!")
-Achievement.create(name: "Get a Follow", content: "Get a follow from another user and get this achievement!")
