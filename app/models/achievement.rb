@@ -106,7 +106,7 @@ class Achievement < ActiveRecord::Base
     achievement =  achievement2 if achievement2 != nil
     achievement3 = self.five_reviews_in_one_borough(user)
     achievement = achievement3 if achievement3 != nil
-    binding.pry
+    achievement = Achievement.find(1)
     return achievement
   end
 

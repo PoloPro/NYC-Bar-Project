@@ -60,7 +60,7 @@
   transform: translate3d(0, 0, -60px) rotateY(-40deg);
 }
 
-.notification.positive .fa { background-color: #6441A5; }
+.notification.positive .fa { background-color: #5DB596; }
 
 .notification.open--rot {
   opacity: 1;
@@ -115,7 +115,7 @@
   z-index: 2;
   width: 100px;
   height: 88px;
-  background-color: #6441A5;
+  background-color: #5DB596;
 }
 
 .notification .impact .icon { margin: auto; }
@@ -162,7 +162,7 @@
 }
 
 .notification h1 {
-  background-color: #432b6e;
+  background-color: #5DB596;
   color: #ffffff;
   text-align: center;
   cursor: pointer;
@@ -183,6 +183,6 @@
   display: none;
 }
 
-.notification h1:hover { background-color: #4e3380; }
+.notification h1:hover { background-color: #5DB596; }
 
 .notification-hidden { display: none; }
