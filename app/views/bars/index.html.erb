@@ -12,8 +12,31 @@
   <hr>
 
   <!-- List for filtering -->
-  <ul class="list infinite-list">
-    <%= render partial: "bars", locals: { bars: @bars } %>
+  <ul class="list" id="bar-index-list">
+    <%= render partial: "bars", locals: { bars: @bars.first(20) } %>
   </ul>
 </div>
 
+<br>
+<hr>
+<br>
+
+<script>
+  $.ajax({
+    url: "/bars/dynamic",
+    cache: false,
+    success: function(html){
+      $('ul#bar-index-list').append(html);
+      activateSearch();
+    }
+  })
+
+  function activateSearch() {
+    var listOptions = {
+      valueNames: [ 'name', 'category' ],
+    };
+
+    var wrapperElement = $('#bar-list')
+    var barIndexList = new List(wrapperElement[0], listOptions);
+  }
+</script>

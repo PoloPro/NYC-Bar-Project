@@ -4,6 +4,13 @@ class BarsController < ApplicationController
     @bars = Bar.all.sort_by { |bar| bar.name }
   end
 
+  def dynamic
+    bars = Bar.all.sort_by { |bar| bar.name }
+    render "bars/_bars", 
+        locals: { bars: bars.drop(20) },
+        layout: false
+  end
+
   def show
     @bar = Bar.find(params[:id])
     @reviews = @bar.reviews.reverse unless @bar.reviews.count.zero?
