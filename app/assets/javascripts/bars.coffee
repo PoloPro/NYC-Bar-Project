@@ -1,8 +1,56 @@
 $(document).ready ->
   newReviewListener()
   deleteReviewListener()
+  likeUnlikeButtonListener()
   return
 
+getType = (object) ->
+  if $(object).children().first().children().attr('data-method') == 'post'
+    return 'post'
+  else
+    return 'delete'
+  return
+
+changeLikeText = (response, buttonArea) ->
+  $('.like-btn-message', buttonArea).text(response['like_message'])
+  return
+
+changeLikeImage = (response, buttonArea) ->
+  if response['status'] == 'liked'
+    $('img', buttonArea).attr('src', '/assets/likes/like-glass-full-x-small-reflection-21a1c5c67ca91a920d1d6a83a5bac6aa6c02f2706fcebb1976c2aa0e78f1f891.png') 
+    $('img', buttonArea).attr('alt', 'Like glass full x small reflection')
+  else
+    $('img', buttonArea).attr('src', '/assets/likes/like-glass-empty-x-small-406f1180d66d3418553748b6414f32529f3a32abe9e52d915c3cde9e3868bea9.png')
+    $('img', buttonArea).attr('alt', 'Like glass empty x small')
+  return
+
+changeLikeLink = (response, buttonArea) ->
+  if response['status'] == 'liked'
+    $(buttonArea).children().first().children().attr('data-method', 'destroy')
+    $(buttonArea).children().first().children().attr('href', '/likes/' + response['like']['id'] + '/destroy')
+  else
+    $(buttonArea).children().first().children().attr('data-method', 'post')
+    $(buttonArea).children().first().children().attr('href', '/likes/create?review_id=' + response['like']['review_id'])
+  return
+
+likeUnlikeButtonListener = ->
+  $('.like-btn-area').click (e) ->
+    e.stopPropagation()
+    e.preventDefault()
+    buttonArea = this
+    $.ajax
+      type: getType(this)
+      url: $(this).children().first().children().attr('href')
+      success: (response) ->
+        changeLikeText(response, buttonArea)
+        changeLikeImage(response, buttonArea)
+        changeLikeLink(response, buttonArea)
+        return
+      error: (response) ->
+        alert("There's something amok with the like button")
+        return
+    return
+  return
 
 
 getFormData = ->
