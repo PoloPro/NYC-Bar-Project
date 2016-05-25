@@ -29,7 +29,25 @@
     <%= yield %>
   </div>
 
- 
+  <!-- Hidden achievement div -->
+  <div class="pull hidden-achievement">
+    <div class="notification positive">
+      <div class="flexx-container">
+        <div class="impact">
+          <div class="icon">
+
+          </div>
+        </div>
+        <div class="message-container">
+          <div id="ach-name" class="message">
+            <strong>jQueryScript is online</strong>
+          </div>
+        </div>
+      </div>
+      <h6 id="ach-content">Points: over 9000!</h6>
+    </div>
+  </div>
+
   <div class="container-fluid">
     <%= render "layouts/footer" %>
   </div>

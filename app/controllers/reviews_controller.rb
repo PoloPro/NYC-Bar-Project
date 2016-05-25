@@ -6,7 +6,8 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     if @review.valid?
       @review.save
-      @jsonresponse = {review: @review, user: @review.user}
+      achievements = Achievement.new_review_achievements(@review.user)
+      @jsonresponse = {review: @review, user: @review.user, achievement: achievements }
       render json: @jsonresponse
     else
       render status: 400
@@ -19,7 +20,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      redirect_to bar_path(@review.bar) 
+      redirect_to bar_path(@review.bar)
     else
       render :edit, error: "Invalid review"
     end

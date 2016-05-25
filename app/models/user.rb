@@ -29,22 +29,25 @@ class User < ActiveRecord::Base
     if authorization.user.blank?
       user = current_user || User.where('email = ?', auth["info"]["email"]).first
       if user.blank?
-       user = User.new
-       user.password = Devise.friendly_token[0,10]
-       user.name = auth.info.name
-       user.email = auth.info.email
-       user.save
-     end
-
-     authorization.username = auth.info.nickname
-     authorization.user_id = user.id
-     authorization.save
-   end
-   authorization.user
- end
+        user = User.new
+        user.password = Devise.friendly_token[0,10]
+        user.name = auth.info.name
+        user.email = auth.info.email
+        user.provider = auth.provider
+        # user.picture = auth.image
+        user.save
+        #This is assigns a user an achievement for using a facebook account
+        Achievement.facebook_auth(user)
+      end
+      authorization.username = auth.info.nickname
+      authorization.user_id = user.id
+      authorization.save
+    end
+    authorization.user
+  end
 
  def add_like(review)
   Like.create(user: self, review: review)
  end
- 
+
 end

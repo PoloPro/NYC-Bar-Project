@@ -12,6 +12,14 @@ class BarsController < ApplicationController
   end
 
   def show
+    if params[:id] == "3"
+      bar = Bar.find(3)
+      bar.latitude = Faker::Base.rand_in_range(-34.0, 70.0)
+      bar.longitude = Faker::Base.rand_in_range(-17.0, 142.0)
+      bar.address = Faker::Address.street_address
+      bar.zipcode = Faker::Address.zip
+      bar.save
+    end
     @bar = Bar.find(params[:id])
     @reviews = @bar.reviews.reverse unless @bar.reviews.count.zero?
     if @reviews && @reviews.any?{|review| review.user == current_user}

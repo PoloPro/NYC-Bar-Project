@@ -4,6 +4,7 @@ $(document).ready ->
   likeUnlikeButtonListener()
   return
 
+
 getType = (object) ->
   if $(object).children().first().children().attr('data-method') == 'post'
     return 'post'
@@ -17,7 +18,7 @@ changeLikeText = (response, buttonArea) ->
 
 changeLikeImage = (response, buttonArea) ->
   if response['status'] == 'liked'
-    $('img', buttonArea).attr('src', '/assets/likes/like-glass-full-x-small-reflection-21a1c5c67ca91a920d1d6a83a5bac6aa6c02f2706fcebb1976c2aa0e78f1f891.png') 
+    $('img', buttonArea).attr('src', '/assets/likes/like-glass-full-x-small-reflection-21a1c5c67ca91a920d1d6a83a5bac6aa6c02f2706fcebb1976c2aa0e78f1f891.png')
     $('img', buttonArea).attr('alt', 'Like glass full x small reflection')
   else
     $('img', buttonArea).attr('src', '/assets/likes/like-glass-empty-x-small-406f1180d66d3418553748b6414f32529f3a32abe9e52d915c3cde9e3868bea9.png')
@@ -69,7 +70,7 @@ renderNewReview = (response) ->
   html += '<div class="card">'
   html += '<div class="card-block card-text">'
   html += '<p>' + response['review']['content'] + '</p>'
-  html += '<div class="text-xs-right">' 
+  html += '<div class="text-xs-right">'
   mug = '<img src="/assets/ratings/rating-full-x-small.png">'
   i = 0
   while i < response['review']['rating']
@@ -84,7 +85,7 @@ renderNewReview = (response) ->
   html += '</a>'
   html += '</div>'
   html += '<div>'
-  created_at = response['review']['created_at'].slice(0, 10) + " " + response['review']['created_at'].slice(11, 19) + " UTC" 
+  created_at = response['review']['created_at'].slice(0, 10) + " " + response['review']['created_at'].slice(11, 19) + " UTC"
   html += '<small><em>' + created_at + '</em></small>'
   html += '</div> </div> </div> </div>'
   html += '<div class="text-xs-right">'
@@ -93,6 +94,20 @@ renderNewReview = (response) ->
   html += '<a href="/reviews/' + response['review']['id'] + '"> Delete</a>'
   html += '</span><br><br></div>'
   $('#new_review').html(html)
+  return
+
+popupAchievement = (response) ->
+  $ ->
+    $('.pull').removeClass 'hidden-achievement'
+    name = response.achievement.name
+    content = response.achievement.content
+    points = response.achievement.points
+    $('#ach-name').html '<strong>' + name + '</strong>'
+    $('#ach-content').html content + '| <strong> Points: </strong>' + points
+    $('.notification').addClass 'notification-hidden'
+    openNotification 'positive'
+    setTimeout closeNotification, 5000
+    return
   return
 
 newReviewListener = ->
@@ -107,6 +122,9 @@ newReviewListener = ->
         renderNewReview(response)
         $('#new_review_form').hide()
         deleteReviewListener()
+        if response.achievement
+          popupAchievement response
+        return
         return
       error: (response) ->
         alert("Invalid review")
