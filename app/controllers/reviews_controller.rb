@@ -6,8 +6,9 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     if @review.valid?
       @review.save
-      @achievements = Achievement.new_review_achievements(@review.user)
-      @jsonresponse = {review: @review, user: @review.user, achievement: @achievements }
+      achievements = Achievement.new_review_achievements(@review.user)
+      binding.pry
+      @jsonresponse = {review: @review, user: @review.user, achievement: achievements }
       render json: @jsonresponse
     else
       render status: 400
@@ -27,7 +28,6 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    binding.pry
     @json = @review
     @review.destroy
     render json: @json
