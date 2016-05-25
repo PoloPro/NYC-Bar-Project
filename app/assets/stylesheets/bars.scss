@@ -21,5 +21,41 @@
 }
 
 .bar-index-card {
- border:1px solid #003366; 
+  border:1px solid #003366; 
+}
+
+.bar-index-card:hover {
+  background-color: #5db596;
+}
+
+.btn-primary-outline {
+  border: 2px solid #003366;
+  color: #003366;
+}
+
+.btn-primary-outline:hover {
+  background-color: #003366;
+}
+
+
+.index-search-field {
+  margin-bottom: 0px;
+  line-height: 35px;
+  font-size: 16px;
+  padding: 0px 10px;
+  border: 1px solid #003366; 
+}
+
+.index-search-button {
+  margin-bottom: 0px;
+  line-height: 25px;
+  font-size: 16px;
+}
+
+.bar-card-link {
+  color: inherit;
+}
+
+.bar-card-link:hover {
+  text-decoration: none;
 }

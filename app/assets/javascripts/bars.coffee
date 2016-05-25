@@ -46,6 +46,9 @@ likeUnlikeButtonListener = ->
         changeLikeText(response, buttonArea)
         changeLikeImage(response, buttonArea)
         changeLikeLink(response, buttonArea)
+        if response.achievement
+          popupAchievement(response)
+        return
         return
       error: (response) ->
         alert("There's something amok with the like button")
@@ -108,7 +111,7 @@ newReviewListener = ->
         $('#new_review_form').hide()
         deleteReviewListener()
         if response.achievement
-          popupAchievement response
+          popupAchievement(response)
         return
         return
       error: (response) ->
