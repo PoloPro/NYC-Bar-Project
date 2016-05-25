@@ -2,7 +2,9 @@ class LikesController < ApplicationController
 
   def create
     @like = Like.create(review_id: params[:review_id], user: current_user)
-    render json: {like: @like, like_message: @like.review.like_message(current_user), status: 'liked'}
+    @achievement = Achievement.new_like_achievements(@like)
+    binding.pry
+    render json: {like: @like, like_message: @like.review.like_message(current_user), status: 'liked', achievement: @achievement}
   end
 
   def destroy
