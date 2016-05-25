@@ -50,4 +50,16 @@ class User < ActiveRecord::Base
   Like.create(user: self, review: review)
  end
 
+ def achievement_point_total
+   total = 0
+   self.achievements.each do |ach|
+     total += ach.points
+   end
+   total
+ end
+
+ def total_number_of_achievements
+   self.achievements.count
+ end
+
 end
