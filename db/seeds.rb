@@ -1,11 +1,14 @@
 Achievement.create!([
   {name: "First Review!", content: "You made your first review!", points: 5},
-  {name: "All % boroughs", content: "You have left a review for a bar in all 5 boroughs!", points: 25},
+  {name: "All 5 Boroughs", content: "You have left a review for a bar in all 5 boroughs!", points: 25},
   {name: "5 in 1", content: "You have reviewed 5 bars in one borough!", points: 15},
   {name: "Get Your Review Liked", content: "Get your review liked by any person (besides yourself) and get this achievement!", points: 15},
   {name: "Follow a User", content: "Follow a user and get this achievement!", points: 10},
   {name: "Get a Follow", content: "Get a follow from another user and get this achievement!", points: 20},
-  {name: "Easter Egg Bar", content: "Find the easter egg bar page and get this achievement!", points: 150}
+  {name: "Easter Egg Bar", content: "Find the easter egg bar page and get this achievement!", points: 150},
+  {name: "Facebook Integration", content: "You have signed in with Facebook!", points: 15},
+  {name: "Follow a User", content: "You have followed another user!", points: 15},
+  {name: "Like a Review", content: "You have liked a review!", points: 5}
   ])
 
 Bar.create!([
@@ -19925,7 +19928,7 @@ Neighborhood.create!([
   email = name.delete(" ").downcase + "@flatironschool.com"
   password = Faker::Hipster.word until password && password.length > 5
   user = User.create(name: name, email: email, password: password, picture: Faker::Avatar.image) unless User.all.any?{|user| user.name == name}
-  [rand(6).years, rand(365).days, rand(24).hours, rand(60).minutes, rand(60).seconds].each{|time| user.created_at -= time} 
+  [rand(6).years, rand(365).days, rand(24).hours, rand(60).minutes, rand(60).seconds].each{|time| user.created_at -= time}
 end
 
 User.all.each{|user| User.all.shuffle.first(rand(10)).each{|followee| user.follow(followee)}; user.save}
