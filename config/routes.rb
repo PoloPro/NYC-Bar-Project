@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   post '/users/:id/unfollow', to: 'users#unfollow'
   post '/likes/create', to: 'likes#create', as: 'create_like'
   delete '/likes/:id/destroy', to: 'likes#destroy', as: 'destroy_like'
+  
+  # Dynamic loading routes
+  get '/bars/dynamic', to: "bars#dynamic"
+  get '/categories/dynamic', to: "categories#dynamic"
+
   devise_for :users, controllers: { omniauth_callbacks: "callbacks", registrations: 'users/registrations' }
   resources :categories
   resources :boroughs

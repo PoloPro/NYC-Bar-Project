@@ -43,6 +43,7 @@ likeUnlikeButtonListener = ->
       type: getType(this)
       url: $(this).children().first().children().attr('href')
       success: (response) ->
+        debugger
         changeLikeText(response, buttonArea)
         changeLikeImage(response, buttonArea)
         changeLikeLink(response, buttonArea)

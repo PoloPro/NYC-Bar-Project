@@ -1,19 +1,74 @@
 
 <!-- <em>There are currently <strong><%= @bars.count %></strong> bars in the database.</em> -->
 
-<div id="bar-list">
-
-  <!-- Search bar for filtering bars -->
-  <input class="search" placeholder="Search">
-  <button class="sort" data-sort="name">Sort by name</button>
-  <button class="sort" data-sort="category">Sort by category</button>
-
+<div id="loading-gif-area" class="text-xs-center">
+  <%= image_tag "loading/alternate-loading-bars.gif", alt: "loading bars", class: "loading-gif" %>
   <br>
-  <hr>
-
-  <!-- List for filtering -->
-  <ul class="list infinite-list">
-    <%= render partial: "bars", locals: { bars: @bars } %>
-  </ul>
 </div>
 
+<div id="bar-search-area">
+  <div class="jumbotron">
+
+  <h1 class="montserrat">Choose a bar</h1>
+
+    <hr>
+    <!-- Search bar for filtering bars -->
+    <input class="search" placeholder="Search">
+    <button class="sort" data-sort="name">Sort by name</button>
+    <button class="sort" data-sort="category">Sort by category</button>
+
+    <br>
+
+    <!-- List for filtering -->
+    <ul class="list" id="bar-index-list">
+      <%= render partial: "bars", locals: { bars: @bars.first(10) } %>
+    </ul>
+    <hr>
+  </div>
+</div>
+
+<br>
+<br>
+
+<script>
+
+  // Hide the loading gif immediately
+  $('#loading-gif-area').hide();
+  $('#bar-search-area').hide();
+
+  $(document).ready(function() {
+    activateSearch()
+    loadRemainingBars();
+  })
+
+  // Attach listeners for AJAX requests starting and ending
+  $(document)
+  .ajaxStart(function() {
+    $('#loading-gif-area').fadeIn(1000);
+  })
+  .ajaxComplete(function() {
+    $('#loading-gif-area').hide();
+    $('#bar-search-area').show();
+  })
+
+  function loadRemainingBars() {
+    $.ajax({
+      url: "/bars/dynamic",
+      cache: false,
+      success: function(html){
+        $.when($('#bar-index-list').append(html)).then(activateSearch());
+      }
+    })
+  }
+
+  function activateSearch() {
+    var listOptions = {
+      valueNames: [ 'name', 'category' ],
+    };
+
+    var wrapperElement = $('#bar-search-area')
+    var barIndexList = new List(wrapperElement[0], listOptions);
+
+  }
+
+</script>

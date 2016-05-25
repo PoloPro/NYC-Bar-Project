@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   protect_from_forgery except: :show
   # GET /users/1
   def show
-    @reviews = @user.reviews.sort_by{|r| r.likes.count}
+    @reviews = @user.reviews.sort_by{|r| r.likes.count}.reverse
     respond_to :html, :js
   end
 
@@ -33,6 +33,9 @@ class UsersController < ApplicationController
 
   def follow
     @current_user.follow(@user)
+    @follow = Follow.find_by(follower: @current_user, followable: @user)
+    @achievement = Achievement.new_follow_achievements(@follow)
+    binding.pry
     respond_to :js
   end
 
