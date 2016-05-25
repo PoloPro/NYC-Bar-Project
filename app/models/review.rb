@@ -12,7 +12,7 @@ class Review < ActiveRecord::Base
   end
 
   def like_message(current_user)
-    if !liked_by?(current_user) && likes.count > 2
+    if !liked_by?(current_user) && likes.count > 1
       "#{likes.count} people like this."
     elsif !liked_by?(current_user) && likes.count == 1
       "1 person likes this."
