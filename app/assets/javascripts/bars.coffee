@@ -43,7 +43,6 @@ likeUnlikeButtonListener = ->
       type: getType(this)
       url: $(this).children().first().children().attr('href')
       success: (response) ->
-        debugger
         changeLikeText(response, buttonArea)
         changeLikeImage(response, buttonArea)
         changeLikeLink(response, buttonArea)
@@ -66,8 +65,7 @@ getFormData = ->
 
 renderNewReview = (response) ->
   html = ""
-  html += '<div class="card-outer-border">'
-  html += '<div class="card">'
+  html += '<div class="review card card-outer-border">'
   html += '<div class="card-block card-text">'
   html += '<p>' + response['review']['content'] + '</p>'
   html += '<div class="text-xs-right">'
@@ -87,27 +85,14 @@ renderNewReview = (response) ->
   html += '<div>'
   created_at = response['review']['created_at'].slice(0, 10) + " " + response['review']['created_at'].slice(11, 19) + " UTC"
   html += '<small><em>' + created_at + '</em></small>'
-  html += '</div> </div> </div> </div>'
+  html += '</div> </div> </div>'
+
   html += '<div class="text-xs-right">'
   html += '<a href="/reviews/' + response['review']['id'] + '/edit"> Edit</a>'
   html += '<span id="ajax_page_delete_review" class="delete_review">'
   html += '<a href="/reviews/' + response['review']['id'] + '"> Delete</a>'
   html += '</span><br><br></div>'
   $('#new_review').html(html)
-  return
-
-popupAchievement = (response) ->
-  $ ->
-    $('.pull').removeClass 'hidden-achievement'
-    name = response.achievement.name
-    content = response.achievement.content
-    points = response.achievement.points
-    $('#ach-name').html '<strong>' + name + '</strong>'
-    $('#ach-content').html content + '| <strong> Points: </strong>' + points
-    $('.notification').addClass 'notification-hidden'
-    openNotification 'positive'
-    setTimeout closeNotification, 5000
-    return
   return
 
 newReviewListener = ->

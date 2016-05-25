@@ -35,7 +35,6 @@ class UsersController < ApplicationController
     @current_user.follow(@user)
     @follow = Follow.find_by(follower: @current_user, followable: @user)
     @achievement = Achievement.new_follow_achievements(@follow)
-    binding.pry
     respond_to :js
   end
 
