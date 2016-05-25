@@ -7,7 +7,7 @@ class BarsController < ApplicationController
   def dynamic
     bars = Bar.all.sort_by { |bar| bar.name }
     render "bars/_bars", 
-        locals: { bars: bars.drop(20) },
+        locals: { bars: bars.drop(50) },
         layout: false
   end
 

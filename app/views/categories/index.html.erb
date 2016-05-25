@@ -1,4 +1,4 @@
-<div id="category-list">
+<div id="category-search-area">
 
   <!-- Search bar for filtering bars -->
   <input class="search" placeholder="Search">
@@ -8,13 +8,30 @@
   <hr>
 
   <!-- List for filtering -->
-  <ul class="list infinite-list">
-    <% @categories.each do |category| %>
-    <a href="<%= category_path(category) %>" style="color: inherit">
-      <div class="card card-block">
-        <h4 class="name"><%= category.name %></h4>
-      </div>
-    </a>
-    <% end %>
+  <ul class="list" id="category-index-list">
+  <%= render partial: "categories", locals: { categories: @categories.first(20) } %>
   </ul>
 </div>
+
+<br>
+<hr>
+<br>
+
+<script>
+  $.ajax({
+    url: "/categories/dynamic",
+    cache: false,
+    success: function(html){
+      $.when($('#category-index-list').append(html)).then(activateSearch());
+    }
+  })
+
+  function activateSearch() {
+    var listOptions = {
+      valueNames: [ 'name' ],
+    };
+
+    var wrapperElement = $('#category-search-area')
+    var categoryIndexList = new List(wrapperElement[0], listOptions);
+  }
+</script>

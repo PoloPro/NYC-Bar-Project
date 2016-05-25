@@ -1,7 +1,7 @@
 
 <!-- <em>There are currently <strong><%= @bars.count %></strong> bars in the database.</em> -->
 
-<div id="bar-list">
+<div id="bar-search-area">
 
   <!-- Search bar for filtering bars -->
   <input class="search" placeholder="Search">
@@ -13,7 +13,7 @@
 
   <!-- List for filtering -->
   <ul class="list" id="bar-index-list">
-    <%= render partial: "bars", locals: { bars: @bars.first(20) } %>
+    <%= render partial: "bars", locals: { bars: @bars.first(50) } %>
   </ul>
 </div>
 
@@ -26,7 +26,7 @@
     url: "/bars/dynamic",
     cache: false,
     success: function(html){
-      $('ul#bar-index-list').append(html);
+      $('#bar-index-list').append(html);
       activateSearch();
     }
   })
@@ -36,7 +36,7 @@
       valueNames: [ 'name', 'category' ],
     };
 
-    var wrapperElement = $('#bar-list')
+    var wrapperElement = $('#bar-search-area')
     var barIndexList = new List(wrapperElement[0], listOptions);
   }
 </script>
