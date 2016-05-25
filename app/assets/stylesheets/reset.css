@@ -1,0 +1,188 @@
+*,
+*:before,
+*:after { box-sizing: border-box; }
+
+.again {
+  text-align: center;
+  width: 200px;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  padding: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: #404040;
+  cursor: pointer;
+}
+
+.hidden-achievement{
+  z-index: -1;
+}
+
+.pull {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  -webkit-perspective: 250px;
+  perspective: 250px;
+  -webkit-perspective-origin: right center;
+  perspective-origin: right center;
+  -webkit-transition: -webkit-perspective .1s ease;
+  transition: perspective .1s ease;
+}
+
+.pull.open {
+  -webkit-perspective: 500px;
+  perspective: 500px;
+}
+
+.notification {
+  z-index: 4;
+  opacity: 0;
+  visibility: hidden;
+  width: 100px;
+  min-height: 42px;
+  margin: 20px auto 70px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  -webkit-transition: opacity .5s ease-out, -webkit-transform .35s ease, width .5s ease;
+  transition: opacity .5s ease-out, transform .35s ease, width .5s ease;
+  white-space: nowrap;
+}
+
+.notification.show { visibility: visible; }
+
+.notification.negative .impact,
+.notification.warning .impact { height: 81px; }
+
+.notification.positive {
+  -webkit-transform: translate3d(0, 0, -60px) rotateY(-40deg);
+  transform: translate3d(0, 0, -60px) rotateY(-40deg);
+}
+
+.notification.positive .fa { background-color: #6441A5; }
+
+.notification.open--rot {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0) rotateY(0deg);
+  transform: translate3d(0, 0, 0) rotateY(0deg);
+  width: 100px;
+}
+
+.notification.open--rot.open--width { width: 360px; }
+
+.notification.open--rot.open--width .message-container { width: 260px; }
+
+.notification.open--rot h1 img { display: inline-block; }
+
+.notification .flexx-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: no-wrap;
+  -ms-flex-wrap: no-wrap;
+  flex-wrap: no-wrap;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-transition: -webkit-transform .35s ease;
+  transition: transform .35s ease;
+  -webkit-transform: translate3d(0, 45px, 0);
+  transform: translate3d(0, 45px, 0);
+}
+
+.notification .flexx-container.drop-down {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.notification .impact {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  z-index: 2;
+  width: 100px;
+  height: 88px;
+  background-color: #6441A5;
+}
+
+.notification .impact .icon { margin: auto; }
+
+.notification .impact .fa {
+  color: #ffffff;
+  text-align: center;
+  font-size: 46px;
+}
+
+.notification .message-container {
+  background-color: #ffffff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 0;
+  overflow: hidden;
+  -webkit-transition: width .5s ease;
+  transition: width .5s ease;
+}
+
+.notification .message {
+  width: 260px;
+  padding: 15px 10px 13px;
+  margin: auto;
+  white-space: nowrap;
+}
+
+.notification .message p {
+  font-size: 12px;
+  line-height: 145%;
+  margin-bottom: 0;
+  color: #404040;
+}
+
+.notification .message strong {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.notification h1 {
+  background-color: #432b6e;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  height: 45px;
+  padding: 10px;
+  position: relative;
+  z-index: -1;
+  overflow: hidden;
+  -webkit-transition: background .25s ease;
+  transition: background .25s ease;
+}
+
+.notification h1 img {
+  height: 25px;
+  width: 25px;
+  margin: 0 5px;
+  vertical-align: middle;
+  display: none;
+}
+
+.notification h1:hover { background-color: #4e3380; }
+
+.notification-hidden { display: none; }

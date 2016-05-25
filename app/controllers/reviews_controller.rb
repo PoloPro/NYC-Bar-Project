@@ -7,7 +7,6 @@ class ReviewsController < ApplicationController
     if @review.valid?
       @review.save
       achievements = Achievement.new_review_achievements(@review.user)
-      binding.pry
       @jsonresponse = {review: @review, user: @review.user, achievement: achievements }
       render json: @jsonresponse
     else

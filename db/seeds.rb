@@ -1,3 +1,13 @@
+Achievement.create!([
+  {name: "First Review!", content: "You made your first review!", points: 5},
+  {name: "All % boroughs", content: "You have left a review for a bar in all 5 boroughs!", points: 25},
+  {name: "5 in 1", content: "You have reviewed 5 bars in one borough!", points: 15},
+  {name: "Get Your Review Liked", content: "Get your review liked by any person (besides yourself) and get this achievement!", points: 15},
+  {name: "Follow a User", content: "Follow a user and get this achievement!", points: 10},
+  {name: "Get a Follow", content: "Get a follow from another user and get this achievement!", points: 20},
+  {name: "Easter Egg Bar", content: "Find the easter egg bar page and get this achievement!", points: 150}
+  ])
+
 Bar.create!([
   {name: "Sid Gold's Request Room", address: "165 W 26th St", latitude: "40.7459685", longitude: "-73.9935866", yelp_id: "sid-golds-request-room-new-york", yelp_rating: 4.5, zipcode: "10001", neighborhood_id: 5},
   {name: "The Heath", address: "542 W 27th St", latitude: "40.7507169", longitude: "-74.0041643", yelp_id: "the-heath-new-york", yelp_rating: 4.5, zipcode: "10001", neighborhood_id: 5},
@@ -19911,7 +19921,7 @@ Neighborhood.create!([
   ])
 
 50.times do
-  name = Faker::Name.name 
+  name = Faker::Name.name
   email = name.delete(" ").downcase + "@flatironschool.com"
   password = Faker::Hipster.word until password && password.length > 5
   User.create(name: name, email: email, password: password, picture: Faker::Avatar.image) unless User.all.any?{|user| user.name == name}

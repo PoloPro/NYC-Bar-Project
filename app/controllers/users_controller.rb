@@ -61,12 +61,11 @@ class UsersController < ApplicationController
 
     def validate_authorization_for_user
      redirect_to root_path unless @user == current_user
-   end
+    end
 
     # 2015-07-23 RICHARD: Added to implement strong parameters
     def user_params
       params.require(:user).permit(:name, :username, :email, :picture, :admin, :provider, :of_age)
     end
 
-  end
-
+end

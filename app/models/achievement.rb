@@ -5,15 +5,18 @@ class Achievement < ActiveRecord::Base
   def self.facebook_auth(user)
     if user.provider == "facebook"
       user.achievements << Achievement.find_by(name: "Facebook Integration")
+      user.save
     end
   end
 
   def self.first_review(user)
-    if user.reviews.count == 1 && !user.achievements.include?(Achievement.find_by(name: "First Review!"))
+    if user.reviews.count > 0 && !user.achievements.include?(Achievement.find_by(name: "First Review!"))
       new_achievement = Achievement.find_by(name: "First Review!")
       user.achievements << new_achievement
       user.save
       new_achievement
+    else
+      nil
     end
   end
 
@@ -21,12 +24,13 @@ class Achievement < ActiveRecord::Base
     array = user.reviews.map do |review|
       review.bar.neighborhood.borough
     end
-    array.compact!.uniq!
+    array.compact!
+    array.uniq!
     if array.count == 5 && !user.achievements.include?(Achievement.find_by(name: "All 5 Boroughs"))
       new_achievement = Achievement.find_by(name: "All 5 Boroughs")
       user.achievements << new_achievement
       user.save
-      new_achievement
+      return new_achievement
     else
       nil
     end
@@ -54,7 +58,7 @@ class Achievement < ActiveRecord::Base
       if bool == true
         user.achievements << new_achievement
         user.save
-        new_achievement
+        return new_achievement
       end
     else
       nil
@@ -62,11 +66,14 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.new_review_achievements(user)
-    array = []
-    array << self.first_review(user)
-    array << self.review_in_all_boroughs(user)
-    array << self.five_reviews_in_one_borough(user)
-    array.compact!
+    achievement = nil
+    achievement = self.first_review(user)
+    achievement2 = self.review_in_all_boroughs(user)
+    achievement =  achievement2 if achievement2 != nil
+    achivement3 = self.five_reviews_in_one_borough(user)
+    achievement = achivement3 if achivement3 != nil
+    binding.pry
+    return achievement
   end
 
 end
