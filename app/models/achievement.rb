@@ -33,7 +33,7 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.like_review_achievement(like)
-    achievement = Achievement.find_by(name: "Like a Review") 
+    achievement = Achievement.find_by(name: "Like a Review")
     if like.user.likes.count == 1 && like.review.user != like.user && !like.user.achievements.include?(achievement)
       like.user.achievements << achievement
       like.user.save
@@ -104,14 +104,14 @@ class Achievement < ActiveRecord::Base
     achievement = self.first_review(user)
     achievement2 = self.review_in_all_boroughs(user)
     achievement =  achievement2 if achievement2 != nil
-    achivement3 = self.five_reviews_in_one_borough(user)
-    achievement = achivement3 if achivement3 != nil
+    achievement3 = self.five_reviews_in_one_borough(user)
+    achievement = achievement3 if achievement3 != nil
     binding.pry
     return achievement
   end
 
   def self.new_like_achievements(like)
-    review_liked_achievement(like) 
+    review_liked_achievement(like)
     like_review_achievement(like)
   end
 
@@ -122,7 +122,7 @@ class Achievement < ActiveRecord::Base
       achievement
     else
       nil
-    end 
+    end
   end
 
   def self.follow_user_achievement(follow)
@@ -132,7 +132,7 @@ class Achievement < ActiveRecord::Base
       achievement
     else
       nil
-    end 
+    end
   end
 
   def self.new_follow_achievements(follow)
