@@ -35,7 +35,6 @@ class BarsController < ApplicationController
     barname = params[:barname]
     bar = Bar.find_by(name: barname)
     achievement = Achievement.nomad_bar_achievement(current_user, bar)
-    binding.pry
     render :json => {achievement: achievement}
   end
 

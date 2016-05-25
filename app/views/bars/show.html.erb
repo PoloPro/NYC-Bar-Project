@@ -130,7 +130,6 @@ $(document).ready(function(){
       dataType: 'JSON',
       data: {barname: barname},
     }).done(function(response){
-      debugger
       if (response.achievement) {
         popupAchievement(response)
       }
