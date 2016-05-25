@@ -9,15 +9,19 @@
 <div id="bar-search-area">
   <div class="jumbotron">
 
-  <h1 class="montserrat">Choose a bar</h1>
+    <h1 class="montserrat" style="color: #003366">Choose a bar</h1>
 
     <hr>
     <!-- Search bar for filtering bars -->
-    <input class="search" placeholder="Search">
-    <button class="sort" data-sort="name">Sort by name</button>
-    <button class="sort" data-sort="category">Sort by category</button>
-
-    <br>
+    <div class="row">
+      <div class="col-xs-6">
+        <input class="search index-search-field card" placeholder="Search">
+      </div>
+      <div class="col-xs-6 text-xs-right">
+        <button class="sort btn btn-sm btn-primary-outline index-search-button" data-sort="name">Sort by name</button>
+        <button class="sort btn btn-sm btn-primary-outline index-search-button" data-sort="category">Sort by category</button>
+      </div>
+    </div>
 
     <!-- List for filtering -->
     <ul class="list" id="bar-index-list">
