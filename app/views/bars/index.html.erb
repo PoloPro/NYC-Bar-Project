@@ -1,6 +1,11 @@
 
 <!-- <em>There are currently <strong><%= @bars.count %></strong> bars in the database.</em> -->
 
+<div id="loading-gif-area" class="text-xs-center">
+  <%= image_tag "loading/alternate-loading-bars.gif", alt: "loading bars", class: "loading-gif" %>
+  <br>
+</div>
+
 <div id="bar-search-area">
 
   <!-- Search bar for filtering bars -->
@@ -13,23 +18,44 @@
 
   <!-- List for filtering -->
   <ul class="list" id="bar-index-list">
-    <%= render partial: "bars", locals: { bars: @bars.first(50) } %>
+    <%= render partial: "bars", locals: { bars: @bars.first(10) } %>
   </ul>
+  <hr>
 </div>
 
 <br>
-<hr>
 <br>
 
 <script>
-  $.ajax({
-    url: "/bars/dynamic",
-    cache: false,
-    success: function(html){
-      $('#bar-index-list').append(html);
-      activateSearch();
-    }
+
+  // Hide the loading gif immediately
+  $('#loading-gif-area').hide();
+  $('#bar-search-area').hide();
+
+  $(document).ready(function() {
+    activateSearch()
+    loadRemainingBars();
   })
+
+  // Attach listeners for AJAX requests starting and ending
+  $(document)
+  .ajaxStart(function() {
+    $('#loading-gif-area').fadeIn(1000);
+  })
+  .ajaxComplete(function() {
+    $('#loading-gif-area').hide();
+    $('#bar-search-area').show();
+  })
+
+  function loadRemainingBars() {
+    $.ajax({
+      url: "/bars/dynamic",
+      cache: false,
+      success: function(html){
+        $.when($('#bar-index-list').append(html)).then(activateSearch());
+      }
+    })
+  }
 
   function activateSearch() {
     var listOptions = {
@@ -38,5 +64,7 @@
 
     var wrapperElement = $('#bar-search-area')
     var barIndexList = new List(wrapperElement[0], listOptions);
+
   }
+
 </script>

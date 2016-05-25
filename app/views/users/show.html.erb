@@ -12,9 +12,13 @@
 
 <% if @user == current_user %>
 <p><strong>Email: </strong><%= @user.email %></p>
+<p><strong>Profile Picture URL: </strong><%= "No profile picture uploaded" unless @user.picture %></p>
 <%= link_to 'Edit Your Profile', edit_user_path(@user) %>
 <% else%>
 <% end %>
+
+<hr>
+<br>
 
 <div class="row">
   <div class="col-sm-6">

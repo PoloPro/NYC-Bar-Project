@@ -9,7 +9,7 @@
 
   <!-- List for filtering -->
   <ul class="list" id="category-index-list">
-  <%= render partial: "categories", locals: { categories: @categories.first(20) } %>
+    <%= render partial: "categories", locals: { categories: @categories.first(20) } %>
   </ul>
 </div>
 
@@ -18,13 +18,21 @@
 <br>
 
 <script>
-  $.ajax({
-    url: "/categories/dynamic",
-    cache: false,
-    success: function(html){
-      $.when($('#category-index-list').append(html)).then(activateSearch());
-    }
+
+  $(document).ready(function() {
+    activateSearch()
+    loadRemainingBars();
   })
+
+  function loadRemainingBars() {
+    $.ajax({
+      url: "/categories/dynamic",
+      cache: false,
+      success: function(html){
+        $.when($('#category-index-list').append(html)).then(activateSearch());
+      }
+    })
+  }
 
   function activateSearch() {
     var listOptions = {
@@ -32,6 +40,7 @@
     };
 
     var wrapperElement = $('#category-search-area')
-    var categoryIndexList = new List(wrapperElement[0], listOptions);
+    var barIndexList = new List(wrapperElement[0], listOptions);
   }
+  
 </script>
