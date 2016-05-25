@@ -1,10 +1,10 @@
 $(document).ready(function() {
 
   var listOptions = {
-    valueNames: [ 'name' ],
+    valueNames: [ 'name' ]
   };
 
-  var wrapperElement = $('#category-list')
-  var barIndexList = new List(wrapperElement[0], listOptions);
+  var wrapperElement = $('#category-search-area')
+  var categoryIndexList = new List(wrapperElement[0], listOptions);
 
 })
