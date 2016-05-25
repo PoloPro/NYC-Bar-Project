@@ -9,6 +9,6 @@ class LikesController < ApplicationController
     @like = Like.find(params[:id])
     @unliked_like = @like
     @like.destroy
-    render json: {like: @unliked_like, like_message: @like.review.like_message(current_user), status: 'unliked'}
+    render json: {like: @unliked_like, like_message: @unliked_like.review.like_message(current_user), status: 'unliked'}
   end
 end
