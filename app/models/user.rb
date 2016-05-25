@@ -42,5 +42,9 @@ class User < ActiveRecord::Base
    end
    authorization.user
  end
+
+ def add_like(review)
+  Like.create(user: self, review: review)
+ end
  
 end

@@ -52,7 +52,6 @@ likeUnlikeButtonListener = ->
     return
   return
 
-
 getFormData = ->
   review = {}
   review['rating'] = $('#review_rating').val()
@@ -147,9 +146,3 @@ deleteReviewListener = ->
       e.preventDefault()
       return
   return
-
-newReviewListener = ->
-  $('#new_review_form').submit (e) ->
-    e.stopPropagation()
-    e.preventDefault()
-    $.ajax

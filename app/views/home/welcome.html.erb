@@ -191,7 +191,7 @@ var initMapgl = function() {
         //THIS IS WHERE THE HEROKU ERROR HAPPENS
         var tooltip = new mapboxgl.Popup({closeOnClick: true})
         .setLngLat([response.longitude, response.latitude])
-        .setHTML('<center><h6>' + response.name +'</h6><p>' + response.address + " | <strong>Neighborhood: </strong>" + neighborhoodLabel + '</p><hr>' + subwaylist + '</center>')
+        .setHTML('<center><a href="/bars/'+ response.id + '"><h6>' + response.name +'</h6></a><p>' + response.address + " | <strong>Neighborhood: </strong>" + neighborhoodLabel + '</p><hr>' + subwaylist + '</center>')
         .addTo(mapgl);
         // either create a popup on the map at the bar location
         // or drop down a card with the bar included
