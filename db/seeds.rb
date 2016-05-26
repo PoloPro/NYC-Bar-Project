@@ -1,14 +1,13 @@
 Achievement.create!([
-  {name: "First Review!", content: "You made your first review!", points: 5},
-  {name: "All 5 Boroughs", content: "You have left a review for a bar in all 5 boroughs!", points: 25},
-  {name: "5 in 1", content: "You have reviewed 5 bars in one borough!", points: 15},
-  {name: "Get Your Review Liked", content: "Get your review liked by any person (besides yourself) and get this achievement!", points: 15},
-  {name: "Follow a User", content: "Follow a user and get this achievement!", points: 10},
-  {name: "Get a Follow", content: "Get a follow from another user and get this achievement!", points: 20},
-  {name: "Easter Egg Bar", content: "Find the easter egg bar page and get this achievement!", points: 150},
-  {name: "Facebook Integration", content: "You have signed in with Facebook!", points: 15},
-  {name: "Follow a User", content: "You have followed another user!", points: 15},
-  {name: "Like a Review", content: "You have liked a review!", points: 5}
+  {name: "Just Getting Started", content: "Submitted your first review", points: 5},
+  {name: "Island Hopping", content: "Left a bar review in all 5 boroughs", points: 25},
+  {name: "Pentakill", content: "Reviewed 5 bars in one borough", points: 15},
+  {name: "Pulitzer", content: "Have one of your reviews liked", points: 15},
+  {name: "Fame and Fortune", content: "Have someone follow you", points: 20},
+  {name: "Globetrotter", content: "Found the traveling bar", points: 150},
+  {name: "The Social Network", content: "Signed in with Facebook", points: 15},
+  {name: "Glorychaser", content: "Followed another user", points: 15},
+  {name: "Cheers", content: "Liked another user's review", points: 5}
   ])
 
 Bar.create!([

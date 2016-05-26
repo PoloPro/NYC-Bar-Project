@@ -4,14 +4,14 @@ class Achievement < ActiveRecord::Base
 
   def self.facebook_auth(user)
     if user.provider == "facebook"
-      user.achievements << Achievement.find_by(name: "Facebook Integration")
+      user.achievements << Achievement.find_by(name: "The Social Network")
       user.save
     end
   end
 
   def self.first_review(user)
-    if user.reviews.count > 0 && !user.achievements.include?(Achievement.find_by(name: "First Review!"))
-      new_achievement = Achievement.find_by(name: "First Review!")
+    if user.reviews.count > 0 && !user.achievements.include?(Achievement.find_by(name: "Just Getting Started"))
+      new_achievement = Achievement.find_by(name: "Just Getting Started")
       user.achievements << new_achievement
       user.save
       new_achievement
@@ -21,7 +21,7 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.nomad_bar_achievement(user, bar)
-    achievement = Achievement.find_by(name: "Easter Egg Bar")
+    achievement = Achievement.find_by(name: "Globetrotter")
     if bar == Bar.find_by(name: "The NoMad Bar") && !user.achievements.include?(achievement)
       user.achievements << achievement
       user.save
@@ -32,7 +32,7 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.like_review_achievement(like)
-    achievement = Achievement.find_by(name: "Like a Review")
+    achievement = Achievement.find_by(name: "Cheers")
     if like.user.likes.count == 1 && like.review.user != like.user && !like.user.achievements.include?(achievement)
       like.user.achievements << achievement
       like.user.save
@@ -49,8 +49,8 @@ class Achievement < ActiveRecord::Base
     end
     array.compact!
     array.uniq!
-    if array.count == 5 && !user.achievements.include?(Achievement.find_by(name: "All 5 Boroughs"))
-      new_achievement = Achievement.find_by(name: "All 5 Boroughs")
+    if array.count == 5 && !user.achievements.include?(Achievement.find_by(name: "Island Hopping"))
+      new_achievement = Achievement.find_by(name: "Island Hopping")
       user.achievements << new_achievement
       user.save
       return new_achievement
@@ -60,7 +60,7 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.review_liked_achievement(like)
-    achievement = Achievement.find_by(name: "Get Your Review Liked")
+    achievement = Achievement.find_by(name: "Pulitzer")
     if like.review.user.reviews.map{|r| r.likes.count}.inject(0, :+) == 1 && like.review.user != like.user && !like.review.user.achievements.include?(achievement)
       like.review.user.achievements << achievement; like.review.user.save; achievement.save
       achievement
@@ -70,7 +70,7 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.five_reviews_in_one_borough(user)
-    new_achievement = Achievement.find_by(name: "5 in 1")
+    new_achievement = Achievement.find_by(name: "Pentakill")
     if !user.achievements.include?(new_achievement)
       hash = {}
       bool = false
@@ -115,7 +115,7 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.get_follow_achievement(follow)
-    achievement = Achievement.find_by(name: "Get a Follow")
+    achievement = Achievement.find_by(name: "Fame and Fortune")
     if follow.followable.followers.count == 1 && !follow.followable.achievements.include?(achievement)
       follow.followable.achievements << achievement; follow.followable.save; achievement.save
       achievement
@@ -125,7 +125,7 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.follow_user_achievement(user)
-    achievement = Achievement.find_by(name: "Follow a User")
+    achievement = Achievement.find_by(name: "Glorychaser")
     if user.follows.count > 0 && !user.achievements.include?(achievement)
       user.achievements << achievement
       user.save
