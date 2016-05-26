@@ -9,7 +9,7 @@ Achievement.create!([
   {name: "Follow the Crowd", content: "Followed two other users", points: 15},
   {name: "Cheers", content: "Liked another user's review", points: 5}
   ])
-
+puts "finished achievements"
 Bar.create!([
   {name: "Sid Gold's Request Room", address: "165 W 26th St", latitude: "40.7459685", longitude: "-73.9935866", yelp_id: "sid-golds-request-room-new-york", yelp_rating: 4.5, zipcode: "10001", neighborhood_id: 5},
   {name: "The Heath", address: "542 W 27th St", latitude: "40.7507169", longitude: "-74.0041643", yelp_id: "the-heath-new-york", yelp_rating: 4.5, zipcode: "10001", neighborhood_id: 5},
@@ -2181,6 +2181,8 @@ Bar.create!([
   {name: "Koyla Hookah Lounge & Cafe", address: "265-17 Union Tpke", latitude: "40.7494238", longitude: "-73.7075558", yelp_id: "koyla-hookah-lounge-and-cafe-new-hyde-park", yelp_rating: 4.0, zipcode: "11040", neighborhood_id: 154},
   {name: "Fino Wine & Tapas", address: "39-13 Bell Blvd", latitude: "40.764961", longitude: "-73.77138099999999", yelp_id: "fino-wine-and-tapas-bayside", yelp_rating: 4.0, zipcode: "11361", neighborhood_id: 38}
   ])
+  puts 'finished bars'
+  puts 'started bar, category relationship'
 Bar::HABTM_Categories.create!([
   {bar_id: 1, category_id: 1},
   {bar_id: 2, category_id: 2},
@@ -10855,6 +10857,7 @@ Bar::HABTM_Categories.create!([
   {bar_id: 2168, category_id: 21},
   {bar_id: 2169, category_id: 2}
   ])
+  puts 'started boroughs'
 Borough.create!([
   {name: "Queens"},
   {name: "Brooklyn"},
@@ -10862,6 +10865,7 @@ Borough.create!([
   {name: "Manhattan"},
   {name: "Staten Island"}
   ])
+  puts 'started categories'
 Category.create!([
   {name: "Wine Bars"},
   {name: "Bars"},
@@ -11007,6 +11011,7 @@ Category.create!([
   {name: "Swimming Pools"},
   {name: "Marinas"}
   ])
+  puts 'more bar and category relationships'
 Category::HABTM_Bars.create!([
   {bar_id: 1, category_id: 1},
   {bar_id: 2, category_id: 2},
@@ -19681,6 +19686,7 @@ Category::HABTM_Bars.create!([
   {bar_id: 2168, category_id: 21},
   {bar_id: 2169, category_id: 2}
   ])
+  puts 'started neighborhoods'
 Neighborhood.create!([
   {name: "Hell's Kitchen", borough_id: 4},
   {name: "Upper Manhattan", borough_id: 4},
@@ -19921,7 +19927,7 @@ Neighborhood.create!([
   {name: "Shanghai", borough_id: nil},
   {name: "Roselle Park", borough_id: nil}
   ])
-
+puts 'started Faker functions'
 50.times do
   name = Faker::Name.name
   email = name.delete(" ").downcase + "@flatironschool.com"

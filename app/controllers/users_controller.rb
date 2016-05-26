@@ -53,6 +53,10 @@ class UsersController < ApplicationController
     render :json => {achievement: achievement}
   end
 
+  def facebook_achievement
+    achievement = Achievement.facebook_auth(current_user)
+    render :json => {achievement: achievement}
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
