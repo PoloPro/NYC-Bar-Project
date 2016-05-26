@@ -22,5 +22,14 @@
 
 .header-align{
   position: relative;
-  top: 20px;
+  top: 30px;
+}
+
+.flexy {
+  display: flex;
+}
+
+.flex-center {
+  align-self: center;
+  margin: 0px 0px;
 }
