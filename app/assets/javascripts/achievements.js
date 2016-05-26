@@ -13,7 +13,7 @@ function openNotification(whichNotification) {
 
     setTimeout(function(){
       openNotification.find('.flexx-container').addClass('drop-down');
-      $('#ach-needs-backgroud').attr("style", "background-colo: white;");
+      $('#ach-needs-backgroud').attr("style", "background-color: white;");
     }, 1500);
 
     $('body').append('<div class="overlay"></div>');
