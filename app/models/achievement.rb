@@ -121,7 +121,7 @@ class Achievement < ActiveRecord::Base
     achievement = Achievement.find_by(name: "Fame and Fortune")
     user.follows.each do |follow|
       person = User.find(follow.followable_id)
-      if person.followers.count > 0 && !person.achievements.include?(achievement)
+      if !person.achievements.include?(achievement)
         person.achievements << achievement
         person.save
       else
