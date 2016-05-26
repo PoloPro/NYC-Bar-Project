@@ -48,6 +48,7 @@
       </div>
     </a>
     <% end %>
+
     <% end %>
   </div>
 
@@ -81,6 +82,19 @@
 <br>
 <br>
 <hr>
-
-
-
+<!--followbuttonachiementlistener-->
+<script>
+  $(document).ready(function(){
+    $('.follow-button-area').click(function(){
+      $.ajax({
+        url: '/users/follow_user_achievement',
+        type: 'get',
+        dataType: 'JSON',
+      }).done(function(response){
+        if (response.achievement) {
+          popupAchievement(response)
+        }
+      })
+    })
+  })
+</script>

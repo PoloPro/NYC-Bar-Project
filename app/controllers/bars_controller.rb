@@ -6,7 +6,7 @@ class BarsController < ApplicationController
 
   def dynamic
     bars = Bar.all.sort_by { |bar| bar.name }
-    render "bars/_bars", 
+    render "bars/_bars",
         locals: { bars: bars.drop(10) },
         layout: false
   end
@@ -29,8 +29,13 @@ class BarsController < ApplicationController
       @reviews.unshift(current_user_review)
     end
     @review = Review.new
-    @achievement = Achievement.nomad_bar_achievement(current_user, @bar)
-    flash[:notice] = "Congratulations! You've unlocked the Nomad Bar achievement!" if @achievement 
+  end
+
+  def easter_egg_achievement
+    barname = params[:barname]
+    bar = Bar.find_by(name: barname)
+    achievement = Achievement.nomad_bar_achievement(current_user, bar)
+    render :json => {achievement: achievement}
   end
 
   def new

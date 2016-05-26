@@ -119,10 +119,23 @@ $(document).ready(function(){
   var lng = $('#bar-lng').html();
   initShowPageMap(lat,lng);
 })
-
 </script>
-
-
+<!--easter egg achievement check -->
+<script>
+  $(document).ready(function(){
+    var barname = $('#bar-name').text()
+    $.ajax({
+      url: '/bars/easter_egg_achievement',
+      type: 'get',
+      dataType: 'JSON',
+      data: {barname: barname},
+    }).done(function(response){
+      if (response.achievement) {
+        popupAchievement(response)
+      }
+    })
+  })
+</script>
 <!-- mapbox -->
 <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />

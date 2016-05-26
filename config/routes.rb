@@ -5,12 +5,14 @@ Rails.application.routes.draw do
   get '/subways/json', to: 'home#subways'
   get '/bars/:yelpid/mapclick', to: 'bars#mapclick'
   get '/bars/neighborhood/buttonclick', to: 'bars#nbhd_button'
+  get '/bars/easter_egg_achievement', to: 'bars#easter_egg_achievement'
+  get '/users/follow_user_achievement', to: 'users#follow_user_achievement'
   delete '/reviews/:id', to: 'reviews#destroy', as: 'delete_review'
   post '/users/:id/follow', to: 'users#follow'
   post '/users/:id/unfollow', to: 'users#unfollow'
   post '/likes/create', to: 'likes#create', as: 'create_like'
   delete '/likes/:id/destroy', to: 'likes#destroy', as: 'destroy_like'
-  
+
   # Dynamic loading routes
   get '/bars/dynamic', to: "bars#dynamic"
   get '/categories/dynamic', to: "categories#dynamic"
