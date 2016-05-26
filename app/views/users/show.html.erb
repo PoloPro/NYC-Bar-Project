@@ -59,10 +59,15 @@
       <p>Not following anyone yet.</p>
     </div>
     <% else %>
+
+    <!-- Following cards -->
     <% @user.all_following.each do |followee| %>
     <a href="<%=user_path(followee)%>" style="color:inherit">
       <div class="card card-block">
-        <img width="50px" height="50px" src="<%=followee.picture%>" class="profile-pic"><%=followee.name%><br>
+        <img width="50px" height="50px" src="<%=followee.picture%>" class="profile-pic" style="float:left; margin: 0px 10px;">
+        <%=followee.name%>
+        <br>
+        <small><%= followee.reviews.count %> reviews</small>
       </div>
     </a>
     <% end %>

@@ -5,11 +5,11 @@ class User < ActiveRecord::Base
   :recoverable, :rememberable, :trackable, :validatable,
   :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
   has_many :bars, through: :reviews
-  has_many :likes
-  has_many :user_achievements
-  has_many :achievements, through: :user_achievements
+  has_many :likes, dependent: :destroy
+  has_many :user_achievements, dependent: :destroy
+  has_many :achievements, through: :user_achievements, dependent: :destroy
   acts_as_followable
   acts_as_follower
 
