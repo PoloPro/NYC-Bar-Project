@@ -34,7 +34,6 @@ class UsersController < ApplicationController
   def follow
     @current_user.follow(@user)
     @follow = Follow.find_by(follower: @current_user, followable: @user)
-    @achievement = Achievement.new_follow_achievements(@follow)
     respond_to :js
   end
 
@@ -47,6 +46,11 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
+  end
+
+  def follow_user_achievement
+    achievement = Achievement.follow_user_achievement(current_user)
+    render :json => {achievement: achievement}
   end
 
 
