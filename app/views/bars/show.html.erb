@@ -46,7 +46,7 @@
   <div id="new_review" class="review"></div>
   <% if @user_review %>
     <h3> Your Review </h3>
-     <%= render partial: "reviews", locals: { reviews: @your_review } %>
+     <%= render partial: "reviews", locals: { reviews: [@user_review] } %>
   <% end %>
     <% if @reviews_from_following && !@reviews_from_following.empty? %>
     <h3>Reviews from People You Follow</h3>
