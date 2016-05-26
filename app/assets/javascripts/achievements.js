@@ -13,7 +13,6 @@ function openNotification(whichNotification) {
 
     setTimeout(function(){
       openNotification.find('.flexx-container').addClass('drop-down');
-      debugger
       $('#ach-needs-backgroud').attr("style", "background-colo: white;");
     }, 1500);
 

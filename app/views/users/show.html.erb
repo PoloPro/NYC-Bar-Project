@@ -34,7 +34,7 @@
       <div class="card card-block">
         <img width="50px" height="50px" src="<%=follower.picture%>" class="profile-pic"><%=follower.name%><br>
       </div>
-    </a> 
+    </a>
     <% end %>
   </div>
   <div class="col-sm-6">
@@ -61,6 +61,19 @@
 <br>
 <br>
 <hr>
-
-
-
+<!--followbuttonachiementlistener-->
+<script>
+$(document).ready(function(){
+  $('.follow-button-area').click(function(){
+    $.ajax({
+      url: '/users/follow_user_achievement',
+      type: 'get',
+      dataType: 'JSON',
+    }).done(function(response){
+      if (response.achievement) {
+        popupAchievement(response)
+      }
+    })
+  })
+})
+</script>
