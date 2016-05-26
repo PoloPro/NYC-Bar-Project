@@ -45,6 +45,13 @@
         <%=follower.name%>
         <br>
         <small><%= follower.reviews.count %> reviews</small>
+      <div class="follow-button-area" id="user-<%=follower.id%>" style="float: right">
+      <% if @current_user.following?(follower) %>
+      <%= button_to "Following", {action: 'unfollow', id: follower.id}, method: 'post', class: 'btn btn-secondary btn-unfollow', remote: true  %>
+      <% elsif @current_user != follower %>
+      <%= button_to "Follow", {action: 'follow',  id: follower.id}, method: 'post', class: 'btn btn-primary btn-follow', remote: true %>
+      <% end %>
+    </div>
       </div>
     </a>
     <% end %>
@@ -68,6 +75,13 @@
         <%=followee.name%>
         <br>
         <small><%= followee.reviews.count %> reviews</small>
+        <div class="follow-button-area" id="user-<%=followee.id%>" style="float: right">
+      <% if @current_user.following?(followee) %>
+          <%= button_to "Following", {action: 'unfollow', id: followee.id}, method: 'post', class: 'btn btn-secondary btn-unfollow', remote: true  %>
+        <% elsif @current_user != followee %>
+          <%= button_to "Follow", {action: 'follow',  id: followee.id}, method: 'post', class: 'btn btn-primary btn-follow', remote: true %>
+        <% end %>
+        </div>
       </div>
     </a>
     <% end %>
