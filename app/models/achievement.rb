@@ -3,9 +3,13 @@ class Achievement < ActiveRecord::Base
   has_many :users, through: :user_achievements
 
   def self.facebook_auth(user)
-    if user.provider == "facebook"
-      user.achievements << Achievement.find_by(name: "The Social Network")
+    achievement = Achievement.find_by(name: "The Social Network")
+    if user.provider == "facebook" && !user.achievements.include?(achievement)
+      user.achievements << achievement
       user.save
+      achievement
+    else
+      nil
     end
   end
 

@@ -333,8 +333,17 @@ var initMapgl = function() {
 
 
 //create map when page loads
+//ajax request checks to see if user gets an achievement for facebook auth
 $(document).ready(function() {
   initMapgl();
+  $.ajax({
+    url: '/users/facebook_achievement'
+    dataType: 'JSON'
+  }).done(function(response){
+    if (response.achievement) {
+      popupAchievement(response)
+    }
+  })
 });
 
 </script>

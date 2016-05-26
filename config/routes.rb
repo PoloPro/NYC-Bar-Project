@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/bars/neighborhood/buttonclick', to: 'bars#nbhd_button'
   get '/bars/easter_egg_achievement', to: 'bars#easter_egg_achievement'
   get '/users/follow_user_achievement', to: 'users#follow_user_achievement'
+  get '/users/facebook_achievement', to: 'users#facebook_achievement'
   delete '/reviews/:id', to: 'reviews#destroy', as: 'delete_review'
   post '/users/:id/follow', to: 'users#follow'
   post '/users/:id/unfollow', to: 'users#unfollow'
