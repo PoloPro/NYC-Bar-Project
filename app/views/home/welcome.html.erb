@@ -337,8 +337,8 @@ var initMapgl = function() {
 $(document).ready(function() {
   initMapgl();
   $.ajax({
-    url: '/users/facebook_achievement'
-    dataType: 'JSON'
+    url: '/users/facebook_achievement',
+    type: 'GET'
   }).done(function(response){
     if (response.achievement) {
       popupAchievement(response)

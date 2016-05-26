@@ -14,13 +14,13 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.first_review(user)
-    if user.reviews.count > 0 && !user.achievements.include?(Achievement.find_by(name: "Just Getting Started"))
-      new_achievement = Achievement.find_by(name: "Just Getting Started")
-      user.achievements << new_achievement
+    achievement = Achievement.find_by(name: "Just Getting Started")
+    if user.reviews.count > 0 && !user.achievements.include?(achievement)
+      user.achievements << achievement
       user.save
-      new_achievement
+      achievement
     else
-      nil
+      return nil
     end
   end
 
@@ -109,7 +109,6 @@ class Achievement < ActiveRecord::Base
     achievement =  achievement2 if achievement2 != nil
     achievement3 = self.five_reviews_in_one_borough(user)
     achievement = achievement3 if achievement3 != nil
-    achievement = Achievement.find(1)
     return achievement
   end
 
