@@ -6,7 +6,7 @@ Achievement.create!([
   {name: "Fame and Fortune", content: "Have someone follow you", points: 20},
   {name: "Globetrotter", content: "Found the traveling bar", points: 150},
   {name: "The Social Network", content: "Signed in with Facebook", points: 15},
-  {name: "Glorychaser", content: "Followed another user", points: 15},
+  {name: "Follow the Crowd", content: "Followed two other users", points: 15},
   {name: "Cheers", content: "Liked another user's review", points: 5}
   ])
 

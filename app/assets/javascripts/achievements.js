@@ -31,7 +31,7 @@ var popupAchievement = function(response) {
     name = response.achievement.name;
     content = response.achievement.content;
     points = response.achievement.points;
-    $('#ach-name').html('<center><strong><h3>' + name + '<h3></strong></center>');
+    $('#ach-name').html('<center><strong><h4>' + name + '<h4></strong></center>');
     $('#ach-content').html('<center>' + content + '</center>');
     $('.notification').addClass('notification-hidden');
     openNotification('positive');

@@ -125,7 +125,7 @@ class Achievement < ActiveRecord::Base
   end
 
   def self.follow_user_achievement(user)
-    achievement = Achievement.find_by(name: "Glorychaser")
+    achievement = Achievement.find_by(name: "Follow the Crowd")
     if user.follows.count > 0 && !user.achievements.include?(achievement)
       user.achievements << achievement
       user.save
