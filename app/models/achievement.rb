@@ -117,17 +117,21 @@ class Achievement < ActiveRecord::Base
     like_review_achievement(like)
   end
 
-  def self.get_follow_achievement(follow)
+  def self.get_follow_achievement(user)
     achievement = Achievement.find_by(name: "Fame and Fortune")
-    if follow.followable.followers.count == 1 && !follow.followable.achievements.include?(achievement)
-      follow.followable.achievements << achievement; follow.followable.save; achievement.save
-      achievement
-    else
-      nil
+    user.follows.each do |follow|
+      person = User.find(follow.followable_id)
+      if person.followers.count > 0 && !person.achievements.include?(achievement)
+        person.achievements << achievement
+        person.save
+      else
+        nil
+      end
     end
   end
 
   def self.follow_user_achievement(user)
+    Achievement.get_follow_achievement(user)
     achievement = Achievement.find_by(name: "Glorychaser")
     if user.follows.count > 0 && !user.achievements.include?(achievement)
       user.achievements << achievement
