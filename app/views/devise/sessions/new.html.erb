@@ -59,9 +59,9 @@
 <%= render "devise/shared/links" %>
 <br><hr><br>
 <h3> What New Yorkers are Saying </h3>
-<ul class="list-inline">
+<ul class="list">
   <% Review.all.reverse.first(5).each do |review| %>
-  <li class="list-inline-item"><div class="card">
+  <div class="card">
     <div class="card-header">
       <strong><%= review.user.name %></strong> says: 
     </div>
@@ -72,7 +72,8 @@
         <footer class="text-xs-right">(<em><%=review.bar.name%></em>)</footer>
       </blockquote>
     </div>
-  </div></li>
+  </div>
+  <br>
   <% end %>
 </ul>
 
