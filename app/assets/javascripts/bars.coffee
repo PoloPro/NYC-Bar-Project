@@ -68,6 +68,7 @@ getFormData = ->
 
 renderNewReview = (response) ->
   html = ""
+  html += '<h3> Your Review </h3>'
   html += '<div class="review card card-outer-border">'
   html += '<div class="card-block card-text">'
   html += '<p>' + response['review']['content'] + '</p>'
