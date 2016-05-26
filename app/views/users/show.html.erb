@@ -13,19 +13,38 @@
   </div>
 </div>
 
-<hr>
-<br>
-
 <% if @user == current_user %>
+<hr>
 <p><strong>Email: </strong><%= @user.email %></p>
-<p><strong>Profile Picture URL: </strong><%= "No profile picture uploaded" unless @user.picture %></p>
+<p><strong>Profile Picture URL: </strong><%= @user.picture %></p>
 <%= link_to 'Edit Your Profile', edit_user_path(@user) %>
 <% else%>
 <% end %>
 
 <hr>
+<h2> Achievements </h2>
 <br>
+<div class="row">
 
+  <!-- Progress bar -->
+  <div class="col-xs-8">
+    <div class="text-xs-center">
+      <small><%= @user.achievements.count %> / <%= Achievement.all.count %> completed</small>
+    </div>
+    <progress class="progress" value="<%= @user.achievements.count %>" max="<%= Achievement.all.count %>"><%= @user.achievements.count %> / <%= Achievement.all.count %></progress>
+  </div>
+
+  <!-- Points card -->
+  <div class="col-xs-4">
+    <div class="card card-block" style="overflow: auto;">
+      <%= image_tag "/assets/ratings/rating-full-small.png", alt: "beer mug", width: "50px", height: "50px", style:"float: left; margin: 0px 10px;" %>
+      <strong><%= @user.achievement_point_total %></strong> DrinkUp points collected
+    </div>
+  </div>
+</div>
+
+
+<hr>
 <div class="row">
   <div class="col-sm-6">
     <h2> Followers </h2>
@@ -45,13 +64,13 @@
         <%=follower.name%>
         <br>
         <small><%= follower.reviews.count %> reviews</small>
-      <div class="follow-button-area" id="user-<%=follower.id%>" style="float: right">
-      <% if @current_user.following?(follower) %>
-      <%= button_to "Following", {action: 'unfollow', id: follower.id}, method: 'post', class: 'btn btn-secondary btn-unfollow', remote: true  %>
-      <% elsif @current_user != follower %>
-      <%= button_to "Follow", {action: 'follow',  id: follower.id}, method: 'post', class: 'btn btn-primary btn-follow', remote: true %>
-      <% end %>
-    </div>
+        <div class="follow-button-area" id="user-<%=follower.id%>" style="float: right">
+          <% if @current_user.following?(follower) %>
+          <%= button_to "Following", {action: 'unfollow', id: follower.id}, method: 'post', class: 'btn btn-secondary btn-unfollow', remote: true  %>
+          <% elsif @current_user != follower %>
+          <%= button_to "Follow", {action: 'follow',  id: follower.id}, method: 'post', class: 'btn btn-primary btn-follow', remote: true %>
+          <% end %>
+        </div>
       </div>
     </a>
     <% end %>
@@ -76,11 +95,11 @@
         <br>
         <small><%= followee.reviews.count %> reviews</small>
         <div class="follow-button-area" id="user-<%=followee.id%>" style="float: right">
-      <% if @current_user.following?(followee) %>
+          <% if @current_user.following?(followee) %>
           <%= button_to "Following", {action: 'unfollow', id: followee.id}, method: 'post', class: 'btn btn-secondary btn-unfollow', remote: true  %>
-        <% elsif @current_user != followee %>
+          <% elsif @current_user != followee %>
           <%= button_to "Follow", {action: 'follow',  id: followee.id}, method: 'post', class: 'btn btn-primary btn-follow', remote: true %>
-        <% end %>
+          <% end %>
         </div>
       </div>
     </a>

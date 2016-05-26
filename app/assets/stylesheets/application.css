@@ -43,3 +43,9 @@ body {
 .montserrat {
   font-family: 'Montserrat', sans-serif;
 }
+
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}

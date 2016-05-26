@@ -22,7 +22,7 @@ class BarsController < ApplicationController
     end
     @bar = Bar.find(params[:id])
     @reviews = @bar.reviews.sort_by{|r| r.likes.count}.reverse.to_a unless @bar.reviews.count.zero?
-    @user_review = @reviews.find{|r| r.user == current_user} if @reviews
+    @user_review = @reviews.find{ |r| r.user == current_user } if @reviews
     @reviews_from_following = @reviews.to_a.delete_if{|r| !current_user.all_following.include?(r.user)} if @reviews
     @reviews_from_nonfollowing = @bar.reviews.sort_by{|r| r.likes.count}.to_a.delete_if{|r| @reviews_from_following.include?(r)} if @reviews
     @review = Review.new

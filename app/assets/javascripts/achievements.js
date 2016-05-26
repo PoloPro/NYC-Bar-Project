@@ -31,10 +31,10 @@ var popupAchievement = function(response) {
     name = response.achievement.name;
     content = response.achievement.content;
     points = response.achievement.points;
-    $('#ach-name').html('<center><strong><h4>' + name + '<h4></strong></center>');
-    $('#ach-content').html('<center>' + content + '</center>');
+    $('#ach-name').html('<div class="text-xs-center montserrat"><h4>' + name + '<h4></div>');
+    $('#ach-content').html('<div class="text-xs-center">' + content + '</div>');
     $('.notification').addClass('notification-hidden');
     openNotification('positive');
-    setTimeout(closeNotification, 5000);
+    setTimeout(closeNotification, 6000);
   });
 };
