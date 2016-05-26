@@ -1,1 +1,1 @@
-$('div#user-<%=@user.id%>.follow-button-area').html('<%= button_to "Follow", {action: "follow", id: @user.id}, method: "post", class: "btn btn-primary btn-follow btn-align", remote: true %>') 
+$('div#user-<%=@user.id%>.follow-button-area').html('<%= button_to "Follow", {action: "follow", id: @user.id}, method: "post", class: "btn btn-primary btn-follow flex-center", remote: true %>') 

@@ -1,14 +1,14 @@
-<div class="row">
-  <div class="col-sm-10">
+<div class="row flexy">
+  <div class="col-sm-10 flex-center">
     <img src="<%= @user.picture %>" class="profile-pic" width="100px" height="100px" style="float: left; margin: 0px 15px;">
     <h1 class="montserrat header-align" style="color: #003366;"><%= @user.name %></h1>
   </div>
-  <div class="col-sm-2">
+  <div class="col-sm-2 flex-center">
     <div class="follow-button-area" id="user-<%=@user.id%>" style="float: right">
       <% if @current_user.following?(@user) %>
-      <%= button_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', class: 'btn btn-secondary btn-unfollow header-align', remote: true  %>
+      <%= button_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', class: 'btn btn-secondary btn-unfollow flex-center', remote: true  %>
       <% elsif @current_user != @user %>
-      <%= button_to "Follow", {action: 'follow',  id: @user.id}, method: 'post', class: 'btn btn-primary btn-follow header-align', remote: true %>
+      <%= button_to "Follow", {action: 'follow',  id: @user.id}, method: 'post', class: 'btn btn-primary btn-follow flex-center', remote: true %>
       <% end %>
     </div>
   </div>
@@ -60,16 +60,17 @@
     <!-- Follower cards -->
     <% @user.followers.each do |follower| %>
     <a href="<%= user_path(follower) %>" style="color:inherit">
-      <div class="card card-block">
-        <img src="<%= follower.picture %>" class="profile-pic" width="50px" height="50px" style="float: left; margin: 0px 10px;">
-        <%=follower.name%>
-        <br>
-        <small><%= follower.reviews.count %> reviews</small>
-        <div class="follow-button-area" id="user-<%=follower.id%>" style="float: right">
+      <div class="card card-block flexy">
+        <img src="<%= follower.picture %>" class="profile-pic flex-center" width="50px" height="50px" style="float: left; margin: 0px 10px;">
+        <div class="flex-center"><%=follower.name%>
+          <br>
+          <small><%= follower.reviews.count %> reviews</small>
+        </div>
+        <div class="follow-button-area flex-center flex-right" id="user-<%=follower.id%>">
           <% if @current_user.following?(follower) %>
-          <%= button_to "Following", {action: 'unfollow', id: follower.id}, method: 'post', class: 'btn btn-secondary btn-unfollow btn-align', remote: true  %>
+          <%= button_to "Following", {action: 'unfollow', id: follower.id}, method: 'post', class: 'btn btn-secondary btn-unfollow flex-center', style: "float: right;", remote: true  %>
           <% elsif @current_user != follower %>
-          <%= button_to "Follow", {action: 'follow',  id: follower.id}, method: 'post', class: 'btn btn-primary btn-follow btn-align', remote: true %>
+          <%= button_to "Follow", {action: 'follow',  id: follower.id}, method: 'post', class: 'btn btn-primary btn-follow flex-center', style: "float: right;", remote: true %>
           <% end %>
         </div>
       </div>
