@@ -12,16 +12,16 @@ class BarReviewClassifier
     reviews.sort_by{|r| -r.likes.count}
   end
 
-  def get_user_review
-    @user_review = reviews.find{ |r| r.user == current_user }
+  def user_review
+    reviews.find{ |r| r.user == current_user }
   end
 
-  def get_reviews_from_following
-    @reviews_from_following = reviews.select{|r| current_user.following?(r.user)} 
+  def reviews_from_following
+    reviews.select{|r| current_user.following?(r.user)} 
   end
 
-  def get_reviews_from_nonfollowing
-    reviews.reject{|r| @reviews_from_following.include?(r) || @user_review == r}
+  def reviews_from_nonfollowing
+    reviews.reject{|r| reviews_from_following.include?(r) || user_review == r}
   end
 
 end

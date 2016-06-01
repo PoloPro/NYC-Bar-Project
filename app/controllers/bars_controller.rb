@@ -14,12 +14,7 @@ class BarsController < ApplicationController
   def show
     @bar = Bar.find(params[:id])
     NomadBarRelocator.relocate(@bar) if @bar.name == "The NoMad Bar"
-    if @bar.reviews
-      classifier = BarReviewClassifier.new(@bar.reviews, current_user)
-      @user_review               = classifier.get_user_review
-      @reviews_from_following    = classifier.get_reviews_from_following
-      @reviews_from_nonfollowing = classifier.get_reviews_from_nonfollowing
-    end
+    @classifier = BarReviewClassifier.new(@bar.reviews, current_user) if @bar.reviews
     @review = Review.new
   end
 

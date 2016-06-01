@@ -44,25 +44,25 @@
 <div id="reviews">
   <div id ="all_reviews">
     <div id="new_review" class="review"></div>
-    <% if @user_review %>
+    <% if @classifier.user_review %>
     <h3> Your Review </h3>
-    <%= render partial: "reviews", locals: { reviews: [@user_review] } %>
+    <%= render partial: "reviews", locals: { reviews: [@classifier.user_review] } %>
     <% end %>
-    <% if @reviews_from_following && !@reviews_from_following.empty? %>
+    <% if @classifier.reviews_from_following && !@classifier.reviews_from_following.empty? %>
     <h3>Reviews from People You Follow</h3>
-    <%= render partial: "reviews", locals: { reviews: @reviews_from_following } %>
+    <%= render partial: "reviews", locals: { reviews: @classifier.reviews_from_following } %>
     <% else %>
     <br><br><br>
     <% end %>
 
-    <% if @reviews_from_nonfollowing && @reviews_from_following && !@reviews_from_following.empty? && !@reviews_from_nonfollowing.empty? %>
+    <% if @classifier.reviews_from_nonfollowing && @classifier.reviews_from_following && !@classifier.reviews_from_following.empty? && !@classifier.reviews_from_nonfollowing.empty? %>
 
     <h3>Other Reviews</h3>
-    <%= render partial: "reviews", locals: { reviews: @reviews_from_nonfollowing } %>
+    <%= render partial: "reviews", locals: { reviews: @classifier.reviews_from_nonfollowing } %>
     
-    <% elsif @reviews_from_nonfollowing && !@reviews_from_nonfollowing.empty? %>
+    <% elsif @classifier.reviews_from_nonfollowing && !@classifier.reviews_from_nonfollowing.empty? %>
     <h3>Reviews</h3>
-    <%= render partial: "reviews", locals: { reviews: @reviews_from_nonfollowing } %>
+    <%= render partial: "reviews", locals: { reviews: @classifier.reviews_from_nonfollowing } %>
     
     <% else %>
     <br><br><br>
@@ -71,7 +71,7 @@
   </div>
   <div id = "new_review_form_area">
     <div id = "new_review_form">
-      <% if !@already_reviewed %>
+      <% unless @user_review %>
       <h3>Write a Review</h3>
       <%= form_for @review do |f| %>
       <%= f.hidden_field :bar_id, value: @bar.id %>
